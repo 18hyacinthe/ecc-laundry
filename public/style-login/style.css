@@ -5,8 +5,7 @@
 }
 
 body {
-	background: #f6f5f7;
-	display: flex;
+	background-image: radial-gradient(circle at 67% 83%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 1%,transparent 1%, transparent 5%,transparent 5%, transparent 100%),radial-gradient(circle at 24% 80%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 27%,transparent 27%, transparent 63%,transparent 63%, transparent 100%),radial-gradient(circle at 23% 5%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 26%,transparent 26%, transparent 82%,transparent 82%, transparent 100%),radial-gradient(circle at 21% 11%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 35%,transparent 35%, transparent 45%,transparent 45%, transparent 100%),radial-gradient(circle at 10% 11%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 21%,transparent 21%, transparent 81%,transparent 81%, transparent 100%),radial-gradient(circle at 19% 61%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 20%,transparent 20%, transparent 61%,transparent 61%, transparent 100%),radial-gradient(circle at 13% 77%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 63%,transparent 63%, transparent 72%,transparent 72%, transparent 100%),radial-gradient(circle at 30% 93%, rgba(69,234,100, 0.05) 0%, rgba(69,234,100, 0.05) 33%,transparent 33%, transparent 82%,transparent 82%, transparent 100%),linear-gradient(90deg, rgb(22, 176, 207),rgb(11,69,112));	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -45,8 +44,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #3EFF8B;
+	background-color: #3EFF8B;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -159,9 +158,9 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: #3EFF8B;
+	background: -webkit-linear-gradient(to right, #3a8f13, #3a8f13);
+	background: linear-gradient(to right, #3a8f13, #3a8f13);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
