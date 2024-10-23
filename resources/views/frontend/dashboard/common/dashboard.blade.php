@@ -1,4 +1,4 @@
-@extends('admin.dashboard.page')
+@extends('frontend.dashboard.page')
 @section('content')
     @if (session()->has('response'))
         @if (session('response')['status'] === 200)
