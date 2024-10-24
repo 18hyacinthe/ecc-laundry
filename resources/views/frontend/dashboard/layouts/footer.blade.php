@@ -8,7 +8,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; KirandeepAdmin 2023</span>
+            <span>Copyright &copy; Empereur Dev Hyacinthe</span>
         </div>
     </div>
 </footer>
@@ -62,6 +62,16 @@
 <script src="{{ url('/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ url('/js/demo/chart-pie-demo.js') }}"></script>
 <script src="{{ url('/js/demo/chart-bar-demo.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          toastr.error('{{ $error }}');
+        @endforeach  
+    @endif
+  </script>
 
 </body>
 

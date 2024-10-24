@@ -16,4 +16,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ url('/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 </head>

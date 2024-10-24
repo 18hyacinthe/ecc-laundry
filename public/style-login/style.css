@@ -44,8 +44,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #3EFF8B;
-	background-color: #3EFF8B;
+	border: 1px solid #00BFA5;
+	background-color: #00BFA5;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -53,6 +53,11 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+button:hover {
+	background-color: #019c84;
+	border-color: #019c84;
 }
 
 button:active {
@@ -66,6 +71,11 @@ button:focus {
 button.ghost {
 	background-color: transparent;
 	border-color: #FFFFFF;
+}
+
+button.ghost:hover {
+	background-color: #019c84;
+	border-color: #019c84;
 }
 
 form {
@@ -158,9 +168,9 @@ input {
 }
 
 .overlay {
-	background: #3EFF8B;
+	background: #00BFA5;
 	background: -webkit-linear-gradient(to right, #3a8f13, #3a8f13);
-	background: linear-gradient(to right, #3a8f13, #3a8f13);
+	background: linear-gradient(to right, #3a8f13, rgb(0, 128, 160));
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -178,6 +188,9 @@ input {
 }
 
 .overlay-panel {
+	background: #00BFA5;
+	background: -webkit-linear-gradient(to right, #3a8f13, #3a8f13);
+	background: linear-gradient(to right, #3a8f13, rgb(0, 128, 160));
 	position: absolute;
 	display: flex;
 	align-items: center;
