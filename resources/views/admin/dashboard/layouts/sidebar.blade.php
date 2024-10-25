@@ -8,15 +8,29 @@
         </div>
         <div class="sidebar-brand-text mx-3">Admin <sup>Panel</sup></div>
     </a>
-
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ request()->is('dashboard') ? 'active' : ''}}">
-        <a class="nav-link" href="/dashboard">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+            <i class="fas fa-home"></i>
             <span>Dashboard</span></a>
+        </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.machines.index') }}">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Machine</span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.users.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users-Management</span>
+        </a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -27,12 +41,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-cogs"></i>
-            <span>Machines</span>
+            <span>Setting</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/">Machine à laver</a>
-                <a class="collapse-item" href="/">Sèche-linge</a>
+                <a class="collapse-item" href="{{ route('admin.machines.index') }}">Reservation</a>
+                <a class="collapse-item" href="/">Slot</a>
             </div>
         </div>
     </li>

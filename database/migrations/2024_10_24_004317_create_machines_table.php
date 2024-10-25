@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['lave-linge', 'seche-linge']);
-            $table->enum('status', ['disponible', 'en maintenance']);   
+            $table->enum('type', ['washing-machine', 'dryer']);
+            $table->enum('status', ['pending','in-use', 'available', 'under maintenance', 'out of order'])->default('available');
             $table->timestamps();
         });
     }

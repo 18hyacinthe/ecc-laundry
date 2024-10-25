@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Machine;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class MachineDataTable extends DataTable
+class UserDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,30 +21,23 @@ class MachineDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
+       return (new EloquentDataTable($query))
              ->addColumn('action', function($query) {
-                $editBtn = "<a href='" . route('admin.machines.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<button class='btn btn-danger ml-2' onclick='deleteMachine(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
-                $deleteBtn .= "<form id='delete-form-" . $query->id . "' action='" . route('admin.machines.destroy', $query->id) . "' method='POST' style='display: none;'>
+                $editBtn = "<a href='" . route('admin.users.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<button class='btn btn-danger ml-2' onclick='deleteUser(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
+                $deleteBtn .= "<form id='delete-form-" . $query->id . "' action='" . route('admin.users.destroy', $query->id) . "' method='POST' style='display: none;'>
                                 " . csrf_field() . "
                                 " . method_field('DELETE') . "
                               </form>";
                 return $editBtn . $deleteBtn;
             })
-            ->editColumn('status', function($query) {
-                switch ($query->status) {
-                    case 'pending':
-                        return '<span class="badge badge-warning">Pending</span>';
-                    case 'in-use':
-                        return '<span class="badge badge-primary">In Use</span>';
-                    case 'available':
-                        return '<span class="badge badge-success">Available</span>';
-                    case 'under maintenance':
-                        return '<span class="badge badge-info">Under Maintenance</span>';
-                    case 'out of order':
-                        return '<span class="badge badge-danger">Out of Order</span>';
-                    default:
-                        return '<span class="badge badge-secondary">Unknown</span>';
+            ->editColumn('status', function ($query) {
+                $status = '<i class="badge badge-success">Active</i>';
+                $inactive = '<i class="badge badge-danger">Inactive</i>';
+                if ($query->status == 1) {
+                    return $status;
+                } else {
+                    return $inactive;
                 }
             })
             ->rawColumns(['action', 'status'])
@@ -54,7 +47,7 @@ class MachineDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Machine $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -65,7 +58,7 @@ class MachineDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('machine-table')
+                    ->setTableId('user-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -89,9 +82,10 @@ class MachineDataTable extends DataTable
         return [
             Column::make('id')->addClass('text-center'),
             Column::make('name')->addClass('text-center'),
-            Column::make('type')->addClass('text-center'),
+            Column::make('surname')->addClass('text-center'),
+            Column::make('email')->addClass('text-center'),
             Column::make('status')->addClass('text-center'),
-            Column::computed('action')->exportable(false)->printable(false)->width(200)->addClass('text-center')
+            Column::computed('action')->addClass('text-center')
             ->exportable(false)
             ->printable(false)
             ->width(200)
@@ -104,6 +98,6 @@ class MachineDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Machine_' . date('YmdHis');
+        return 'User_' . date('YmdHis');
     }
 }

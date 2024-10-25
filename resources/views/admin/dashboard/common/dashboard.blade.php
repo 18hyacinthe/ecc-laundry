@@ -1,12 +1,6 @@
 @extends('admin.dashboard.page')
 @section('content')
-    @if (session()->has('response'))
-        @if (session('response')['status'] === 200)
-            <p class="text-success"> {{ session('response')['message'] }}</p>
-        @else
-            <p class="text-danger"> {{ session('response')['message'] }}</p>
-        @endif
-    @endif
+
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->

@@ -16,23 +16,23 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
             'name' => 'Admin user',
-            'username' => 'adminuser',
+            'surname' => 'adminuser',
             'email' => 'admin@gmail.com',
             'role' => 'admin',
-            'status' => 'active',
+            'status' => '1',
             'password' => bcrypt('password'),
             'created_at' => now(),
-            'updated_at' => now(),
+            // 'updated_at' => now(),
             ],
             [
             'name' => 'User',
             'username' => 'user',
             'email' => 'user@gmail.com',
             'role' => 'user',
-            'status' => 'active',
+            'status' => '1',
             'password' => bcrypt('password'),
             'created_at' => now(),
-            'updated_at' => now(),
+            // 'updated_at' => now(),
             ],
         ]);
 
