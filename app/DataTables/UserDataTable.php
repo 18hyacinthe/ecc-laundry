@@ -62,6 +62,10 @@ class UserDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
+                    ->responsive(true)
+                    ->rowReorder([
+                        'selector' => 'td:nth-child(2)'
+                    ])
                     ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([

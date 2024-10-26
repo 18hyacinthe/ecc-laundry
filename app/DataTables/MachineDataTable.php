@@ -69,6 +69,10 @@ class MachineDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
+                    ->responsive(true)
+                    ->rowReorder([
+                        'selector' => 'td:nth-child(2)'
+                    ])
                     ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
@@ -91,7 +95,7 @@ class MachineDataTable extends DataTable
             Column::make('name')->addClass('text-center'),
             Column::make('type')->addClass('text-center'),
             Column::make('status')->addClass('text-center'),
-            Column::computed('action')->exportable(false)->printable(false)->width(200)->addClass('text-center')
+            Column::computed('action')->addClass('text-center')
             ->exportable(false)
             ->printable(false)
             ->width(200)

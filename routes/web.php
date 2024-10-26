@@ -1,8 +1,10 @@
 <?php
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProfileController;
-use App\Http\Controllers\Admin\MachineController;
+use App\Http\Controllers\Admin\AdminMachineController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminSettingsController;
+use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -33,10 +35,24 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
 
 
     /** Machine Routes */
-    Route::resource('machines', MachineController::class);
+    Route::resource('machines', AdminMachineController::class);
 
     /** User Routes */
     Route::resource('users', AdminUserController::class);
+
+    /** Reservation Routes */
+    Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('reserve');
+    Route::get('/booking', [AdminReservationController::class, 'showReservationForm'])->name('showReservationForm');
+    // Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('admin.reserve');
+
+    /** Settings Routes */
+    Route::get('/settings/reservations', [AdminSettingsController::class, 'showReservationsSettings'])->name('settings.reservations');
+    Route::post('/settings/reservations', [AdminSettingsController::class, 'updateReservationsSettings']);
+    Route::post('/settings/reset-system', [AdminSettingsController::class, 'updateResetSystem'])->name('settings.reset-system.update');
+    Route::post('/settings/reset-system/manual', [AdminSettingsController::class, 'manualReset'])->name('settings.reset-system.reset');
+
+
+
 });
 
 

@@ -41,12 +41,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-cogs"></i>
-            <span>Setting</span>
+            <span>Settings</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.machines.index') }}">Reservation</a>
-                <a class="collapse-item" href="/">Slot</a>
+                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">Booking</a>
+                <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">test</a>
             </div>
         </div>
     </li>

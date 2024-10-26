@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Machine;
 
-class MachineController extends Controller
+class AdminMachineController extends Controller
 {
     /**
      * Display a listing of the resource.
