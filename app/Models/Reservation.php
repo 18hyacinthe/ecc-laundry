@@ -14,5 +14,6 @@ class Reservation extends Model
         'machine_id',
         'start_time',
         'end_time',
+        'weekly_session_limit_remaining',
     ];
 }

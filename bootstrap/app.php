@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => RoleMiddleware::class,
+            'checkWeeklyLimit' => \App\Http\Middleware\CheckWeeklyReservationLimit::class,
+            'checkSlotAvailability' => \App\Http\Middleware\CheckSlotAvailability::class,
+            'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
         ]);
     })
     ->withExceptions(function () {

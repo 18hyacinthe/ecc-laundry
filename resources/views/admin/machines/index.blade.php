@@ -8,7 +8,7 @@
                     <div class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h3 class="card-title text-primary">Washing Machine</h3>
+                                <h3 class="card-title text-primary">Machines</h3>
                                 <a href="{{ route('admin.machines.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Create
                                 </a>

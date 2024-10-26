@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\UserReservationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(fun
     /** User Profile Routes */
     Route::get('profile', [UserProfileController::class, 'index'])->name('profile.index');
     Route::post('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
+
+    /** Reservation Routes */
+    Route::post('/reserve', [UserReservationController::class, 'reserve'])->name('reserve');
+    Route::get('/reservation', [UserReservationController::class, 'showReservationForm'])->name('showReservationForm');
 });
 
 /** Admin Routes */
