@@ -14,7 +14,7 @@ class AdminReservationController extends Controller
         public function showReservationForm()
     {
         // Obtenez la liste des machines disponibles pour la réservation
-        $machines = Machine::all(); // Assurez-vous d’avoir le modèle Machine et les données dans la base
+        $machines = Machine::all(); // Récupère toutes les machines
 
         return view('admin.booking.index', compact('machines'));
     }

@@ -68,7 +68,12 @@ class MachineDataTable extends DataTable
                     ->setTableId('machine-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    // ->dom('Bfrtip')
+                    ->layout([
+                        'topStart' => [
+                            'buttons' => ['copy', 'csv', 'excel', 'pdf', 'print']
+                        ]
+                    ])
                     ->responsive(true)
                     ->rowReorder([
                         'selector' => 'td:nth-child(2)'

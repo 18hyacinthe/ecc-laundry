@@ -4,65 +4,70 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">Tableau de Bord des Utilisateurs et Machines</h1>
+        <h1 class="h3 mb-4 text-primary">Dashboard Admin</h1>
     
         <!-- Résumé des Machines -->
         <div class="row mb-4">
+            @php
+            $statusCounts = [
+            'pending' => $machines->where('status', 'pending')->count(),
+            'in-use' => $machines->where('status', 'in-use')->count(),
+            'available' => $machines->where('status', 'available')->count(),
+            'under maintenance' => $machines->where('status', 'under maintenance')->count(),
+            'out of order' => $machines->where('status', 'out of order')->count(),
+            ];
+
+            $machineTypes = [
+            'washing-machine' => 'Washing Machines',
+            'dryer' => 'Dryers',
+            ];
+            @endphp
+
+            @foreach($statusCounts as $status => $count)
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Machines Disponibles
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-washing-machine fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
+            <div class="card border-left-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'pending' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} shadow h-100 py-2">
+                <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'pending' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
+                        {{ ucfirst($status) }}
+                    </div>
+                    @foreach($machineTypes as $type => $label)
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        {{ $label }}
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $machines->where('status', $status)->where('type', $type)->count() }}</div>
+                    @endforeach
+                    </div>
+                    <div class="col-auto">
+                    <i class="fas fa-{{ $status == 'available' ? 'check-circle' : ($status == 'under maintenance' ? 'tools' : 'exclamation-triangle') }} fa-2x text-gray-300"></i>
                     </div>
                 </div>
-            </div>
-    
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Machines en Maintenance
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-tools fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-    
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Machines
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-cogs fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            @endforeach
         </div>
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- Cartes des Utilisateurs -->
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
