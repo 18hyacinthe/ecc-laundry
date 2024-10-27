@@ -16,4 +16,9 @@ class Reservation extends Model
         'end_time',
         'weekly_session_limit_remaining',
     ];
+
+    public function machine()
+    {
+        return $this->belongsTo(Machine::class);
+    }
 }

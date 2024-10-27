@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\Setting;
 use Carbon\Carbon;
+use App\DataTables\HistoriqueReservationDataTable;
 
 class UserDashboardController extends Controller
 {
-    public function index()
+    public function index(HistoriqueReservationDataTable $dataTable)
     {
         $user = Auth::user();
 
@@ -33,6 +34,6 @@ class UserDashboardController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-        return view('frontend.dashboard.common.dashboard', compact('totalSessionsAllowed', 'sessionsUsed', 'sessionsRemaining', 'reservations'));
+        return $dataTable->render('frontend.dashboard.common.dashboard', compact('totalSessionsAllowed', 'sessionsUsed', 'sessionsRemaining', 'reservations'));
     }
 }

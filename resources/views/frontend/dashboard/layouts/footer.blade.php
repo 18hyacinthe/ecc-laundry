@@ -65,14 +65,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+{{-- Table responsive --}}
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.dataTables.js"></script>
+
 <script>
     @if ($errors->any())
         @foreach ($errors->all() as $error)
           toastr.error('{{ $error }}');
         @endforeach  
     @endif
-  </script>
-
+</script>
+@stack('scripts')
 </body>
 
 </html>
