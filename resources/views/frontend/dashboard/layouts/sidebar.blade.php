@@ -19,7 +19,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('user.showReservationForm') }}">
+        <a class="nav-link" href="{{ route('user.reservation.index') }}">
             <i class="fas fa-calendar-alt"></i>
             <span>Reservation</span>
         </a>

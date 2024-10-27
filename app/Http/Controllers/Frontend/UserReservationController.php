@@ -9,10 +9,16 @@ use App\Models\Setting;
 use App\Models\Machine;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\DataTables\HistoriqueReservationDataTable;
 
 
 class UserReservationController extends Controller
 {
+    public function index(HistoriqueReservationDataTable $dataTable)
+    {
+        return $dataTable->render('frontend.reservation.index');
+    }
+    
     public function showReservationForm()
     {
         $user = Auth::user();
@@ -33,7 +39,7 @@ class UserReservationController extends Controller
 
         toastr()->info('Il vous reste ' . $weeklySessionLimitRemaining . ' sessions cette semaine.');
 
-        return view('frontend.reservation.index', compact('machines', 'weeklySessionLimitRemaining'));
+        return view('frontend.reservation.create', compact('machines', 'weeklySessionLimitRemaining'));
     }
 
     public function reserve(Request $request)

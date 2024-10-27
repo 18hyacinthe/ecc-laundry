@@ -24,8 +24,8 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(fun
     Route::post('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
 
     /** Reservation Routes */
-    // Route::post('/reserve', [UserReservationController::class, 'reserve'])->name('reserve');
-    Route::get('/reservation', [UserReservationController::class, 'showReservationForm'])->name('showReservationForm');
+    Route::get('/reservation', [UserReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/reservation/create', [UserReservationController::class, 'showReservationForm'])->name('showReservationForm');
     
     /** Reservation Routes avec middlewares spécifiques */
     Route::post('/reserve', [UserReservationController::class, 'reserve'])
