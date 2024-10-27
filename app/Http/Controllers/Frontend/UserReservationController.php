@@ -15,70 +15,57 @@ class UserReservationController extends Controller
 {
     public function showReservationForm()
     {
-        // Obtenez la liste des machines disponibles pour la réservation
+        $user = Auth::user();
         $machines = Machine::all(); // Récupère toutes les machines
 
-        // Récupérer la valeur récente de weekly_session_limit_remaining pour l'utilisateur
-        $userId = Auth::user()->id;
-        $recentReservation = Reservation::where('user_id', $userId)
-                ->orderBy('created_at', 'desc')
-                ->first();
-        if ($recentReservation) {
-            $weeklySessionLimitRemaining = $recentReservation->weekly_session_limit_remaining;
-        } else {
-            $weeklyLimit = Setting::getSetting('weekly_session_limit', 3);
-            $reservationsCount = Reservation::where('user_id', $userId)
-                            ->whereBetween('start_time', [now()->startOfWeek(), now()->endOfWeek()])
-                            ->count();
-            $weeklySessionLimitRemaining = $weeklyLimit - $reservationsCount;
-        }
+        // Définir la limite de sessions autorisées (à récupérer depuis les paramètres admin si disponible)
+        $totalSessionsAllowed = Setting::getSetting('weekly_session_limit', 3);
+
+        // Obtenir le nombre de sessions utilisées par l'utilisateur cette semaine
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $sessionsUsed = Reservation::where('user_id', $user->id)
+                ->whereBetween('start_time', [$startOfWeek, $endOfWeek])
+                ->count();
+
+        // Calculer les sessions restantes
+        $weeklySessionLimitRemaining = max(0, $totalSessionsAllowed - $sessionsUsed);
+
+        toastr()->info('Il vous reste ' . $weeklySessionLimitRemaining . ' sessions cette semaine.');
 
         return view('frontend.reservation.index', compact('machines', 'weeklySessionLimitRemaining'));
     }
 
     public function reserve(Request $request)
     {
-        // Identifiants et heure demandée
+        // Validations côté contrôleur en cas d'erreurs (même si elles sont couvertes par les middlewares)
+        $request->validate([
+            'machine_id' => 'required|exists:machines,id',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time'
+        ]);
+
         $userId = $request->user()->id;
         $machineId = $request->input('machine_id');
-        $requestedTime = Carbon::parse($request->input('requested_time'));
+        $startTime = Carbon::parse($request->input('start_time'));
+        $endTime = Carbon::parse($request->input('end_time'));
 
-        // Obtenir les paramètres de session depuis la table Setting
-        $sessionDuration = (int) Setting::getSetting('session_duration', 2); // Convertir en entier
-        $sessionStartTime = Carbon::parse(Setting::getSetting('session_start_time', '06:00'));
-        $sessionEndTime = Carbon::parse(Setting::getSetting('session_end_time', '23:59:59'));
-
-        // Validation de l'heure de réservation
-        if ($requestedTime->lt($sessionStartTime) || $requestedTime->gt($sessionEndTime)) {
-            return back()->withErrors(['error' => 'La réservation doit se faire entre 6h00 et 23h59.']);
-        }
-
-        // Vérifie l'alternance de 2h
-        if ($requestedTime->diffInHours($sessionStartTime) % $sessionDuration != 0) {
-            return back()->withErrors(['error' => 'Les réservations se font toutes les 2 heures à partir de 6h00.']);
-        }
-
-        // Limite hebdomadaire
+        // Calcul du nombre de réservations restantes
         $weeklyLimit = Setting::getSetting('weekly_session_limit', 3);
         $reservationsCount = Reservation::where('user_id', $userId)
                                         ->whereBetween('start_time', [now()->startOfWeek(), now()->endOfWeek()])
                                         ->count();
-        if ($reservationsCount >= $weeklyLimit) {
-            return back()->withErrors(['error' => 'Vous avez atteint la limite hebdomadaire de 3 sessions.']);
-        }
+        $weeklySessionLimitRemaining = max($weeklyLimit - $reservationsCount, 0);
 
-        $weekly_session_limit_remaining = $weeklyLimit - $reservationsCount -1;
-
-        // Création de la réservation
-        $endTime = $requestedTime->copy()->addHours($sessionDuration);
+        // Création de la réservation après validation
         Reservation::create([
             'user_id' => $userId,
             'machine_id' => $machineId,
-            'start_time' => $requestedTime,
+            'start_time' => $startTime,
             'end_time' => $endTime,
-            'weekly_session_limit_remaining' => $weekly_session_limit_remaining
+            'weekly_session_limit_remaining' => $weeklySessionLimitRemaining - 1
         ]);
 
-        return back()->with('success', 'Réservation confirmée pour ' . $requestedTime->format('H:i') . ' à ' . $endTime->format('H:i'));
+        return back()->with('success', 'Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
     }
 }

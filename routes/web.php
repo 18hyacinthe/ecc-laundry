@@ -24,8 +24,13 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(fun
     Route::post('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
 
     /** Reservation Routes */
-    Route::post('/reserve', [UserReservationController::class, 'reserve'])->name('reserve');
+    // Route::post('/reserve', [UserReservationController::class, 'reserve'])->name('reserve');
     Route::get('/reservation', [UserReservationController::class, 'showReservationForm'])->name('showReservationForm');
+    
+    /** Reservation Routes avec middlewares spécifiques */
+    Route::post('/reserve', [UserReservationController::class, 'reserve'])
+       ->middleware(['checkWeeklyLimit', 'checkSlotAvailability', 'checkSessionDuration'])
+       ->name('reserve');
 });
 
 /** Admin Routes */

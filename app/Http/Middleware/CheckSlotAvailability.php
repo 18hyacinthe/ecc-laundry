@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Reservation;
 
 class CheckSlotAvailability
 {
@@ -16,14 +17,24 @@ class CheckSlotAvailability
     public function handle(Request $request, Closure $next): Response
     {
         $machineId = $request->input('machine_id');
-        $requestedTime = $request->input('requested_time');
+        $startTime = $request->input('start_time');
+        $endTime = $request->input('end_time');
 
-        $isSlotAvailable = \App\Models\Reservation::where('machine_id', $machineId)
-            ->where('requested_time', $requestedTime)
-            ->doesntExist();
+        // Récupère la réservation la plus récente de la machine
+        $latestReservation = Reservation::where('machine_id', $machineId)
+            ->orderBy('end_time', 'desc')
+            ->first();
 
-        if (!$isSlotAvailable) {
-            return response()->json(['error' => 'Le créneau demandé n\'est pas disponible pour cette machine'], 403);
+        // Vérifie si la réservation la plus récente existe et qu'elle chevauche le créneau demandé
+        if ($latestReservation) {
+            if (
+                ($startTime < $latestReservation->end_time) &&
+                ($endTime > $latestReservation->start_time)
+            ) {
+                toastr()->warning('Cette machine est déjà réservée pour ce créneau! Veuillez revenir en arrière et choisir un autre créneau.');
+                return redirect()->back();
+                // return response()->json(['error' => 'Le créneau demandé n\'est pas disponible pour cette machine'], 403);
+            }
         }
 
         return $next($request);

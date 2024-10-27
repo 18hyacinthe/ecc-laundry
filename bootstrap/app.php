@@ -14,22 +14,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Enregistrement des alias de middleware
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'checkWeeklyLimit' => \App\Http\Middleware\CheckWeeklyReservationLimit::class,
             'checkSlotAvailability' => \App\Http\Middleware\CheckSlotAvailability::class,
             'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
         ]);
-    })
-    ->withExceptions(function () {
-        //
-    })
-    ->withCommands([
-        \App\Console\Commands\MyAwesomeCommand::class,
-    ])
-    ->withMiddleware(function (Middleware $middleware) {
+
+        // Groupes de middlewares
         $middleware->group('web', [
-            // Other middlewares
+            // Autres middlewares Web
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         ]);
@@ -40,4 +35,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
     })
+    ->withExceptions(function () {
+        // Gestionnaire d'exceptions spécifique, si nécessaire
+    })
+    ->withCommands([
+        \App\Console\Commands\MyAwesomeCommand::class,
+    ])
     ->create();

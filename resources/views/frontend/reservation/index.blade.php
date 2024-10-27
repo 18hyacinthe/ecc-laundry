@@ -45,9 +45,15 @@
 
                     {{-- Select reservation time --}}
                     <div class="form-group">
-                        <label for="requested_time">{{ __('Reservation time:') }}</label>
-                        <input type="datetime-local" name="requested_time" id="requested_time" class="form-control" required>
-                        <small class="form-text text-muted">{{ __('Reservations must be made between 6:00 AM and 11:59 PM, every 2 hours.') }}</small>
+                        <label for="start_time">{{ __('Start time:') }}</label>
+                        <input type="datetime-local" name="start_time" id="start_time" class="form-control" required>
+                        <small class="form-text text-muted">{{ __('Reservations must be made between 6:00 AM and 11:59 PM.') }}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end_time">{{ __('End time:') }}</label>
+                        <input type="datetime-local" name="end_time" id="end_time" class="form-control" required>
+                        <small class="form-text text-muted">{{ __('Reservations must end by 11:59 PM.') }}</small>
                     </div>
 
                     {{-- Confirmation button --}}

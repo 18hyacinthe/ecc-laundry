@@ -12,7 +12,7 @@
                     <div class="row">
                         <!-- Durée de la Session -->
                         <div class="form-group col-md-6 col-12">
-                            <label for="session_duration">{{ __('Session Duration (in hours)') }}</label>
+                            <label for="session_duration">{{ __('Session Duration (in minutes)') }}</label>
                             <input type="number" name="session_duration" id="session_duration" 
                                    class="form-control" value="{{ $sessionDuration }}" min="1" required>
                         </div>
