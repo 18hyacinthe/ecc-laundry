@@ -27,16 +27,16 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.users.index') }}">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Users-Management</span>
+        <a class="nav-link" href="{{ route('user.machines.index') }}">
+            <i class="fas fa-cogs"></i>
+            <span> Machines Status</span>
         </a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
@@ -49,7 +49,7 @@
                 <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">test</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
 
     <!-- Divider -->
