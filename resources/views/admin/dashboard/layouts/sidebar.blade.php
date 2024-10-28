@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Admin <sup>Panel</sup></div>
+        <div class="sidebar-brand-text mx-3">{{ __('Admin') }} <sup>{{ __('Panneau') }}</sup></div>
     </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -14,14 +14,14 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-home"></i>
-            <span>Dashboard</span></a>
+            <span>{{ __('Tableau de bord') }}</span></a>
         </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
-            <span>Machine</span>
+            <span>{{ __('Machine') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -29,7 +29,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.users.index') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Users-Management</span>
+            <span>{{ __('Gestion des utilisateurs') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -41,12 +41,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-cogs"></i>
-            <span>Settings</span>
+            <span>{{ __('Paramètres') }}</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">Booking</a>
-                <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">test</a>
+                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">{{ __('Réservation') }}</a>
+                <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">{{ __('test') }}</a>
             </div>
         </div>
     </li>

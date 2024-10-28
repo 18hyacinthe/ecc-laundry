@@ -10,7 +10,7 @@
                             <form method="post" class="needs-validation" novalidate="" action="{{route('user.profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-header m-0 font-weight-bold text-primary">
-                                    <h4>{{__('Update Profile')}}</h4>
+                                    <h4>{{__('Mettre à jour le profil')}}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary">{{__('Save Changes')}}</button>
+                                    <button class="btn btn-primary">{{__('Enregistrer les modifications')}}</button>
                                 </div>
                             </form>
                         </div>

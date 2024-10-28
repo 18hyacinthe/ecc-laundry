@@ -9,36 +9,36 @@
                         <form method="post" class="needs-validation" novalidate="" action="{{route('admin.machines.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-header m-0 font-weight-bold text-primary">
-                                <h4>{{__('Add New Machine')}}</h4>
+                                <h4>{{__('Ajouter une nouvelle machine')}}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('Name')}}</label>
+                                        <label>{{__('Nom')}}</label>
                                         <input type="text" name="name" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>{{__('Type')}}</label>
                                         <select name="type" class="form-control" required>
-                                            <option value="washing-machine">{{__('Washing Machine')}}</option>
-                                            <option value="dryer">{{__('Dryer')}}</option>
+                                            <option value="washing-machine">{{__('Machine à laver')}}</option>
+                                            <option value="dryer">{{__('Sèche-linge')}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('Status')}}</label>
+                                        <label>{{__('Statut')}}</label>
                                         <select id="inputState" name="status" class="form-control" required>
-                                            <option value="" disabled selected>{{__('Select Status')}}</option>
-                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{__('Pending')}}</option>
-                                            <option value="in-use" {{ old('status') == 'in-use' ? 'selected' : '' }}>{{__('In Use')}}</option>
-                                            <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>{{__('Available')}}</option>
-                                            <option value="under maintenance" {{ old('status') == 'under maintenance' ? 'selected' : '' }}>{{__('Under Maintenance')}}</option>
-                                            <option value="out of order" {{ old('status') == 'out of order' ? 'selected' : '' }}>{{__('Out of Order')}}</option>
+                                            <option value="" disabled selected>{{__('Sélectionner le statut')}}</option>
+                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{__('En attente')}}</option>
+                                            <option value="in-use" {{ old('status') == 'in-use' ? 'selected' : '' }}>{{__('En cours d\'utilisation')}}</option>
+                                            <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>{{__('Disponible')}}</option>
+                                            <option value="under maintenance" {{ old('status') == 'under maintenance' ? 'selected' : '' }}>{{__('En maintenance')}}</option>
+                                            <option value="out of order" {{ old('status') == 'out of order' ? 'selected' : '' }}>{{__('Hors service')}}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary">{{__('Create')}}</button>
+                                <button class="btn btn-primary">{{__('Créer')}}</button>
                             </div>
                         </form>
                     </div>

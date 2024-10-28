@@ -10,7 +10,7 @@
                             <form method="post" class="needs-validation" novalidate="" action="{{route('admin.profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-header m-0 font-weight-bold text-primary">
-                                    <h4>{{__('Update Profile')}}</h4>
+                                    <h4>{{__('Mettre à jour le profil')}}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -22,7 +22,7 @@
                                             <input type="file" name="image" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6 col-12">
-                                            <label>{{__('Name')}}</label>
+                                            <label>{{__('Nom')}}</label>
                                             <input type="text" name="name" class="form-control" value="{{Auth::user()->name}}">
                                         </div>
                                         <div class="form-group col-md-6 col-12">
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary">{{__('Save Changes')}}</button>
+                                    <button class="btn btn-primary">{{__('Enregistrer les modifications')}}</button>
                                 </div>
                             </form>
                         </div>
@@ -44,26 +44,26 @@
                             <form method="post" class="needs-validation" novalidate="" action="{{route('admin.profile.update.password')}}">
                                 @csrf
                                 <div class="card-header m-0 font-weight-bold text-primary">
-                                    <h4>{{__('Update Password')}}</h4>
+                                    <h4>{{__('Mettre à jour le mot de passe')}}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-12">
-                                            <label>{{__('Current Password')}}</label>
+                                            <label>{{__('Mot de passe actuel')}}</label>
                                             <input type="password" name="current_password" class="form-control">
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{__('New Password')}}</label>
+                                            <label>{{__('Nouveau mot de passe')}}</label>
                                             <input type="password" name="password" class="form-control">
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{__('Confirm Password')}}</label>
+                                            <label>{{__('Confirmer le mot de passe')}}</label>
                                             <input type="password" name="password_confirmation" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary">{{__('Save Changes')}}</button>
+                                    <button class="btn btn-primary">{{__('Enregistrer les modifications')}}</button>
                                 </div>
                             </form>
                         </div>

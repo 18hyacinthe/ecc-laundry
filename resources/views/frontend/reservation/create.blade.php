@@ -5,14 +5,14 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header m-0 font-weight-bold text-primary">
-                <h4>{{ __('Reserve a Machine') }}</h4>
+                <h4>{{ __('Réserver une machine') }}</h4>
             </div>
             <div class="card-body">
 
                 {{-- Display weekly session limit remaining --}}
                 <div class="alert alert-info">
-                    <strong>{{ __('Remaining Weekly Reservations:') }}</strong>
-                    {{ $weeklySessionLimitRemaining ?? 'No limit found' }}
+                    <strong>{{ __('Réservations hebdomadaires restantes :') }}</strong>
+                    {{ $weeklySessionLimitRemaining ?? __('Aucune limite trouvée') }}
                 </div>
 
                 {{-- Display success or error messages --}}
@@ -34,9 +34,9 @@
 
                     {{-- Select machine --}}
                     <div class="form-group">
-                        <label for="machine_id">{{ __('Choose a machine:') }}</label>
+                        <label for="machine_id">{{ __('Choisissez une machine :') }}</label>
                         <select name="machine_id" id="machine_id" class="form-control" required>
-                            <option value="">{{ __('Select a machine') }}</option>
+                            <option value="">{{ __('Sélectionnez une machine') }}</option>
                             @foreach($machines as $machine)
                                 <option value="{{ $machine->id }}">{{ $machine->name }}</option>
                             @endforeach
@@ -45,20 +45,20 @@
 
                     {{-- Select reservation time --}}
                     <div class="form-group">
-                        <label for="start_time">{{ __('Start time:') }}</label>
+                        <label for="start_time">{{ __('Heure de début :') }}</label>
                         <input type="datetime-local" name="start_time" id="start_time" class="form-control" required>
-                        <small class="form-text text-muted">{{ __('Reservations must be made between 6:00 AM and 11:59 PM.') }}</small>
+                        <small class="form-text text-muted">{{ __('Les réservations doivent être faites entre 6h00 et 23h59.') }}</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="end_time">{{ __('End time:') }}</label>
+                        <label for="end_time">{{ __('Heure de fin :') }}</label>
                         <input type="datetime-local" name="end_time" id="end_time" class="form-control" required>
-                        <small class="form-text text-muted">{{ __('Reservations must end by 11:59 PM.') }}</small>
+                        <small class="form-text text-muted">{{ __('Les réservations doivent se terminer avant 23h59.') }}</small>
                     </div>
 
                     {{-- Confirmation button --}}
                     <div class="text-right">
-                        <button type="submit" class="btn btn-primary">{{ __('Reserve') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Réserver') }}</button>
                     </div>
                 </form>
             </div>

@@ -2,12 +2,12 @@
 @section('content')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-primary">Aperçu des Machines</h1>
+    <h1 class="h3 mb-4 text-primary">{{ __('Aperçu des Machines') }}</h1>
 
     <!-- Onglets de sélection de type de machine -->
-    <div class="btn-group mb-4" role="group" aria-label="Type de Machine">
-        <button type="button" class="btn btn-outline-primary active" onclick="showMachines('washing')">Lave-linge</button>
-        <button type="button" class="btn btn-outline-primary" onclick="showMachines('dryer')">Sèche-linge</button>
+    <div class="btn-group mb-4" role="group" aria-label="{{ __('Type de Machine') }}">
+        <button type="button" class="btn btn-outline-primary active" onclick="showMachines('washing')">{{ __('Lave-linge') }}</button>
+        <button type="button" class="btn btn-outline-primary" onclick="showMachines('dryer')">{{ __('Sèche-linge') }}</button>
     </div>
 
     <!-- Conteneur pour les machines à laver -->
@@ -19,19 +19,19 @@
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{ $machine['name'] }}</h5>
                             <p class="card-text">
-                                <strong>Statut :</strong> 
+                                <strong>{{ __('Statut') }} :</strong> 
                                 <span class="{{ $machine['status'] == 'available' ? 'text-success' : 'text-warning' }}">
                                     {{ ucfirst($machine['status']) }}
                                 </span>
                             </p>
                             <p class="card-text">
-                                <strong>Prochaine Disponibilité :</strong> 
+                                <strong>{{ __('Prochaine Disponibilité') }} :</strong> 
                                 {{ $machine['next_available_time'] }}
                             </p>
                             @if($machine['status'] != 'available')
-                                <button class="btn btn-primary btn-sm" disabled>Non Disponible</button>
+                                <button class="btn btn-primary btn-sm" disabled>{{ __('Non Disponible') }}</button>
                             @else
-                                <button class="btn btn-success btn-sm">Disponible</button>
+                                <button class="btn btn-success btn-sm">{{ __('Disponible') }}</button>
                             @endif
                         </div>
                     </div>
@@ -49,19 +49,19 @@
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{ $machine['name'] }}</h5>
                             <p class="card-text">
-                                <strong>Statut :</strong> 
+                                <strong>{{ __('Statut') }} :</strong> 
                                 <span class="{{ $machine['status'] == 'available' ? 'text-success' : 'text-warning' }}">
                                     {{ ucfirst($machine['status']) }}
                                 </span>
                             </p>
                             <p class="card-text">
-                                <strong>Prochaine Disponibilité :</strong> 
+                                <strong>{{ __('Prochaine Disponibilité') }} :</strong> 
                                 {{ $machine['next_available_time'] }}
                             </p>
                             @if($machine['status'] != 'available')
-                                <button class="btn btn-primary btn-sm" disabled>Non Disponible</button>
+                                <button class="btn btn-primary btn-sm" disabled>{{ __('Non Disponible') }}</button>
                             @else
-                                <button class="btn btn-success btn-sm">Disponible</button>
+                                <button class="btn btn-success btn-sm">{{ __('Disponible') }}</button>
                             @endif
                         </div>
                     </div>

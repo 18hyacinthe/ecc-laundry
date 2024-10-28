@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // Autres middlewares Web
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\LanguageMiddleware::class,
         ]);
 
         $middleware->group('api', [

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminMachineController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminReservationController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -14,6 +15,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
+
+/** Language Routes */
+Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 /** User Routes */
 Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(function () {

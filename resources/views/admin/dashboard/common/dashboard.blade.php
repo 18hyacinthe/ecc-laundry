@@ -4,7 +4,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-primary">Dashboard Admin</h1>
+        <h1 class="h3 mb-4 text-primary">{{ __('Dashboard Admin') }}</h1>
     
         <!-- Résumé des Machines -->
         <div class="row mb-4">

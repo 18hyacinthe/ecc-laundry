@@ -126,6 +126,21 @@
             </div>
         </li>
 
+        <!-- Sélecteur de langue -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a id="languageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('img/flags/' . app()->getLocale() . '.png') }}" alt="Language" width="20">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="languageDropdown">
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('lang.switch', 'en') }}">
+                    <img src="{{ asset('img/flags/en.png') }}" alt="English" width="20" style="padding-right: 5px;"> En
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('lang.switch', 'fr') }}">
+                    <img src="{{ asset('img/flags/fr.png') }}" alt="Français" width="20" style="padding-right: 5px;"> Fr
+                </a>
+            </div>
+        </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
@@ -141,7 +156,7 @@
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('user.profile.index') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    {{ __('Profile') }}
                 </a>
                 {{-- <a class="dropdown-item" href="#">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -158,7 +173,7 @@
                         onclick="event.preventDefault();
                         this.closest('form').submit();">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
+                        {{ __('Logout') }}
                     </a>
                 </form>
             </div>

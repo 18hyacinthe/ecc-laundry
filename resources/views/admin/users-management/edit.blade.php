@@ -10,18 +10,18 @@
                             @csrf
                             @method('PUT')
                             <div class="card-header m-0 font-weight-bold text-primary">
-                                <h4>{{__('Update User')}}</h4>
+                                <h4>{{__('Mettre à jour l\'utilisateur')}}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <!-- Champ Nom -->
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('Name')}}</label>
+                                        <label>{{__('Nom')}}</label>
                                         <input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
                                     </div>
                                     <!-- Champ Prénom -->
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('Surname')}}</label>
+                                        <label>{{__('Prénom')}}</label>
                                         <input type="text" name="surname" class="form-control" value="{{ $user->surname }}" required>
                                     </div>
                                     <!-- Champ Email -->
@@ -31,26 +31,26 @@
                                     </div>
                                     <!-- Champ Statut -->
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('Status')}}</label>
+                                        <label>{{__('Statut')}}</label>
                                         <select id="inputState" name="status" class="form-control" required>
-                                            <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>{{__('Active')}}</option>
-                                            <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>{{__('Inactive')}}</option>
+                                            <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>{{__('Actif')}}</option>
+                                            <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>{{__('Inactif')}}</option>
                                         </select>
                                     </div>
                                     <!-- Champ Mot de Passe (Optionnel) -->
                                     <div class="form-group col-md-6 col-12">
-                                        <label>{{__('New Password (optional)')}}</label>
+                                        <label>{{__('Nouveau mot de passe (optionnel)')}}</label>
                                         <div class="input-group">
-                                            <input type="text" id="password" name="password" class="form-control" placeholder="{{__('Leave blank if unchanged')}}">
+                                            <input type="text" id="password" name="password" class="form-control" placeholder="{{__('Laissez vide si inchangé')}}">
                                             <div class="input-group-append">
-                                                <button type="button" class="btn btn-primary" onclick="generatePassword()">{{__('Generate')}}</button>
+                                                <button type="button" class="btn btn-primary" onclick="generatePassword()">{{__('Générer')}}</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary">{{__('Update')}}</button>
+                                <button class="btn btn-primary">{{__('Mettre à jour')}}</button>
                             </div>
                         </form>
                     </div>
