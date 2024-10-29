@@ -1,15 +1,20 @@
-# Utiliser une image NGINX avec PHP-FPM
-FROM richarvey/nginx-php-fpm:latest
+FROM richarvey/nginx-php-fpm:1.7.2
 
-# Définir le répertoire de travail
-WORKDIR /var/www/html
-
-# Copier tous les fichiers dans le répertoire de travail
 COPY . .
 
-# Installer les dépendances de Composer
-RUN composer install --no-dev --optimize-autoloader
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# Mise en cache des routes et de la configuration de Laravel
-RUN php artisan config:cache
-RUN php artisan route:cache
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
+
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+CMD ["/start.sh"]
