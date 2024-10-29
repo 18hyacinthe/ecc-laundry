@@ -1,5 +1,8 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
+        <div class="logo-container" style="text-align: center; margin-bottom: -10px;">
+            <img src="{{ asset('img/logo/image.png') }}" alt="Logo" class="logo" style="max-width: 100px;">
+        </div>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <h1>{{ __('Créer un compte') }}</h1>

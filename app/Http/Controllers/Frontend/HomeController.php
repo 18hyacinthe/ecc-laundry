@@ -10,5 +10,6 @@ class HomeController extends Controller
     public function index()
     {
         return view('frontend.auth.master');
+        // return view('auth.login');
     }
 }

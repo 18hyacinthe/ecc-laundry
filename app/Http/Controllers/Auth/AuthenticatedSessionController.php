@@ -16,7 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('frontend.auth.master');
+        // return view('frontend.auth.master');
+        return view('auth.login');
     }
 
     /**
