@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use App\Events\Registered;
+use App\Listeners\SendWelcomeEmail;
 use Illuminate\Support\Facades\URL;
 // use Illuminate\Routing\UrlGenerator;
 
@@ -24,12 +27,11 @@ class AppServiceProvider extends ServiceProvider
         if(config('app.env') === 'local') {
             URL::forceScheme('https');
         }
+
+        Event::listen(
+            Registered::class,
+            SendWelcomeEmail::class
+        );
     }
 
-    // public function boot(UrlGenerator $url)
-    // {
-    //     if (env('APP_ENV') == 'production') {
-    //         $url->forceScheme('https');
-    //     }
-    // }
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\UserReservationController;
 use App\Http\Controllers\Frontend\MachineOverviewController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -65,10 +66,16 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
     // Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('admin.reserve');
 
     /** Settings Routes */
+
+    // Reservation settings
     Route::get('/settings/reservations', [AdminSettingsController::class, 'showReservationsSettings'])->name('settings.reservations');
     Route::post('/settings/reservations', [AdminSettingsController::class, 'updateReservationsSettings']);
     Route::post('/settings/reset-system', [AdminSettingsController::class, 'updateResetSystem'])->name('settings.reset-system.update');
     Route::post('/settings/reset-system/manual', [AdminSettingsController::class, 'manualReset'])->name('settings.reset-system.reset');
+
+    // Domain restriction settings
+    Route::get('/settings/domain-restriction', [AdminSettingsController::class, 'showDomainCheck'])->name('settings.DomainRestriction');
+    Route::post('/settings/domain-restriction/update', [AdminSettingsController::class, 'updateDomainCheck'])->name('settings.updateDomainCheck');
 
 
 

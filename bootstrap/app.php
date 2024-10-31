@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'checkWeeklyLimit' => \App\Http\Middleware\CheckWeeklyReservationLimit::class,
             'checkSlotAvailability' => \App\Http\Middleware\CheckSlotAvailability::class,
             'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
+            'check.email.domain' => \App\Http\Middleware\CheckEmailDomain::class,
         ]);
 
         // Groupes de middlewares

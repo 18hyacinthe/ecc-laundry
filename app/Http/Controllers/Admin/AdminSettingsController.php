@@ -12,7 +12,7 @@ class AdminSettingsController extends Controller
     public function showReservationsSettings()
     {
         // Récupérer les valeurs actuelles pour la vue
-        $sessionDuration = Setting::getSetting('session_duration', '2'); // Par défaut : 2 heures
+        $sessionDuration = Setting::getSetting('session_duration', '120'); // Par défaut : 2 heures
         $sessionStartTime = Setting::getSetting('session_start_time', '06:00'); // Par défaut : 6h00
         $weeklySessionLimit = Setting::getSetting('weekly_session_limit', '3'); // Par défaut : 3 sessions
         $resetTime = Setting::getSetting('reset_time', '00:00'); // Par défaut : 00:00
@@ -57,12 +57,41 @@ class AdminSettingsController extends Controller
     {
         // Logique pour réinitialiser toutes les réservations ou configurations
         // Par exemple, vous pouvez remettre à zéro les paramètres dans la table de réglages
-        Setting::where('key', 'session_duration')->update(['value' => '2']); // Réinitialiser à la valeur par défaut
+        Setting::where('key', 'session_duration')->update(['value' => '120']); // Réinitialiser à la valeur par défaut
         Setting::where('key', 'session_start_time')->update(['value' => '06:00']);
         Setting::where('key', 'weekly_session_limit')->update(['value' => '3']);
         Setting::where('key', 'reset_time')->update(['value' => '00:00']);
     
         toastr()->success('Toutes les sessions ont été réinitialisées avec succès!');
+        return back();
+    }
+
+
+    public function showDomainCheck()
+    {
+        $allowedDomain = Setting::getSetting('allowed_domain', ''); // Par défaut : vide
+        $allowOtherDomains = Setting::getSetting('allow_other_domains', '0'); // Par défaut : désactivé
+
+        $settings = [
+            'allowed_domain' => $allowedDomain,
+            'allow_other_domains' => $allowOtherDomains,
+        ];
+
+        return view('admin.domaine-check.domain-restrictions', compact('settings'));
+    }
+
+
+    public function updateDomainCheck(Request $request)
+    {
+        $request->validate([
+            'allowed_domain' => 'required|string',
+            'allow_other_domains' => 'required|boolean',
+        ]);
+
+        Setting::updateOrCreate(['key' => 'allowed_domain'], ['value' => $request->allowed_domain]);
+        Setting::updateOrCreate(['key' => 'allow_other_domains'], ['value' => $request->allow_other_domains]);
+
+        toastr()->success('Paramètres de restriction de domaine mis à jour avec succès!');
         return back();
     }
     

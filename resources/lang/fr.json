@@ -109,5 +109,7 @@
     "Votre mot de passe a été réinitialisé!": "Votre mot de passe a été réinitialisé!",
     "Nous ne pouvons pas trouver un utilisateur avec cette adresse e-mail.": "Nous ne pouvons pas trouver un utilisateur avec cette adresse e-mail.",
     "The email field is required.": "Le champ e-mail est obligatoire.",
-    "The name field is required.":"Le champ nom est obligatoire."
+    "The name field is required.":"Le champ nom est obligatoire.",
+    "These credentials do not match our records.": "Informations d'identification incorrectes.",
+    "The email has already been taken.": "L'adresse e-mail est déjà utilisée."
 }

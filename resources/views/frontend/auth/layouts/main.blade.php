@@ -7,6 +7,7 @@
             @csrf
             <h2>{{ __('Créer un compte') }}</h2>
             <input type="text" name="name" placeholder="{{ __('Nom') }}" value="{{ old('name') }}" />
+            <input type="text" name="surname" placeholder="{{ __('Prénom') }}" value="{{ old('prenom') }}" />
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
             <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
             <input id="password_confirmation" type="password" name="password_confirmation" placeholder="{{ __('Confirmer le mot de passe') }}" />

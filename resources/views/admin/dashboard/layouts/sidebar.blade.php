@@ -45,7 +45,14 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">{{ __('Réservation') }}</a>
+                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">
+                    <i class="fas fa-fw fa-calendar-alt"></i>
+                    {{ __('Réservation') }}
+                </a>
+                <a class="collapse-item" href="{{ route('admin.settings.DomainRestriction') }}">
+                    <i class="fas fa-fw fa-shield-alt"></i>
+                    {{ __('Autorisation') }}
+                </a>
                 <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">{{ __('test') }}</a>
             </div>
         </div>
