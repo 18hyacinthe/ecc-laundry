@@ -66,10 +66,7 @@
     "Erreur lors de la suppression de l'utilisateur!": "Erreur lors de la suppression de l'utilisateur!",
     "Créer un compte": "Créer un compte",
     "Se connecter": "Se connecter",
-    "Bon retour!": "Bon retour!",
-    "Pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles": "Pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles",
     "Bonjour, ami!": "Bonjour, ami!",
-    "Entrez vos informations personnelles et commencez votre voyage avec nous": "Entrez vos informations personnelles et commencez votre voyage avec nous",
     "S'inscrire": "S'inscrire",
     "Connexion": "Connexion",
     "Panneau|Utilisateur": "Panneau|Utilisateur",
@@ -99,6 +96,18 @@
     "Heure de fin :": "Heure de fin :",
     "Les réservations doivent se terminer avant 23h59.": "Les réservations doivent se terminer avant 23h59.",
     "Réserver": "Réserver",
-    "Créer une Réservation": "Créer une Réservation"
-        
+    "Créer une Réservation": "Créer une Réservation",
+    "The password field is required.":"Le champ mot de passe est obligatoire !",
+    "Mot de passe oublié?": "Mot de passe oublié?",
+    "Réinitialiser le mot de passe": "Réinitialiser le mot de passe",
+    "Envoyer le lien de réinitialisation": "Envoyer le lien de réinitialisation",
+    "Retour à la connexion": "Retour à la connexion",
+    "Adresse e-mail": "Adresse e-mail",
+    "Réinitialiser": "Réinitialiser",
+    "Vérifiez votre e-mail pour le lien de réinitialisation du mot de passe.": "Vérifiez votre e-mail pour le lien de réinitialisation du mot de passe.",
+    "Ce lien de réinitialisation du mot de passe n'est pas valide.": "Ce lien de réinitialisation du mot de passe n'est pas valide.",
+    "Votre mot de passe a été réinitialisé!": "Votre mot de passe a été réinitialisé!",
+    "Nous ne pouvons pas trouver un utilisateur avec cette adresse e-mail.": "Nous ne pouvons pas trouver un utilisateur avec cette adresse e-mail.",
+    "The email field is required.": "Le champ e-mail est obligatoire.",
+    "The name field is required.":"Le champ nom est obligatoire."
 }

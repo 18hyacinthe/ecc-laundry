@@ -5,7 +5,7 @@
         </div>
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <h1>{{ __('Créer un compte') }}</h1>
+            <h2>{{ __('Créer un compte') }}</h2>
             <input type="text" name="name" placeholder="{{ __('Nom') }}" value="{{ old('name') }}" />
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
             <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
@@ -29,19 +29,19 @@
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>{{ __('Bon retour!') }}</h1>
+                <h1>{{ __('Revenez !') }}</h1>
                 <br>
                 <div class="loader"></div>
                 <br>
-                <p>{{ __('Pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles') }}</p>
+                <p>{{ __('Connectez-vous pour réserver votre session!') }}</p>
                 <button class="ghost" id="signIn">{{ __('Se connecter') }}</button>
             </div>
             <div class="overlay-panel overlay-right">
-                <h1>{{ __('Bonjour, ami!') }}</h1>
+                <h1>{{ __('Bienvenue !') }}</h1>
                 <br>
                 <div class="loader"></div>
                 <br>
-                <p>{{ __('Entrez vos informations personnelles et commencez votre voyage avec nous') }}</p>
+                <p>{{ __('Inscrivez-vous et réservez!') }}</p>
                 <button class="ghost" id="signUp">{{ __('S\'inscrire') }}</button>
             </div>
         </div>
