@@ -1,6 +1,6 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <div class="logo-container" style="text-align: center; margin-bottom: -10px;">
+        <div class="logo-container" style="text-align: center; margin-bottom: -70px;margin-top: 5px">
             <img src="{{ asset('img/logo/image.png') }}" alt="Logo" class="logo" style="max-width: 100px;">
         </div>
         <form method="POST" action="{{ route('register') }}">
@@ -15,11 +15,14 @@
     </div>
     
     <div class="form-container sign-in-container">
+        <div class="logo-container" style="text-align: center; margin-bottom: -100px;margin-top: 5px">
+            <img src="{{ asset('img/logo/image.png') }}" alt="Logo" class="logo" style="max-width: 100px;">
+        </div>
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <h1>{{ __('Se connecter') }}</h1>
+            <h1 style="margin-bottom: 10px">{{ __('Se connecter') }}</h1>
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
-            <input id="password" type="password" name="password" value="{{ old('password') }}" placeholder="{{ __('Mot de passe') }}" />
+            <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
             <button type="submit">{{ __('Se connecter') }}</button>
         </form>
     </div>
