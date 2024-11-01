@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'checkSlotAvailability' => \App\Http\Middleware\CheckSlotAvailability::class,
             'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
             'check.email.domain' => \App\Http\Middleware\CheckEmailDomain::class,
+            'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
         // Groupes de middlewares

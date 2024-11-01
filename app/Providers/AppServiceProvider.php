@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\Registered;
 use App\Listeners\SendWelcomeEmail;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
 // use Illuminate\Routing\UrlGenerator;
 
@@ -24,14 +26,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if(config('app.env') === 'local') {
-            URL::forceScheme('https');
-        }
+        // if(config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
 
-        Event::listen(
-            Registered::class,
-            SendWelcomeEmail::class
-        );
+        // Event::listen(
+        //     Registered::class,
+        //     SendWelcomeEmail::class
+        // );
+
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('Verify Email Address')
+                ->line('Click the button below to verify your email address.')
+                ->action('Verify Email Address', $url);
+        });
     }
 
 }

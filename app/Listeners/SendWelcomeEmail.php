@@ -9,9 +9,9 @@ use App\Mail\WelcomeEmail;
 
 class SendWelcomeEmail
 {
-    public function handle(Registered $event)
-    {
-        $user = $event->user;
-        Mail::to($user->email)->send(new WelcomeEmail($user));
-    }
+    // public function handle(Registered $event)
+    // {
+    //     $user = $event->user;
+    //     Mail::to($user->email)->send(new WelcomeEmail($user));
+    // }
 }

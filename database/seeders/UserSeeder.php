@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Password&Admin'),
             'created_at' => now(),
             // 'updated_at' => now(),
+            'email_verified_at' => now(),
             ],
             [
             'name' => 'User',
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Password&User'),
             'created_at' => now(),
             // 'updated_at' => now(),
+            'email_verified_at' => now(),
             ],
         ]);
 

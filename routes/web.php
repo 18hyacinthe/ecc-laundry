@@ -21,7 +21,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 /** User Routes */
-Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(function () {
+Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified'])->group(function () {
     /** User Dashboard Routes */
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
@@ -44,7 +44,7 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user'])->group(fun
 });
 
 /** Admin Routes */
-Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin', 'verified'])->group(function () {
     /** Admin Dashboard Routes */
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -52,7 +52,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
     Route::get('profile', [AdminProfileController::class, 'index'])->name('profile.index');
     Route::post('profile', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('profile/update/password', [AdminProfileController::class, 'updatePassword'])->name('profile.update.password');
-
 
     /** Machine Routes */
     Route::resource('machines', AdminMachineController::class);
@@ -63,10 +62,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
     /** Reservation Routes */
     Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('reserve');
     Route::get('/booking', [AdminReservationController::class, 'showReservationForm'])->name('showReservationForm');
-    // Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('admin.reserve');
 
     /** Settings Routes */
-
     // Reservation settings
     Route::get('/settings/reservations', [AdminSettingsController::class, 'showReservationsSettings'])->name('settings.reservations');
     Route::post('/settings/reservations', [AdminSettingsController::class, 'updateReservationsSettings']);
@@ -76,9 +73,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
     // Domain restriction settings
     Route::get('/settings/domain-restriction', [AdminSettingsController::class, 'showDomainCheck'])->name('settings.DomainRestriction');
     Route::post('/settings/domain-restriction/update', [AdminSettingsController::class, 'updateDomainCheck'])->name('settings.updateDomainCheck');
-
-
-
 });
 
 

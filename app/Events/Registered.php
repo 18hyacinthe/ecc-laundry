@@ -8,12 +8,12 @@ use App\Models\User;
 
 class Registered
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    // use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    // public $user;
 
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
+    // public function __construct(User $user)
+    // {
+    //     $this->user = $user;
+    // }
 }

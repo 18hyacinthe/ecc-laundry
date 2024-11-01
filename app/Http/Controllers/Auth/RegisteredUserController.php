@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Toastr()->success(__('Inscription réussie!'));
+        Toastr()->info(__('Un mail de vérification vous a été envoyé.'));
 
         return redirect(route('login'));
     }
