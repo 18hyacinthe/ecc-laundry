@@ -37,12 +37,12 @@ class CheckSessionDuration
             $endTime->addDay();
         }
 
-        // 1. Vérifie que l'intervalle entre start_time et end_time est de 59 minutes minimum
-        if ($startTime->diffInMinutes($endTime) < 59) {
-            toastr()->warning('L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.');
-            return redirect()->back();
-            // return response()->json(['error' => 'L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.'], 403);
-        }
+        // // 1. Vérifie que l'intervalle entre start_time et end_time est de 59 minutes minimum
+        // if ($startTime->diffInMinutes($endTime) < 59) {
+        //     toastr()->warning('L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.');
+        //     return redirect()->back();
+        //     // return response()->json(['error' => 'L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.'], 403);
+        // }
 
         // 2. Vérifie que la durée entre start_time et end_time ne dépasse pas la durée de session définie
     
