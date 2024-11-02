@@ -28,7 +28,8 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified']
 
     /** User Profile Routes */
     Route::get('profile', [UserProfileController::class, 'index'])->name('profile.index');
-    Route::post('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('profile/update', [UserProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('profile/password/update', [UserProfileController::class, 'updatePassword'])->name('profile.update.password');
 
     /** Reservation Routes */
     Route::get('/reservation', [UserReservationController::class, 'index'])->name('reservation.index');

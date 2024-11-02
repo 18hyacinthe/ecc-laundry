@@ -26,8 +26,16 @@
                                             <input type="text" name="name" class="form-control" value="{{Auth::user()->name}}">
                                         </div>
                                         <div class="form-group col-md-6 col-12">
+                                            <label>{{__('Prénom')}}</label>
+                                            <input type="text" name="surname" class="form-control" value="{{Auth::user()->surname}}">
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
                                             <label>{{__('Email')}}</label>
                                             <input type="text" name="email" class="form-control" value="{{Auth::user()->email}}">
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>{{__('Numéro de téléphone')}}</label>
+                                            <input type="text" name="phone" class="form-control" value="{{Auth::user()->phone}}">
                                         </div>
                                     </div>
                                 </div>

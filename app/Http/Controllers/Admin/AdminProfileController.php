@@ -22,11 +22,13 @@ class AdminProfileController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:100'],
+            'surname' => ['required', 'max:100'],
             'email' => ['required', 'email', 'unique:users,email,' . Auth::user()->id],
+            'phone' => ['required', 'max:15'],
             'image' => ['image', 'max:2048'],
         ]);
 
-        $user =  Auth::user();
+        $user = Auth::user();
 
         if ($request->hasFile('image')) {
             if(File::exists(public_path($user->image))){
@@ -35,13 +37,16 @@ class AdminProfileController extends Controller
 
             $image = $request->file('image');
             $imageName = rand() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('profile'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
 
-            $path ="/profile/".$imageName;
+            $path ="/uploads/".$imageName;
             $user->image = $path;
         }
+
         $user->name = $request->name;
+        $user->surname = $request->surname;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         $user->save();
 
         toastr()->success('Profile Updated Successfully!');
