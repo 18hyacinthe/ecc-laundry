@@ -111,5 +111,18 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Email Verification
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of minutes before an email verification
+    | token expires. By default, the tokens last for one year.
+    |
+    */
 
+    'verification' => [
+        'expire' => 525600, // One year in minutes
+    ],
 ];
