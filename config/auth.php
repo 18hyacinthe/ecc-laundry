@@ -118,11 +118,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may define the amount of minutes before an email verification
-    | token expires. By default, the tokens last for one year.
+    | token expires. By default, the tokens last for 15 minutes.
     |
     */
 
     'verification' => [
-        'expire' => 525600, // One year in minutes
+        'expire' => 15, // 15 minutes
     ],
 ];
