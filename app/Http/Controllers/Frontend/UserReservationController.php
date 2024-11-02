@@ -72,6 +72,7 @@ class UserReservationController extends Controller
             'weekly_session_limit_remaining' => $weeklySessionLimitRemaining - 1
         ]);
 
-        return back()->with('success', 'Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
+        toastr()->success('Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
+        return back();
     }
 }

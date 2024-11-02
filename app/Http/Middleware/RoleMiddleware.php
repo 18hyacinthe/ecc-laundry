@@ -20,7 +20,8 @@ class RoleMiddleware
         if (!Auth::check() || Auth::user()->role !== $role) {
             // Rediriger ou retourner une réponse d'erreur si l'utilisateur n'a pas le rôle requis
             Auth::logout();
-            return redirect('/')->with('error', 'Vous n\'avez pas accès à cette page.');
+            toastr()->error('Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return redirect('/');
         }
 
         return $next($request);

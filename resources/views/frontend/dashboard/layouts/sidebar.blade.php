@@ -35,6 +35,15 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.calendar.index') }}">
+            <i class="fas fa-calendar"></i>
+            <span>{{ __('Machines Reservation') }}</span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
 
     {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">

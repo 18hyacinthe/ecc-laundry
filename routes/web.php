@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\UserReservationController;
 use App\Http\Controllers\Frontend\MachineOverviewController;
+use App\Http\Controllers\Frontend\UserCalendarReservation;
 use App\Http\Controllers\ProfileController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,10 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified']
 
     /** Machine Routes */
     Route::get('/machines/status', [MachineOverviewController::class, 'index'])->name('machines.index');
-    
+
+    /** Calendar Routes */
+    /** Calendar Routes */
+    Route::get('reservation/calendar', [UserCalendarReservation::class, 'index'])->name('calendar.index');
 });
 
 /** Admin Routes */
