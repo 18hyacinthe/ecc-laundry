@@ -15,7 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /** Language Routes */
 Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
