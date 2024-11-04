@@ -93,6 +93,7 @@ class UserDataTable extends DataTable
             Column::make('name')->addClass('text-center'),
             Column::make('surname')->addClass('text-center'),
             Column::make('email')->addClass('text-center'),
+            Column::make('phone')->addClass('text-center'),
             Column::make('status')->addClass('text-center'),
             Column::computed('action')->addClass('text-center')
             ->exportable(false)

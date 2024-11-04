@@ -36,7 +36,7 @@
             serverSide: true,
             responsive: true,
             rowReorder: {
-                selector: 'td:nth-child(2)'
+                selector: 'td:nth-child(3)'
             },
             ajax: '{{ route('admin.machines.index') }}',
             columns: [
@@ -51,6 +51,11 @@
     });
 </script>
 <script>
+     $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     function deleteMachine(id) {
         Swal.fire({
             title: '{{ __('Êtes-vous sûr?') }}',
