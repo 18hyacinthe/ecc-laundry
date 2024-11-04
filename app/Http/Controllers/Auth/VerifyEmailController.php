@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
+
 class VerifyEmailController extends Controller
 {
     /**
@@ -14,15 +15,30 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
+        // if ($request->user()->hasVerifiedEmail()) {
+        //     return redirect()->intended(route('user.dashboard', absolute: false).'?verified=1');
+        // }
+
+        // if ($request->user()->markEmailAsVerified()) {
+        //     event(new Verified($request->user()));
+        // }
+
+        // toastr()->success( __('Email vérifié avec succès!'));
+        // return redirect()->intended(route('login', absolute: false).'?verified=1');
+
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
             return redirect()->intended(route('user.dashboard', absolute: false).'?verified=1');
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+            toastr()->success(__('Email vérifié avec succès!'));
+            return redirect()->intended(route('user.dashboard', absolute: false).'?verified=1');
         }
 
-        toastr()->success( __('Email vérifié avec succès!'));
-        return redirect()->intended(route('login', absolute: false).'?verified=1');
+        toastr()->error(__('La vérification de l\'email a échoué.'));
+        return redirect()->route('user.dashboard');
     }
 }

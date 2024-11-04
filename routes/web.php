@@ -21,7 +21,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 /** User Routes */
-Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified'])->group(function () {
+Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user'])->group(function () {
     /** User Dashboard Routes */
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
@@ -47,7 +47,7 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified']
 });
 
 /** Admin Routes */
-Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin', 'verified'])->group(function () {
+Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
     /** Admin Dashboard Routes */
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
