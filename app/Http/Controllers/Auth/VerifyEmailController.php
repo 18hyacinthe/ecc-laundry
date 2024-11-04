@@ -23,6 +23,6 @@ class VerifyEmailController extends Controller
         }
 
         toastr()->success( __('Email vérifié avec succès!'));
-        return redirect()->intended(route('user.dashboard', absolute: false).'?verified=1');
+        return redirect()->intended(route('login', absolute: false).'?verified=1');
     }
 }

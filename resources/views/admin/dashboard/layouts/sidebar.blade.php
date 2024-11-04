@@ -18,6 +18,17 @@
         </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.calendar.reservation') }}">
+            <i class="fas fa-calendar"></i>
+            <span>{{ __('Calendrier des réservations') }}</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
@@ -53,14 +64,10 @@
                     <i class="fas fa-fw fa-shield-alt"></i>
                     {{ __('Autorisation') }}
                 </a>
-                <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">{{ __('test') }}</a>
             </div>
         </div>
     </li>
 
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

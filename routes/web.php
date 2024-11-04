@@ -6,14 +6,13 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\AdminCalendarReservationController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\UserReservationController;
 use App\Http\Controllers\Frontend\MachineOverviewController;
-use App\Http\Controllers\Frontend\UserCalendarReservation;
-use App\Http\Controllers\ProfileController;
-use App\Models\Reservation;
+use App\Http\Controllers\Frontend\UserCalendarReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -44,8 +43,7 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'role:user', 'verified']
     Route::get('/machines/status', [MachineOverviewController::class, 'index'])->name('machines.index');
 
     /** Calendar Routes */
-    /** Calendar Routes */
-    Route::get('reservation/calendar', [UserCalendarReservation::class, 'index'])->name('calendar.index');
+    Route::get('reservation/calendar', [UserCalendarReservationController::class, 'index'])->name('calendar.index');
 });
 
 /** Admin Routes */
@@ -66,7 +64,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin', 'verifie
 
     /** Reservation Routes */
     Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('reserve');
-    Route::get('/booking', [AdminReservationController::class, 'showReservationForm'])->name('showReservationForm');
+    Route::get('/reservation/calendrier', [AdminCalendarReservationController::class, 'index'])->name('calendar.reservation');
 
     /** Settings Routes */
     // Reservation settings
@@ -79,20 +77,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin', 'verifie
     Route::get('/settings/domain-restriction', [AdminSettingsController::class, 'showDomainCheck'])->name('settings.DomainRestriction');
     Route::post('/settings/domain-restriction/update', [AdminSettingsController::class, 'updateDomainCheck'])->name('settings.updateDomainCheck');
 });
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 
 
 require __DIR__.'/auth.php';

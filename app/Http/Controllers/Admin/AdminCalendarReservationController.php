@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Carbon\Carbon;
 
-class UserCalendarReservation extends Controller
+class AdminCalendarReservationController extends Controller
 {
     public function index(Request $request)
     {
@@ -40,6 +40,7 @@ class UserCalendarReservation extends Controller
             ];
         }
 
-        return view('frontend.reservation.calendar-reservation', compact('events'));
+        return view('admin.reservation.calendar', compact('events'));
     }
+
 }

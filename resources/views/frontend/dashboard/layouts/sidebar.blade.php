@@ -29,7 +29,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('user.machines.index') }}">
             <i class="fas fa-cogs"></i>
-            <span>{{ __('Machines Status') }}</span>
+            <span>{{ __('Etat des machines') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -38,28 +38,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('user.calendar.index') }}">
             <i class="fas fa-calendar"></i>
-            <span>{{ __('Machines Reservation') }}</span>
+            <span>{{ __('Calendrier des réservations') }}</span>
         </a>
     </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-
-    {{-- <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-cogs"></i>
-            <span>{{ __('Settings') }}</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">{{ __('Booking') }}</a>
-                <a class="collapse-item" href="{{ route('admin.showReservationForm') }}">{{ __('test') }}</a>
-            </div>
-        </div>
-    </li> --}}
-
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

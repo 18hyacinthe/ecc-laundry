@@ -11,14 +11,6 @@ use App\Models\Machine;
 
 class AdminReservationController extends Controller
 {
-        public function showReservationForm()
-    {
-        // Obtenez la liste des machines disponibles pour la réservation
-        $machines = Machine::all(); // Récupère toutes les machines
-
-        return view('admin.reservation.index', compact('machines'));
-    }
-
         public function reserve(Request $request)
     {
         // Identifiants et heure demandée
