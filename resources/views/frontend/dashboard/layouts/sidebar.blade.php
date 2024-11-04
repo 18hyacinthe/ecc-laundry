@@ -45,6 +45,16 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.reclamations.index') }}">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ __('Reclamation') }}</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline mt-5">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

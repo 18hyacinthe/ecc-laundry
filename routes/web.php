@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\UserReservationController;
 use App\Http\Controllers\Frontend\MachineOverviewController;
 use App\Http\Controllers\Frontend\UserCalendarReservationController;
+use App\Http\Controllers\Frontend\UserReclamationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -44,6 +45,12 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Calendar Routes */
     Route::get('reservation/calendar', [UserCalendarReservationController::class, 'index'])->name('calendar.index');
+
+    /** Reclamation Routes */
+    Route::get('reclamations', [UserReclamationController::class, 'index'])->name('reclamations.index');
+    Route::get('/reclamations/{id}', [UserReclamationController::class, 'show'])->name('reclamations.show');
+    Route::get('/reclamations/create', [UserReclamationController::class, 'create'])->name('reclamations.create');
+    Route::post('/reclamations/store', [UserReclamationController::class, 'store'])->name('reclamations.store');
 });
 
 /** Admin Routes */

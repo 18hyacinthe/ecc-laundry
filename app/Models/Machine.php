@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Machine extends Model
 {
@@ -11,5 +12,10 @@ class Machine extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function reclamations(): HasMany
+    {
+        return $this->hasMany(Reclamation::class);
     }
 }
