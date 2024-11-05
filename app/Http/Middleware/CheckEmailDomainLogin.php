@@ -25,13 +25,6 @@ class CheckEmailDomainLogin
             'password' => 'required|string|min:8',
         ]);
 
-        // Extraction du domaine de l'email
-        $emailDomain = substr(strrchr($request->email, "@"), 1);
-
-        // Récupération des paramètres dans la table settings
-        $allowedDomain = Setting::where('key', 'allowed_domain')->value('value');
-        $allowOtherDomains = Setting::where('key', 'allow_other_domains')->value('value');
-
         // Vérifie si l'utilisateur existe
         $user = User::where('email', $request->email)->first();
 
@@ -39,6 +32,20 @@ class CheckEmailDomainLogin
             Toastr()->error(__('Utilisateur non trouvé.'));
             return redirect()->route('login')->withErrors(['email' => __('Utilisateur non trouvé.')]);
         }
+
+        // Si l'utilisateur est un admin, ignorer les vérifications et continuer
+        if ($user->role === 'admin') {
+            return $next($request);
+        }
+
+        // Extraction du domaine de l'email
+        $emailDomain = substr(strrchr($request->email, "@"), 1);
+
+        // Récupération des paramètres dans la table settings
+        $allowedDomain = Setting::where('key', 'allowed_domain')->value('value');
+        $allowOtherDomains = Setting::where('key', 'allow_other_domains')->value('value');
+
+     
 
         if ($emailDomain === $allowedDomain) {
             // Domaine autorisé : vérification du statut de l'utilisateur

@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
             'check.email.domain.register' => \App\Http\Middleware\CheckEmailDomainRegister::class,
             'check.email.domain.login' => \App\Http\Middleware\CheckEmailDomainLogin::class,
+            'check.user.status' => \App\Http\Middleware\UserStatusChecker::class,
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
