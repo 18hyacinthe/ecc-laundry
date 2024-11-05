@@ -20,21 +20,22 @@ class CheckSlotAvailability
         $startTime = $request->input('start_time');
         $endTime = $request->input('end_time');
 
-        // Récupère la réservation la plus récente de la machine
-        $latestReservation = Reservation::where('machine_id', $machineId)
-            ->orderBy('end_time', 'desc')
-            ->first();
+        // Cherche les réservations existantes avec chevauchement de créneau
+        $conflictingReservations = Reservation::where('machine_id', $machineId)
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->whereBetween('start_time', [$startTime, $endTime])
+                    ->orWhereBetween('end_time', [$startTime, $endTime])
+                    ->orWhere(function ($query) use ($startTime, $endTime) {
+                        $query->where('start_time', '<=', $startTime)
+                              ->where('end_time', '>=', $endTime);
+                    });
+            })
+            ->exists();
 
-        // Vérifie si la réservation la plus récente existe et qu'elle chevauche le créneau demandé
-        if ($latestReservation) {
-            if (
-                ($startTime < $latestReservation->end_time) &&
-                ($endTime > $latestReservation->start_time)
-            ) {
-                toastr()->warning('Cette machine est déjà réservée pour ce créneau! Veuillez revenir en arrière et choisir un autre créneau.');
-                return redirect()->back();
-                // return response()->json(['error' => 'Le créneau demandé n\'est pas disponible pour cette machine'], 403);
-            }
+        // Retourne un message d'erreur si un chevauchement est trouvé
+        if ($conflictingReservations) {
+            toastr()->warning('Cette machine est déjà réservée pour le créneau sélectionné. Veuillez choisir un autre créneau en consultant le calendrier.');
+            return redirect()->back();
         }
 
         return $next($request);
