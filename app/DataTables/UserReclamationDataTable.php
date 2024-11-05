@@ -24,10 +24,12 @@ class UserReclamationDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($reclamation) {
-                return '<button class="btn btn-sm btn-primary" onclick="showReclamationDetails(' . $reclamation->id . ')">
-                            <i class="fa fa-eye"></i>
-                        </button>';
+            ->addColumn('action', function ($query) {
+                $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
+                return $viewBtn;
+            })
+            ->editColumn('created_at', function($query) {
+                return $query->created_at->format('d/m/Y H:i:s');
             })
             ->editColumn('status', function ($query) {
                 $statusLabels = [

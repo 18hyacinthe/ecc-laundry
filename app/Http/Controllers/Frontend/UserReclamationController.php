@@ -27,7 +27,7 @@ class UserReclamationController extends Controller
     public function show($id)
     {
         $reclamation = Reclamation::with('machine')->findOrFail($id);
-        return view('frontend.reclamations.show', compact('reclamation'));
+        return view('frontend.reclamations.show-reclamation-content', compact('reclamation'));
     }
     
 

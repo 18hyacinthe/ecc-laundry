@@ -32,8 +32,8 @@
         </div>
     </div>
 </div>
+@include('frontend.reclamations.show-reclamation')
 @endsection
-
 @push('scripts')
 <script type="module">
     $(function() {
@@ -53,11 +53,32 @@
                 { data: 'created_at', name: 'created_at', className: 'text-center' },
                 { data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false }
             ],
-            order: [[6, 'desc']],
+            order: [[0, 'desc']],
             rowReorder: {
                 selector: 'td:nth-child(2)'
             }
         });
     });
+</script>
+<script>
+    function showReclamationDetails(id) {
+        $.ajax({
+            url: '/user/reclamations/' + id,  // Assurez-vous que cette route pointe vers le contrôleur correct
+            method: 'GET',
+            success: function(response) {
+                $('#reclamationDetailsContent').html(response); // Charger le contenu dans la modale
+                $('#reclamationModal').modal('show'); // Afficher la modale
+            },
+            error: function(xhr) {
+                console.error("Erreur lors du chargement des détails de la réclamation :", xhr);
+                Swal.fire({
+                    title: '{{ __('Erreur!') }}',
+                    text: '{{ __('Impossible de charger les détails de la réclamation.') }}',
+                    icon: 'error',
+                    confirmButtonText: '{{ __('OK') }}'
+                });
+            }
+        });
+    }
 </script>
 @endpush
