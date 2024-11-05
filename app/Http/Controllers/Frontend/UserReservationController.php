@@ -23,7 +23,15 @@ class UserReservationController extends Controller
     {
         $user = Auth::user();
         $machines = Machine::all(); // Récupère toutes les machines
+        $sessionResetTime = Setting::getSetting('reset_time', '00:00');
+        $sessionResetTime = Carbon::parse($sessionResetTime);
+        $sessionStartTime = Setting::getSetting('session_start_time', '06:00');
+        $sessionStartTime = Carbon::parse($sessionStartTime);
 
+        // Si l'heure de réinitialisation est inférieure à l'heure de début de session, ajoutez un jour à l'heure de réinitialisation
+        if ($sessionResetTime->lt($sessionStartTime)) {
+            $sessionResetTime->addDay();
+        }
         // Définir la limite de sessions autorisées (à récupérer depuis les paramètres admin si disponible)
         $totalSessionsAllowed = Setting::getSetting('weekly_session_limit', 3);
 
@@ -39,7 +47,7 @@ class UserReservationController extends Controller
 
         toastr()->info('Il vous reste ' . $weeklySessionLimitRemaining . ' sessions cette semaine.');
 
-        return view('frontend.reservation.create', compact('machines', 'weeklySessionLimitRemaining'));
+        return view('frontend.reservation.create', compact('machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime'));
     }
 
     public function reserve(Request $request)
