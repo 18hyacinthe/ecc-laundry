@@ -45,6 +45,7 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Machine Routes */
     Route::get('/machines/status', [MachineOverviewController::class, 'index'])->name('machines.index');
+    Route::get('/machines/{id}/details', [MachineOverviewController::class, 'showMachineDetails'])->name('machines.details');
 
     /** Calendar Routes */
     Route::get('reservation/calendar', [UserCalendarReservationController::class, 'index'])->name('calendar.index');

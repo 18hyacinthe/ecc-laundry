@@ -19,12 +19,18 @@ class CheckWeeklyReservationLimit
     {
         $user = $request->user();
 
-        // Récupérer la limite hebdomadaire depuis les paramètres, utiliser 3 comme valeur par défaut
-        $weeklyLimit = Setting::where('key', 'weekly_session_limit')->value('value') ?? 3;
+        // Récupérer la limite hebdomadaire depuis les paramètres, avec une mise en cache pour améliorer les performances
+        $weeklyLimit = cache()->remember('weekly_session_limit', 3600, function () {
+            return Setting::where('key', 'weekly_session_limit')->value('value') ?? 3;
+        });
+
+        // Calcul des dates de début et de fin de la semaine pour éviter de recalculer plusieurs fois
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
 
         // Compter les réservations de l'utilisateur pour la semaine en cours
         $reservationsThisWeek = $user->reservations()
-            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
             ->count();
 
         // Vérifier si la limite est atteinte
