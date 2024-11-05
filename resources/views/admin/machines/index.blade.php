@@ -5,6 +5,17 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3 class="card-title text-primary">{{ __('Machines') }}</h3>
+                <div class="btn-group">
+                    <button id="printButton" class="btn btn-secondary">
+                        <i class="fas fa-print"></i> {{ __('Imprimer') }}
+                    </button>
+                    <button id="excelButton" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i> {{ __('Exporter en Excel') }}
+                    </button>
+                    <button id="pdfButton" class="btn btn-danger">
+                        <i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}
+                    </button>
+                </div>
                 <a href="{{ route('admin.machines.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> {{ __('Créer') }}
                 </a>
@@ -31,7 +42,7 @@
 @push('scripts')
 <script type="module">
     $(function() {
-        $('#machine-table').DataTable({
+        var table = $('#machine-table').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
@@ -47,6 +58,38 @@
                 { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
             ],
             order: [[0, 'desc']],
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            buttons: [
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> {{ __('Imprimer') }}',
+                    className: 'd-none'
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> {{ __('Exporter en Excel') }}',
+                    className: 'd-none'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}',
+                    className: 'd-none'
+                }
+            ]
+        });
+
+        $('#printButton').on('click', function() {
+            table.button('.buttons-print').trigger();
+        });
+
+        $('#excelButton').on('click', function() {
+            table.button('.buttons-excel').trigger();
+        });
+
+        $('#pdfButton').on('click', function() {
+            table.button('.buttons-pdf').trigger();
         });
     });
 </script>

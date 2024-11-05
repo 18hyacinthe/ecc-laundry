@@ -45,7 +45,14 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.reclamations.index') }}">
+            <i class="fas fa-fw fa-exclamation-circle"></i>
+            <span>{{ __('Réclamation') }}</span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -72,7 +79,7 @@
     <hr class="sidebar-divider">
 
     <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline mt-5">
+    <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 

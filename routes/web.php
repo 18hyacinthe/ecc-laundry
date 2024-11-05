@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\AdminCalendarReservationController;
+use App\Http\Controllers\Admin\AdminReclamationController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -72,6 +73,12 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
     /** Reservation Routes */
     Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('reserve');
     Route::get('/reservation/calendrier', [AdminCalendarReservationController::class, 'index'])->name('calendar.reservation');
+
+    /** Reclamation Routes */
+    Route::get('reclamations', [AdminReclamationController::class, 'index'])->name('reclamations.index');
+    // Route::get('/reclamations/create', [AdminReclamationController::class, 'create'])->name('reclamations.create');
+    // Route::post('/reclamations/store', [AdminReclamationController::class, 'store'])->name('reclamations.store');
+    Route::get('/reclamations/{id}', [AdminReclamationController::class, 'show'])->name('reclamations.show');
 
     /** Settings Routes */
     // Reservation settings
