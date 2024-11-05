@@ -48,9 +48,9 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Reclamation Routes */
     Route::get('reclamations', [UserReclamationController::class, 'index'])->name('reclamations.index');
-    Route::get('/reclamations/{id}', [UserReclamationController::class, 'show'])->name('reclamations.show');
     Route::get('/reclamations/create', [UserReclamationController::class, 'create'])->name('reclamations.create');
     Route::post('/reclamations/store', [UserReclamationController::class, 'store'])->name('reclamations.store');
+    Route::get('/reclamations/{id}', [UserReclamationController::class, 'show'])->name('reclamations.show');
 });
 
 /** Admin Routes */
