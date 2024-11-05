@@ -20,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'checkWeeklyLimit' => \App\Http\Middleware\CheckWeeklyReservationLimit::class,
             'checkSlotAvailability' => \App\Http\Middleware\CheckSlotAvailability::class,
             'checkSessionDuration' => \App\Http\Middleware\CheckSessionDuration::class,
-            'check.email.domain' => \App\Http\Middleware\CheckEmailDomain::class,
+            'check.email.domain.register' => \App\Http\Middleware\CheckEmailDomainRegister::class,
+            'check.email.domain.login' => \App\Http\Middleware\CheckEmailDomainLogin::class,
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 

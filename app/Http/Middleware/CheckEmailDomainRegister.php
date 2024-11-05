@@ -10,7 +10,7 @@ use App\Mail\ContactAdminMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Setting;
 
-class CheckEmailDomain
+class CheckEmailDomainRegister
 {
     /**
      * Handle an incoming request.
@@ -44,7 +44,7 @@ class CheckEmailDomain
                 'surname' => $request->surname,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'is_active' => false,
+                'status' => false,
             ]);
 
             // Envoi de l'email pour contacter l'admin avec l'utilisateur
