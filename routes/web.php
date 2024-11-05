@@ -34,7 +34,9 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Reservation Routes */
     Route::get('/reservation', [UserReservationController::class, 'index'])->name('reservation.index');
-    Route::get('/reservation/create', [UserReservationController::class, 'showReservationForm'])->name('showReservationForm');
+    Route::get('/reservation/create', [UserReservationController::class, 'showReservationForm'])
+        ->middleware('check.user.status')
+        ->name('showReservationForm');
     
     /** Reservation Routes avec middlewares spécifiques */
     Route::post('/reserve', [UserReservationController::class, 'reserve'])

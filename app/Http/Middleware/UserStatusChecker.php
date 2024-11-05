@@ -22,8 +22,7 @@ class UserStatusChecker
         if ($user && !$user->status) {
             // Si le compte est inactif, afficher une notification Toastr et rediriger
             Toastr()->warning(__('Impossible de réserver : votre compte est inactif. Veuillez contacter l\'administrateur.'));
-            // return redirect()->route('home'); // Rediriger vers la page d'accueil ou une autre page appropriée
-            redirect()->back(); // Rediriger vers la page précédente
+            return redirect()->route('user.reservation.index'); // Rediriger vers la page d'accueil ou une autre page appropriée
         }
 
         return $next($request); // Continuer la requête si le compte est actif
