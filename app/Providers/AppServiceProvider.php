@@ -46,6 +46,19 @@ class AppServiceProvider extends ServiceProvider
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return new VerifyEmailUser($notifiable->email, $url);
         });
+
+        // Load custom helpers
+        $this->loadHelpers();
+    }
+
+    /**
+     * Load custom helper files.
+     */
+    protected function loadHelpers()
+    {
+        foreach (glob(app_path('Helpers/*.php')) as $filename) {
+            require_once $filename;
+        }
     }
 
 }

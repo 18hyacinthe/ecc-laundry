@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -11,15 +11,16 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.dashboard']) }}">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-home"></i>
-            <span>{{ __('Tableau de bord') }}</span></a>
-        </li>
+            <span>{{ __('Tableau de bord') }}</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.calendar.reservation']) }}">
         <a class="nav-link" href="{{ route('admin.calendar.reservation') }}">
             <i class="fas fa-calendar"></i>
             <span>{{ __('Calendrier des réservations') }}</span>
@@ -29,7 +30,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.machines.index']) }}">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
             <span>{{ __('Machine') }}</span>
@@ -37,7 +38,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.users.index']) }}">
         <a class="nav-link" href="{{ route('admin.users.index') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>{{ __('Gestion des utilisateurs') }}</span>
@@ -45,7 +46,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.reclamations.index']) }}">
         <a class="nav-link" href="{{ route('admin.reclamations.index') }}">
             <i class="fas fa-fw fa-exclamation-circle"></i>
             <span>{{ __('Réclamation') }}</span>
@@ -55,13 +56,13 @@
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ setActive(['admin.settings.reservations', 'admin.settings.DomainRestriction']) }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-cogs"></i>
             <span>{{ __('Paramètres') }}</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages" class="collapse {{ isMenuOpen(['admin.settings.reservations', 'admin.settings.DomainRestriction']) }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">
                     <i class="fas fa-fw fa-calendar-alt"></i>
