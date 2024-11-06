@@ -49,6 +49,49 @@
             @endforeach
         </div>
     </div>
-    
-    <!-- /.container-fluid -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Historique des Réservations') }}</h6>
+            </div>
+            <div class="card-body p-3 table-responsive">
+                <table class="table table-bordered table-striped" id="admin-historique-reservation-table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>{{ __('No') }}</th>
+                            <th>{{ __('Utilisateur') }}</th>
+                            <th>{{ __('Machine') }}</th>
+                            <th>{{ __('Date de début') }}</th>
+                            <th>{{ __('Date de fin') }}</th>
+                            <th>{{ __('Créé à') }}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection
+@push('scripts')
+<script type="module">
+    $(function() {
+        $('#admin-historique-reservation-table').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: '',
+            columns: [
+                { data: 'id', name: 'id', className: 'text-center' },
+                { data: 'user_id', name: 'user_id', className: 'text-center' },
+                { data: 'machine_id', name: 'machine_id', className: 'text-center' },
+                { data: 'start_time', name: 'start_time', className: 'text-center' },
+                { data: 'end_time', name: 'end_time', className: 'text-center' },
+                { data: 'created_at', name: 'created_at', className: 'text-center' },
+            ],
+            order: [[0, 'desc']],
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
+    });
+</script>
+@endpush
