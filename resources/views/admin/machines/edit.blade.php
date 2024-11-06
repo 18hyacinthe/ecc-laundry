@@ -28,7 +28,7 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>{{__('Statut')}}</label>
                                         <select id="inputState" name="status" class="form-control" required>
-                                            <option value="pending" {{ $machine->status == 'pending' ? 'selected' : '' }}>{{__('En attente')}}</option>
+                                            <option value="reserved" {{ $machine->status == 'reserved' ? 'selected' : '' }}>{{__('Reservé')}}</option>
                                             <option value="in-use" {{ $machine->status == 'in-use' ? 'selected' : '' }}>{{__('En cours d\'utilisation')}}</option>
                                             <option value="available" {{ $machine->status == 'available' ? 'selected' : '' }}>{{__('Disponible')}}</option>
                                             <option value="under maintenance" {{ $machine->status == 'under maintenance' ? 'selected' : '' }}>{{__('En maintenance')}}</option>

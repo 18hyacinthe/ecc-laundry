@@ -33,8 +33,8 @@ class MachineDataTable extends DataTable
             })
             ->editColumn('status', function($query) {
                 switch ($query->status) {
-                    case 'pending':
-                        return '<span class="badge badge-warning">Pending</span>';
+                    case 'reserved':
+                        return '<span class="badge badge-success">Reserved</span>';
                     case 'in-use':
                         return '<span class="badge badge-primary">In Use</span>';
                     case 'available':

@@ -4,6 +4,11 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-primary">{{ __('Aperçu des Machines') }}</h1>
 
+    <!-- Légende -->
+    <div class="alert alert-info">
+        {{ __('Tout machine dont le statut est différent de "Disponible" ne sont pas autorisés à être réservés et le système ne prendra pas la réservation en compte!') }}
+    </div>
+
     <!-- Onglets de sélection de type de machine -->
     <div class="btn-group mb-4" role="group" aria-label="{{ __('Type de Machine') }}">
         <button type="button" class="btn btn-primary active" onclick="showMachines('washing')">{{ __('Lave-linge (' . $washingMachinesCount . ')') }}</button>
@@ -24,11 +29,11 @@
                                     {{ ucfirst($machine['status']) }}
                                 </span>
                             </p>
-                            {{-- <p><strong>{{ __('Prochaine Disponibilité') }} :</strong> {{ $machine['next_available_time'] }}</p> --}}
-
-                            <!-- Boutons d'action -->
-                            {{-- <button class="btn btn-success btn-sm" onclick="reserveMachine({{ $machine['id'] }})">{{ __('Réserver') }}</button> --}}
-                            <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                            @if($machine['status'] == 'available')
+                                <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                            @else
+                                <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
+                            @endif
                             <button class="btn btn-info btn-sm" onclick="showMachineDetails({{ $machine['id'] }})">{{ __('Voir plus') }}</button>
                         </div>
                     </div>
@@ -51,11 +56,11 @@
                                     {{ ucfirst($machine['status']) }}
                                 </span>
                             </p>
-                            {{-- <p><strong>{{ __('Prochaine Disponibilité') }} :</strong> {{ $machine['next_available_time'] }}</p> --}}
-
-                            <!-- Boutons d'action -->
-                            {{-- <button class="btn btn-success btn-sm" onclick="reserveMachine({{ $machine['id'] }})">{{ __('Réserver') }}</button> --}}
-                            <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                            @if($machine['status'] == 'available')
+                                <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                            @else
+                                <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
+                            @endif
                             <button class="btn btn-info btn-sm" onclick="showMachineDetails({{ $machine['id'] }})">{{ __('Voir plus') }}</button>
                         </div>
                     </div>

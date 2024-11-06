@@ -10,7 +10,7 @@
         <div class="row mb-4">
             @php
             $statusCounts = [
-            'pending' => $machines->where('status', 'pending')->count(),
+            'reserved' => $machines->where('status', 'reserved')->count(),
             'in-use' => $machines->where('status', 'in-use')->count(),
             'available' => $machines->where('status', 'available')->count(),
             'under maintenance' => $machines->where('status', 'under maintenance')->count(),
@@ -25,11 +25,11 @@
 
             @foreach($statusCounts as $status => $count)
             <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'pending' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} shadow h-100 py-2">
+            <div class="card border-left-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'success' : ($status == 'in-use' ? 'primary' : 'danger'))) }} shadow h-100 py-2">
                 <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'pending' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
+                    <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'success' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
                         {{ ucfirst($status) }}
                     </div>
                     @foreach($machineTypes as $type => $label)

@@ -33,7 +33,7 @@ class AdminMachineController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:washing-machine,dryer',
-            'status' => 'required|string|in:pending,in-use,available,under maintenance,out of order',
+            'status' => 'required|string|in:reserved,in-use,available,under maintenance,out of order',
         ]);
 
         $machine = new Machine();
@@ -71,7 +71,7 @@ class AdminMachineController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:washing-machine,dryer',
-            'status' => 'required|string|in:pending,in-use,available,under maintenance,out of order',
+            'status' => 'required|string|in:reserved,in-use,available,under maintenance,out of order',
         ]);
 
         $machine = Machine::findOrFail($id);

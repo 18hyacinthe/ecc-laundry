@@ -22,7 +22,8 @@ class UserReservationController extends Controller
     public function showReservationForm()
     {
         $user = Auth::user();
-        $machines = Machine::all(); // Récupère toutes les machines
+        // $machines = Machine::all(); // Récupère toutes les machines
+        $machines = Machine::where('status', 'available')->get();
         $sessionResetTime = Setting::getSetting('reset_time', '00:00');
         $sessionResetTime = Carbon::parse($sessionResetTime);
         $sessionStartTime = Setting::getSetting('session_start_time', '06:00');

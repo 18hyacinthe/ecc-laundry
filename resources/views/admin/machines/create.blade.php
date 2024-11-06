@@ -28,7 +28,7 @@
                                         <label>{{__('Statut')}}</label>
                                         <select id="inputState" name="status" class="form-control" required>
                                             <option value="" disabled selected>{{__('Sélectionner le statut')}}</option>
-                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{__('En attente')}}</option>
+                                            <option value="reserved" {{ old('status') == 'reserved' ? 'selected' : '' }}>{{__('Reservé')}}</option>
                                             <option value="in-use" {{ old('status') == 'in-use' ? 'selected' : '' }}>{{__('En cours d\'utilisation')}}</option>
                                             <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>{{__('Disponible')}}</option>
                                             <option value="under maintenance" {{ old('status') == 'under maintenance' ? 'selected' : '' }}>{{__('En maintenance')}}</option>
