@@ -3,12 +3,11 @@
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-header m-0 font-weight-bold text-primary">
-                <h4>{{ __('Réserver une machine') }}</h4>
+        <div class="card shadow-sm">
+            <div class="card-header text-white" style="background: #0c9683;">
+                <h4 class="m-0">{{ __('Réserver une machine') }}</h4>
             </div>
             <div class="card-body">
-
                 {{-- Display weekly session limit remaining --}}
                 <div class="alert alert-info">
                     <strong>{{ __('Réservations hebdomadaires restantes :') }}</strong>
@@ -52,7 +51,7 @@
 
                     <div class="form-group">
                         <label for="end_time">{{ __('Heure de fin :') }}</label>
-                        <input type="datetime-local" name="end_time" id="end_time" class="form-control" required min="{{ $sessionStartTime->format('Y-m-d\TH:i') }}" required max="{{ $sessionResetTime->format('Y-m-d\TH:i') }}">
+                        <input type="datetime-local" name="end_time" id="end_time" class="form-control" required min="{{ $sessionStartTime->format('Y-m-d\TH:i') }}" max="{{ $sessionResetTime->format('Y-m-d\TH:i') }}">
                         <small class="form-text text-muted">{{ __('Les réservations doivent se terminer avant ') }}{{ $sessionResetTime->format('H:i') }}.</small>
                     </div>
 

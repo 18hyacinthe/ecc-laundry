@@ -2,38 +2,37 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="card-body">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <h3 class="card-title text-primary">{{ __('Historique des Réclamations') }}</h3>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title text-primary">{{ __('Historique des Réclamations') }}</h3>
             <a href="{{ route('user.reclamations.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> {{ __('Soumettre une Réclamation') }}
             </a>
-            </div>
-            <div class="card-body p-3 table-responsive">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="user-reclamation-table" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>{{ __('No') }}</th>
-                                <th>{{ __('Titre') }}</th>
-                                <th>{{ __('Machine') }}</th>
-                                <th>{{ __('Type de Machine') }}</th>
-                                <th>{{ __('Type de Problème') }}</th>
-                                <th>{{ __('Description') }}</th>
-                                <th>{{ __('Statut') }}</th>
-                                <th>{{ __('Créé à') }}</th>
-                                <th>{{ __('Actions') }}</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="user-reclamation-table" width="100%" cellspacing="0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>{{ __('No') }}</th>
+                            <th>{{ __('Titre') }}</th>
+                            <th>{{ __('Machine') }}</th>
+                            <th>{{ __('Type de Machine') }}</th>
+                            <th>{{ __('Type de Problème') }}</th>
+                            <th>{{ __('Description') }}</th>
+                            <th>{{ __('Statut') }}</th>
+                            <th>{{ __('Créé à') }}</th>
+                            <th>{{ __('Actions') }}</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
 </div>
 @include('frontend.reclamations.show-reclamation')
 @endsection
+
 @push('scripts')
 <script type="module">
     $(function() {
@@ -56,6 +55,9 @@
             order: [[0, 'desc']],
             rowReorder: {
                 selector: 'td:nth-child(2)'
+            },
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json'
             }
         });
     });
@@ -63,11 +65,11 @@
 <script>
     function showReclamationDetails(id) {
         $.ajax({
-            url: '/user/reclamations/' + id,  // Assurez-vous que cette route pointe vers le contrôleur correct
+            url: '/user/reclamations/' + id,
             method: 'GET',
             success: function(response) {
-                $('#reclamationDetailsContent').html(response); // Charger le contenu dans la modale
-                $('#reclamationModal').modal('show'); // Afficher la modale
+                $('#reclamationDetailsContent').html(response);
+                $('#reclamationModal').modal('show');
             },
             error: function(xhr) {
                 console.error("Erreur lors du chargement des détails de la réclamation :", xhr);
