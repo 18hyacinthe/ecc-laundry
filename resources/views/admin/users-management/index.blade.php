@@ -1,40 +1,38 @@
 @extends('admin.dashboard.page')
 @section('content')
 <div class="container-fluid">
-    <div class="card-body">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <h3 class="card-title text-primary">{{ __('Gestion des utilisateurs') }}</h3>
-                <div class="btn-group">
-                    <button id="printButton" class="btn btn-secondary">
-                        <i class="fas fa-print"></i> {{ __('Imprimer') }}
-                    </button>
-                    <button id="excelButton" class="btn btn-success">
-                        <i class="fas fa-file-excel"></i> {{ __('Exporter en Excel') }}
-                    </button>
-                    <button id="pdfButton" class="btn btn-danger">
-                        <i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}
-                    </button>
-                </div>
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> {{ __('Créer') }}
-                </a>
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title text-primary">{{ __('Gestion des utilisateurs') }}</h3>
+            <div class="btn-group">
+                <button id="printButton" class="btn btn-secondary">
+                    <i class="fas fa-print"></i> {{ __('Imprimer') }}
+                </button>
+                <button id="excelButton" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> {{ __('Exporter en Excel') }}
+                </button>
+                <button id="pdfButton" class="btn btn-danger">
+                    <i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}
+                </button>
             </div>
-            <div class="card-body p-3 table-responsive">
-                <table class="table table-bordered table-striped" id="user-table" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th>Téléphone</th>
-                            <th>Statut</th>
-                            <th width="200">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {{ __('Créer') }}
+            </a>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-striped" id="user-table" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Statut</th>
+                        <th width="200">Action</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
@@ -47,9 +45,6 @@
             processing: true,
             serverSide: true,
             responsive: true,
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
             ajax: '{{ route('admin.users.index') }}',
             columns: [
                 { data: 'id', name: 'id', className: 'text-center' },
@@ -61,9 +56,6 @@
                 { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
             ],
             order: [[0, 'desc']],
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
             buttons: [
                 {
                     extend: 'print',

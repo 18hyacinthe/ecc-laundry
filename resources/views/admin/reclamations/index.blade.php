@@ -2,10 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="card-body">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <h3 class="card-title text-primary">{{ __('Historique des Réclamations') }}</h3>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title text-primary">{{ __('Historique des Réclamations') }}</h3>
             <div class="btn-group">
                 <button id="printButton" class="btn btn-secondary">
                     <i class="fas fa-print"></i> {{ __('Imprimer') }}
@@ -17,32 +16,29 @@
                     <i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}
                 </button>
             </div>
-            </div>
-            <div class="card-body p-3 table-responsive">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="admin-reclamation-table" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>{{ __('No') }}</th>
-                                <th>{{ __('Titre') }}</th>
-                                <th>{{ __('Machine') }}</th>
-                                <th>{{ __('Type de Machine') }}</th>
-                                <th>{{ __('Type de Problème') }}</th>
-                                <th>{{ __('Description') }}</th>
-                                <th>{{ __('Statut') }}</th>
-                                <th>{{ __('Utilisateur') }}</th>
-                                <th>{{ __('Créé à') }}</th>
-                                <th>{{ __('Actions') }}</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+        </div>
+        <div class="card-body p-3 table-responsive">
+            <table class="table table-bordered table-striped" id="admin-reclamation-table" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>{{ __('No') }}</th>
+                        <th>{{ __('Titre') }}</th>
+                        <th>{{ __('Machine') }}</th>
+                        <th>{{ __('Type de Machine') }}</th>
+                        <th>{{ __('Type de Problème') }}</th>
+                        <th>{{ __('Description') }}</th>
+                        <th>{{ __('Statut') }}</th>
+                        <th>{{ __('Utilisateur') }}</th>
+                        <th>{{ __('Créé à') }}</th>
+                        <th>{{ __('Actions') }}</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
-@include('admin.reclamations.show-reclamation')
 @endsection
+
 @push('scripts')
 <script type="module">
     $(function() {
@@ -102,11 +98,11 @@
 <script>
     function showReclamationDetails(id) {
         $.ajax({
-            url: '/admin/reclamations/' + id,  // Assurez-vous que cette route pointe vers le contrôleur correct
+            url: '/admin/reclamations/' + id,
             method: 'GET',
             success: function(response) {
-                $('#reclamationDetailsContent').html(response); // Charger le contenu dans la modale
-                $('#reclamationModal').modal('show'); // Afficher la modale
+                $('#reclamationDetailsContent').html(response);
+                $('#reclamationModal').modal('show');
             },
             error: function(xhr) {
                 console.error("Erreur lors du chargement des détails de la réclamation :", xhr);

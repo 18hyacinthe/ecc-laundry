@@ -2,7 +2,8 @@
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
-        <div class="card">
+        <!-- Reservation Settings Card -->
+        <div class="card mb-4">
             <div class="card-header m-0 font-weight-bold text-primary">
                 <h4>{{ __('Reservation Settings') }}</h4>
             </div>
@@ -10,21 +11,21 @@
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <!-- Durée de la Session -->
+                        <!-- Session Duration -->
                         <div class="form-group col-md-6 col-12">
                             <label for="session_duration">{{ __('Session Duration (in minutes)') }}</label>
                             <input type="number" name="session_duration" id="session_duration" 
                                    class="form-control" value="{{ $sessionDuration }}" min="1" required>
                         </div>
 
-                        <!-- Heure de Début des Sessions -->
+                        <!-- Session Start Time -->
                         <div class="form-group col-md-6 col-12">
                             <label for="session_start_time">{{ __('Session Start Time') }}</label>
                             <input type="time" name="session_start_time" id="session_start_time" 
                                    class="form-control" value="{{ $sessionStartTime }}" required>
                         </div>
 
-                        <!-- Sessions Hebdomadaires Limitées -->
+                        <!-- Weekly Session Limit -->
                         <div class="form-group col-md-6 col-12">
                             <label for="weekly_session_limit">{{ __('Weekly Session Limit') }}</label>
                             <input type="number" name="weekly_session_limit" id="weekly_session_limit" 
@@ -37,7 +38,9 @@
                 </div>
             </form>
         </div>
-        <div class="card mt-4">
+
+        <!-- Reset System Settings Card -->
+        <div class="card mb-4">
             <div class="card-header m-0 font-weight-bold text-primary">
                 <h4>{{ __('Reset System Settings') }}</h4>
             </div>
@@ -50,17 +53,19 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button type="submit" class="btn btn-primary">{{ __('Sauvegarder') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Save Settings') }}</button>
                 </div>
             </form>
         </div>
-        <div class="card mt-4">
+
+        <!-- Manual Reset Card -->
+        <div class="card mb-4">
             <div class="card-header m-0 font-weight-bold text-primary">
                 <h4>{{ __('Manual Reset') }}</h4>
             </div>
             <form action="{{ route('admin.settings.reset-system.reset') }}" method="POST">
                 @csrf
-                <div class="card-body">
+                <div class="card-body text-center">
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?')">
                         {{ __('Manual Reset') }}
                     </button>

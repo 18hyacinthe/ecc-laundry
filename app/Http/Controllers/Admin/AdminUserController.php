@@ -39,6 +39,7 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:2550',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:255',
             'status' => ['required'],
             'password' => 'required|string|min:8',
         ]);
@@ -48,6 +49,8 @@ class AdminUserController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'status' => $request->status,
             'password' => Hash::make($request->password), // Hash le mot de passe
         ]);
 
@@ -101,6 +104,7 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'phone' => 'required|string|max:255',
             'status' => ['required'],
             'password' => 'nullable|string|min:8',
         ]);
@@ -110,6 +114,7 @@ class AdminUserController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         $user->status = $request->status;
 
         // Mettre à jour le mot de passe uniquement s'il est fourni
