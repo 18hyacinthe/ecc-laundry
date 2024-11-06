@@ -37,6 +37,7 @@
         </div>
     </div>
 </div>
+@include('admin.reclamations.show-reclamation')
 @endsection
 
 @push('scripts')
