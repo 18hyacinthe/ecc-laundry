@@ -10,6 +10,7 @@ use App\Listeners\SendWelcomeEmail;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Console\Scheduling\Schedule;
 // use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
@@ -60,5 +61,11 @@ class AppServiceProvider extends ServiceProvider
             require_once $filename;
         }
     }
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('reservation:notify')->everyMinute();
+    }
+
 
 }
