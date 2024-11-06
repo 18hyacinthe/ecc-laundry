@@ -59,7 +59,7 @@
         var calendarEl = document.getElementById('calendar');
         
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
+            initialView: 'timeGridDay',
             slotMinTime: '00:00:00',
             slotMaxTime: '23:59:59',
             locale: 'fr',  // Définit le calendrier en français
