@@ -30,7 +30,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item {{ setActive(['admin.machines.index']) }}">
+    <li class="nav-item {{ setActive(['admin.machines.index', 'admin.machines.create']) }}">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
             <span>{{ __('Machine') }}</span>
@@ -38,7 +38,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <li class="nav-item {{ setActive(['admin.users.index']) }}">
+    <li class="nav-item {{ setActive(['admin.users.index', 'admin.users.create']) }}">
         <a class="nav-link" href="{{ route('admin.users.index') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>{{ __('Gestion des utilisateurs') }}</span>

@@ -18,7 +18,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <li class="nav-item {{ setActive(['user.reservation.index']) }}">
+    <li class="nav-item {{ setActive(['user.reservation.index', 'user.showReservationForm']) }}">
         <a class="nav-link" href="{{ route('user.reservation.index') }}">
             <i class="fas fa-calendar-alt"></i>
             <span>{{ __('Reservation') }}</span>
@@ -45,7 +45,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ setActive(['user.reclamations.index']) }}">
+    <li class="nav-item {{ setActive(['user.reclamations.index', 'user.reclamations.create']) }}">
         <a class="nav-link" href="{{ route('user.reclamations.index') }}">
             <i class="fas fa-exclamation-circle"></i>
             <span>{{ __('Reclamation') }}</span>
