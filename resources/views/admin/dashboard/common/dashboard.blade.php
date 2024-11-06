@@ -25,11 +25,11 @@
 
             @foreach($statusCounts as $status => $count)
             <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'success' : ($status == 'in-use' ? 'primary' : 'danger'))) }} shadow h-100 py-2">
+            <div class="card border-left-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} shadow h-100 py-2">
                 <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'success' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
+                    <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
                         {{ ucfirst($status) }}
                     </div>
                     @foreach($machineTypes as $type => $label)
@@ -40,52 +40,13 @@
                     @endforeach
                     </div>
                     <div class="col-auto">
-                    <i class="fas fa-{{ $status == 'available' ? 'check-circle' : ($status == 'under maintenance' ? 'tools' : 'exclamation-triangle') }} fa-2x text-gray-300"></i>
+                    <i class="fas fa-{{ $status == 'available' ? 'check-circle' : ($status == 'under maintenance' ? 'tools' : ($status == 'reserved' ? 'calendar-check' : ($status == 'in-use' ? 'play-circle' : 'exclamation-triangle'))) }} fa-2x text-gray-300"></i>
                     </div>
                 </div>
                 </div>
             </div>
             </div>
             @endforeach
-        </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Cartes des Utilisateurs -->
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow h-100">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Nom de l'utilisateur</h5>
-                        <p class="card-text"><strong>Email :</strong> user@example.com</p>
-                        <p class="card-text"><strong>Rôle :</strong> Admin</p>
-                        <p class="card-text"><strong>Créé le :</strong> 12 Oct 2024</p>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
-                            <a href="#" class="btn btn-primary btn-sm">Voir Détails</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Répétez la structure de la carte ci-dessus pour chaque utilisateur -->
         </div>
     </div>
     
