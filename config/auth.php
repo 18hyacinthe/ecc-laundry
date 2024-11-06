@@ -123,6 +123,6 @@ return [
     */
 
     'verification' => [
-        'expire' => 15, // 15 minutes
+        'expire' => 5, // 5 minutes
     ],
 ];
