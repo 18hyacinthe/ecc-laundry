@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeEmail;
 
 
 class VerifyEmailController extends Controller
@@ -35,6 +37,10 @@ class VerifyEmailController extends Controller
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
             toastr()->success(__('Email vérifié avec succès!'));
+            
+            // Envoi de l'email de bienvenue après la vérification de l'email
+            Mail::to($user->email)->send(new WelcomeEmail($user));
+
             return redirect()->intended(route('user.dashboard', absolute: false).'?verified=1');
         }
 

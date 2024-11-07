@@ -21,6 +21,7 @@ class WelcomeEmail extends Mailable
     public function build()
     {
         return $this->view('emails.welcome')
-                    ->with(['user' => $this->user]);
+                    ->with(['user' => $this->user])
+                    ->subject('Welcome to ECC Laundry');
     }
 }
