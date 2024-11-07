@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('machine_id')->constrained()->onDelete('cascade'); // Clé étrangère vers la table machines
             $table->timestamp('start_time')->nullable(); // Heure de début de la réservation
             $table->timestamp('end_time')->nullable();   // Heure de fin de la réservation
+            $table->boolean('notified_start')->default(false); // Ajout de la colonne pour le début
+            $table->boolean('notified_end')->default(false);   // Ajout de la colonne pour la fin
             $table->integer('weekly_session_limit_remaining')->default(0); // Nombre de sessions hebdomadaires restantes
             $table->timestamps();
         });

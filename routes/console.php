@@ -4,6 +4,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Schedule;
+use App\Console\Commands\SendReservationNotification;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -26,3 +27,7 @@ Artisan::command('app:reset-sessions', function () {
 Schedule::command('app:reset-sessions')
     ->hourly()
     ->description('Réinitialiser toutes les sessions de réservation');
+
+Schedule::command('reservation:notify')
+    ->everyMinute()
+    ->withoutOverlapping();

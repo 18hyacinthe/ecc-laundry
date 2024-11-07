@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Console\Scheduling\Schedule;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -45,5 +46,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withCommands([
         \App\Console\Commands\MyAwesomeCommand::class,
+        \App\Console\Commands\SendReservationNotification::class,
     ])
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->command('reservation:notify')->everyMinute()->withoutOverlapping();
+        $schedule->command('app:reset-sessions')->hourly()->description('Réinitialiser toutes les sessions de réservation');
+    })
     ->create();

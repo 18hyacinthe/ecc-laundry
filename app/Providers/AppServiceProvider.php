@@ -28,9 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') === 'local') {
-            URL::forceScheme('https');
-        }
+        // if (config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
 
         // Event::listen(
         //     Registered::class,
@@ -61,11 +61,4 @@ class AppServiceProvider extends ServiceProvider
             require_once $filename;
         }
     }
-
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('reservation:notify')->everyMinute();
-    }
-
-
 }
