@@ -36,6 +36,8 @@
 @push('scripts')
 <script type="module">
     $(function() {
+        let lang = '{{ app()->getLocale() }}'; // Récupère la langue actuelle de l'utilisateur
+        let langUrl = `{{ asset('i18n/${lang}.json') }}`; // Récupère le fichier de langue correspondant
         $('#user-reclamation-table').DataTable({
             processing: true,
             serverSide: true,
@@ -57,7 +59,7 @@
                 selector: 'td:nth-child(2)'
             },
             language: {
-                url: '{{ asset('i18n/French.json') }}'
+                url: langUrl
             }
         });
     });

@@ -1,5 +1,9 @@
 <table class="table table-striped">
     <tr>
+        <th>Utilisateur :</th>
+        <td>{{ $reservation->user->name ?? 'N/A' }}</td>
+    </tr>
+    <tr>
         <th>Machine :</th>
         <td>{{ $reservation->machine->name ?? 'N/A' }}</td>
     </tr>

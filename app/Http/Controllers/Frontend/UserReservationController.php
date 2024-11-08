@@ -161,7 +161,8 @@ class UserReservationController extends Controller
             'end_time' => Carbon::parse($request->end_time),
         ]);
 
-        return redirect()->route('user.reservation.index')->with('success', 'Réservation mise à jour avec succès.');
+        toastr()->success('Réservation mise à jour avec succès.');
+        return redirect()->route('user.reservation.index');
     }
 
 

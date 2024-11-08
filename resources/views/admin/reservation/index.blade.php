@@ -1,10 +1,11 @@
 @extends('admin.dashboard.page')
+
 @section('content')
 <div class="container-fluid">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title text-primary">{{ __('Machines') }}</h3>
-            <div class="btn-group">
+            <h3 class="card-title text-primary">{{ __('Historique des Réservations') }}</h3>
+            <div class="btn-group mr-3">
                 <button id="printButton" class="btn btn-secondary">
                     <i class="fas fa-print"></i> {{ __('Imprimer') }}
                 </button>
@@ -15,27 +16,31 @@
                     <i class="fas fa-file-pdf"></i> {{ __('Exporter en PDF') }}
                 </button>
             </div>
-            <a href="{{ route('admin.machines.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ __('Créer') }}
+            <a href="{{ route('admin.showReservationForm') }}" class="btn btn-primary m-0 font-weight-bold">
+                <i class="fas fa-plus"></i> {{ __('Créer une Réservation') }}
             </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="machine-table" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped" id="historique-reservation-table" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th width="200">Action</th>
+                            <th>{{ __('Créé à') }}</th>
+                            <th>{{ __('Date de début') }}</th>
+                            <th>{{ __('Date de fin') }}</th>
+                            <th>{{ __('Machine') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <!-- Data will be populated by DataTables -->
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+@include('admin.reservation.show-reservation')
 @endsection
 
 @push('scripts')
@@ -43,24 +48,24 @@
     $(function() {
         let lang = '{{ app()->getLocale() }}'; // Récupère la langue actuelle de l'utilisateur
         let langUrl = `{{ asset('i18n/${lang}.json') }}`; // Récupère le fichier de langue correspondant
-        var table = $('#machine-table').DataTable({
+        let table = $('#historique-reservation-table').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: '{{ route('admin.machines.index') }}',
+            ajax: '{{ route('admin.reservation.index') }}',
             columns: [
-                { data: 'id', name: 'id', className: 'text-center' },
-                { data: 'name', name: 'name', className: 'text-center' },
-                { data: 'type', name: 'type', className: 'text-center' },
-                { data: 'status', name: 'status', className: 'text-center' },
-                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
+                { data: 'created_at', name: 'created_at', className: 'text-center' },
+                { data: 'start_time', name: 'start_time', className: 'text-center' },
+                { data: 'end_time', name: 'end_time', className: 'text-center' },
+                { data: 'machine_id', name: 'machine_id', className: 'text-center' },
+                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center', width: '200px' }
             ],
             order: [[0, 'desc']],
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
             language: {
                 url: langUrl
+            },
+            rowReorder: {
+                selector: 'td:nth-child(2)'
             },
             buttons: [
                 {
@@ -101,7 +106,27 @@
         }
     });
 
-    function deleteMachine(id) {
+    function showReservationDetails(id) {
+        $.ajax({
+            url: '/admin/reservations/' + id,
+            method: 'GET',
+            success: function(response) {
+                $('#reservationDetailsContent').html(response);
+                $('#reservationModal').modal('show');
+            },
+            error: function(xhr) {
+                console.error("Erreur lors du chargement des détails de la réservation :", xhr);
+                Swal.fire({
+                    title: '{{ __('Erreur!') }}',
+                    text: '{{ __('Impossible de charger les détails de la réservation.') }}',
+                    icon: 'error',
+                    confirmButtonText: '{{ __('OK') }}'
+                });
+            }
+        });
+    }
+
+    function deleteReservation(id) {
         Swal.fire({
             title: '{{ __('Êtes-vous sûr?') }}',
             text: "{{ __('Vous ne pourrez pas revenir en arrière!') }}",

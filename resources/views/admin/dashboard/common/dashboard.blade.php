@@ -80,11 +80,14 @@
 @push('scripts')
 <script type="module">
     $(function() {
+        let lang = '{{ app()->getLocale() }}'; // Récupère la langue actuelle de l'utilisateur
+        let langUrl = `{{ asset('i18n/${lang}.json') }}`; // Récupère le fichier de langue correspondant
+
         $('#admin-historique-reservation-table').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: '',
+            ajax: '', // Assurez-vous de définir l'URL correcte pour l'ajax
             columns: [
                 { data: 'id', name: 'id', className: 'text-center' },
                 { data: 'user_id', name: 'user_id', className: 'text-center' },
@@ -98,7 +101,7 @@
                 selector: 'td:nth-child(2)'
             },
             language: {
-                url: '{{ asset('i18n/French.json') }}'
+                url: langUrl
             }
         });
     });

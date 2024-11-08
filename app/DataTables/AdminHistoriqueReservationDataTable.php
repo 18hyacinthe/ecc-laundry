@@ -24,10 +24,10 @@ class AdminHistoriqueReservationDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
         ->addColumn('action', function ($query) {
-            $editBtn = "<a href='" . route('user.reservation.edit', $query->id) . "' class='btn btn-sm btn-primary ml-2' title='Edit'><i class='far fa-edit'></i></a>";
+            $editBtn = "<a href='" . route('admin.reservation.edit', $query->id) . "' class='btn btn-sm btn-primary ml-2' title='Edit'><i class='far fa-edit'></i></a>";
             $viewBtn = "<button class='btn btn-sm btn-info ml-2' title='View' onclick='showReservationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
             $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='Delete' onclick='deleteReservation(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
-            $deleteForm = "<form id='delete-form-" . $query->id . "' action='" . route('user.reservations.destroy', $query->id) . "' method='POST' style='display: none;'>
+            $deleteForm = "<form id='delete-form-" . $query->id . "' action='" . route('admin.reservations.destroy', $query->id) . "' method='POST' style='display: none;'>
                     " . csrf_field() . "
                     " . method_field('DELETE') . "
                     </form>";
