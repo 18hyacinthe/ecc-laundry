@@ -80,6 +80,9 @@ class AdminReservationController extends Controller
             'weekly_session_limit_remaining' => $weeklySessionLimitRemaining - 1
         ]);
 
+        // Envoyer la notification par email
+        $user = Auth::user();
+        $user->notify(new ReservationNotification($reservation));
         toastr()->success('Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
         return back();
     }

@@ -50,6 +50,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ])
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('reservation:notify')->everyMinute()->withoutOverlapping();
-        $schedule->command('app:reset-sessions')->hourly()->description('Réinitialiser toutes les sessions de réservation');
+        $schedule->command('app:reset-sessions')->weekly()->description('Réinitialiser toutes les sessions de réservation');
     })
     ->create();

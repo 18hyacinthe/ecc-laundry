@@ -69,6 +69,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const startTimeInput = document.getElementById('start_time');
         const endTimeInput = document.getElementById('end_time');
+        const form = document.getElementById('reservation-form');
 
         function fixMinutes(input) {
             const value = input.value;
@@ -81,12 +82,34 @@
             }
         }
 
-        startTimeInput.addEventListener('change', function() {
-            fixMinutes(startTimeInput);
-        });
+        startTimeInput.addEventListener('change', () => fixMinutes(startTimeInput));
+        endTimeInput.addEventListener('change', () => fixMinutes(endTimeInput));
 
-        endTimeInput.addEventListener('change', function() {
-            fixMinutes(endTimeInput);
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    toastr.warning(data.error);
+                } else {
+                    toastr.success("Réservation réussie !");
+                    // Redirection ou autre action souhaitée
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                toastr.error("Une erreur est survenue.");
+            });
         });
 
         // Fix initial values on page load

@@ -10,6 +10,8 @@ use App\Models\Machine;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\DataTables\HistoriqueReservationDataTable;
+use App\Notifications\ReservationNotification;  
+
 
 
 class UserReservationController extends Controller
@@ -73,7 +75,7 @@ class UserReservationController extends Controller
         $weeklySessionLimitRemaining = max($weeklyLimit - $reservationsCount, 0);
 
         // Création de la réservation après validation
-        Reservation::create([
+        $reservation = Reservation::create([
             'user_id' => $userId,
             'machine_id' => $machineId,
             'start_time' => $startTime,
@@ -81,6 +83,9 @@ class UserReservationController extends Controller
             'weekly_session_limit_remaining' => $weeklySessionLimitRemaining - 1
         ]);
 
+        // Envoyer la notification par email
+        $user = Auth::user();
+        $user->notify(new ReservationNotification($reservation));
         toastr()->success('Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
         return back();
     }
