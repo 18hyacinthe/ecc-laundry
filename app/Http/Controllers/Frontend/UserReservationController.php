@@ -84,4 +84,114 @@ class UserReservationController extends Controller
         toastr()->success('Réservation confirmée pour ' . $startTime->format('H:i') . ' à ' . $endTime->format('H:i'));
         return back();
     }
+
+    public function editReservation($id)
+    {
+        $user = Auth::user();
+        $reservation = Reservation::findOrFail($id);
+
+        // Vérifier si l'heure actuelle dépasse l'heure de début de réservation
+        if (Carbon::now()->gt($reservation->start_time)) {
+            toastr()->error('Impossible de modifier, la session est expirée.');
+            return redirect()->route('user.reservation.index');
+        }
+
+        // Vérifier si la machine est disponible
+        $machine = Machine::findOrFail($reservation->machine_id);
+        if ($machine->status !== 'available') {
+            toastr()->error('Impossible de modifier, la machine n\'est pas disponible.');
+            return redirect()->route('user.reservation.index');
+        }
+
+        // Obtenir les machines disponibles
+        $machines = Machine::where('status', 'available')->get();
+
+        // Obtenir les heures de session à partir des paramètres
+        $sessionResetTime = Setting::getSetting('reset_time', '00:00');
+        $sessionResetTime = Carbon::parse($sessionResetTime);
+        $sessionStartTime = Setting::getSetting('session_start_time', '06:00');
+        $sessionStartTime = Carbon::parse($sessionStartTime);
+
+        if ($sessionResetTime->lt($sessionStartTime)) {
+            $sessionResetTime->addDay();
+        }
+
+        // Limite de sessions hebdomadaires
+        $totalSessionsAllowed = Setting::getSetting('weekly_session_limit', 3);
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $sessionsUsed = Reservation::where('user_id', $user->id)
+            ->whereBetween('start_time', [$startOfWeek, $endOfWeek])
+            ->count();
+
+        $weeklySessionLimitRemaining = max(0, $totalSessionsAllowed - $sessionsUsed);
+
+        return view('frontend.reservation.edit', compact(
+            'reservation', 'machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime'
+        ));
+    }
+
+
+    public function updateReservation(Request $request, $id)
+    {
+        $request->validate([
+            'machine_id' => 'required|exists:machines,id',
+            'start_time' => 'required|date|after_or_equal:' . Carbon::now(),
+            'end_time' => 'required|date|after:start_time',
+        ]);
+
+        $reservation = Reservation::findOrFail($id);
+
+        // Vérifier si l'heure actuelle dépasse l'heure de début de réservation
+        if (Carbon::now()->gt($reservation->start_time)) {
+            toastr()->error('Impossible de modifier, la session est expirée.');
+            return redirect()->route('user.reservation.index');
+        }
+
+        // Vérifier si la machine est disponible
+        $machine = Machine::findOrFail($request->machine_id);
+        if ($machine->status !== 'available') {
+            toastr()->error('Impossible de modifier, la machine n\'est pas disponible.');
+            return redirect()->route('user.reservation.index');
+        }
+
+        $reservation->update([
+            'machine_id' => $request->machine_id,
+            'start_time' => Carbon::parse($request->start_time),
+            'end_time' => Carbon::parse($request->end_time),
+        ]);
+
+        return redirect()->route('user.reservation.index')->with('success', 'Réservation mise à jour avec succès.');
+    }
+
+
+    public function showReservationDetails($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+
+        return view('frontend.reservation.show-reservation-content', compact('reservation'));
+    }
+
+    
+    public function cancelReservation(string $id)
+    {
+        $reservation = Reservation::findOrFail($id);
+
+        // Vérifier si l'heure actuelle dépasse l'heure de début de réservation
+        if (Carbon::now()->gt($reservation->start_time)) {
+            return response()->json(['status' => 'error', 'message' => 'Impossible de supprimer, la session est expirée.']);
+        }
+
+        // Vérifier si la machine est disponible
+        $machine = Machine::findOrFail($reservation->machine_id);
+        if ($machine->status !== 'available') {
+            return response()->json(['status' => 'error', 'message' => 'Impossible de supprimer, la machine n\'est pas disponible.']);
+        }
+
+        $reservation->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Réservation supprimée avec succès.!']);
+    }
+
+    
 }

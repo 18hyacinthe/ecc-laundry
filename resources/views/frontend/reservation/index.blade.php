@@ -18,6 +18,7 @@
                             <th>{{ __('Date de début') }}</th>
                             <th>{{ __('Date de fin') }}</th>
                             <th>{{ __('Machine') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,7 @@
         </div>
     </div>
 </div>
+@include('frontend.reservation.show-reservation')
 @endsection
 
 @push('scripts')
@@ -42,16 +44,95 @@
                 { data: 'created_at', name: 'created_at', className: 'text-center' },
                 { data: 'start_time', name: 'start_time', className: 'text-center' },
                 { data: 'end_time', name: 'end_time', className: 'text-center' },
-                { data: 'machine_id', name: 'machine_id', className: 'text-center' }
+                { data: 'machine_id', name: 'machine_id', className: 'text-center' },
+                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center', width: '200px' }
             ],
             order: [[0, 'desc']],
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json'
+                url: '{{ asset('i18n/French.json') }}'
             },
             rowReorder: {
                 selector: 'td:nth-child(2)'
             }
         });
     });
+</script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function showReservationDetails(id) {
+        $.ajax({
+            url: '/user/reservations/' + id,
+            method: 'GET',
+            success: function(response) {
+                $('#reservationDetailsContent').html(response);
+                $('#reservationModal').modal('show');
+            },
+            error: function(xhr) {
+                console.error("Erreur lors du chargement des détails de la réservation :", xhr);
+                Swal.fire({
+                    title: '{{ __('Erreur!') }}',
+                    text: '{{ __('Impossible de charger les détails de la réservation.') }}',
+                    icon: 'error',
+                    confirmButtonText: '{{ __('OK') }}'
+                });
+            }
+        });
+    }
+
+    function deleteReservation(id) {
+        Swal.fire({
+            title: '{{ __('Êtes-vous sûr?') }}',
+            text: "{{ __('Vous ne pourrez pas revenir en arrière!') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '{{ __('Oui, supprimez-le!') }}',
+            cancelButtonText: '{{ __('Non, annulez!') }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: document.getElementById('delete-form-' + id).action,
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: 'DELETE'
+                    },
+                    success: function(response) {
+                        if(response.status === 'success') {
+                            Swal.fire({
+                                title: '{{ __('Supprimé!') }}',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: '{{ __('OK') }}'
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: '{{ __('Impossible de supprimer!') }}',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: '{{ __('OK') }}'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            title: '{{ __('Erreur!') }}',
+                            text: '{{ __('Quelque chose a mal tourné!') }}',
+                            icon: 'error',
+                            confirmButtonText: '{{ __('OK') }}'
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>
 @endpush

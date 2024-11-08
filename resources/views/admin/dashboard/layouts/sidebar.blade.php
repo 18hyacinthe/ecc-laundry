@@ -23,6 +23,15 @@
     <li class="nav-item {{ setActive(['admin.calendar.reservation']) }}">
         <a class="nav-link" href="{{ route('admin.calendar.reservation') }}">
             <i class="fas fa-calendar"></i>
+            <span>{{ __('Reservations') }}</span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <li class="nav-item {{ setActive(['admin.calendar.reservation']) }}">
+        <a class="nav-link" href="{{ route('admin.calendar.reservation') }}">
+            <i class="fas fa-calendar"></i>
             <span>{{ __('Calendrier des réservations') }}</span>
         </a>
     </li>

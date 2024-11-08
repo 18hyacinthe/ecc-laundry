@@ -23,10 +23,16 @@ class AdminHistoriqueReservationDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            // ->addColumn('action', function ($query) {
-            //     $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
-            //     return $viewBtn;
-            // })
+        ->addColumn('action', function ($query) {
+            $editBtn = "<a href='" . route('user.reservation.edit', $query->id) . "' class='btn btn-sm btn-primary ml-2' title='Edit'><i class='far fa-edit'></i></a>";
+            $viewBtn = "<button class='btn btn-sm btn-info ml-2' title='View' onclick='showReservationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
+            $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='Delete' onclick='deleteReservation(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
+            $deleteForm = "<form id='delete-form-" . $query->id . "' action='" . route('user.reservations.destroy', $query->id) . "' method='POST' style='display: none;'>
+                    " . csrf_field() . "
+                    " . method_field('DELETE') . "
+                    </form>";
+            return $editBtn . $viewBtn . $deleteBtn . $deleteForm;
+            })
             ->editColumn('user_id', function($query) {
                 return $query->user->name;
             })
@@ -35,6 +41,12 @@ class AdminHistoriqueReservationDataTable extends DataTable
             })
             ->editColumn('created_at', function($query) {
                 return $query->created_at->format('d/m/Y H:i:s');
+            })
+            ->editColumn('start_time', function($query) {
+                return $query->start_time->format('d/m/Y H:i:s');
+            })
+            ->editColumn('end_time', function($query) {
+                return $query->end_time->format('d/m/Y H:i:s');
             })
             ->rawColumns(['action'])
             ->setRowId('id');
@@ -86,11 +98,11 @@ class AdminHistoriqueReservationDataTable extends DataTable
             Column::make('start_time')->title('Date de début')->addClass('text-center'),
             Column::make('end_time')->title('Date de fin')->addClass('text-center'),
             Column::make('created_at')->title('Créé à')->addClass('text-center'),
-            // Column::computed('action')
-            //       ->exportable(false)
-            //       ->printable(false)
-            //       ->width(200)
-            //       ->addClass('text-center'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(200)
+                  ->addClass('text-center'),
 
         ];
     }

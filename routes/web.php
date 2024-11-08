@@ -37,7 +37,11 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
     Route::get('/reservation/create', [UserReservationController::class, 'showReservationForm'])
         ->middleware('check.user.status')
         ->name('showReservationForm');
-    
+    Route::get('/reservations/{id}', [UserReservationController::class, 'showReservationDetails'])->name('reservations.details');
+    Route::delete('/reservations/{id}', [UserReservationController::class, 'cancelReservation'])->name('reservations.destroy');
+    Route::get('/reservation/{id}/edit', [UserReservationController::class, 'editReservation'])->name('reservation.edit');
+    Route::put('/reservation/{id}/update', [UserReservationController::class, 'updateReservation'])->name('reservation.update');
+
     /** Reservation Routes avec middlewares spécifiques */
     Route::post('/reserve', [UserReservationController::class, 'reserve'])
        ->middleware(['checkWeeklyLimit', 'checkSlotAvailability', 'checkSessionDuration'])
@@ -76,6 +80,10 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
     /** Reservation Routes */
     Route::post('/reserve', [AdminReservationController::class, 'reserve'])->name('reserve');
     Route::get('/reservation/calendrier', [AdminCalendarReservationController::class, 'index'])->name('calendar.reservation');
+    Route::get('/reservations/{id}', [AdminReservationController::class, 'showReservationDetails'])->name('reservations.details');
+    Route::delete('/reservations/{id}', [AdminReservationController::class, 'cancelReservation'])->name('reservations.destroy');
+    Route::get('/reservation/{id}/edit', [AdminReservationController::class, 'editReservation'])->name('reservation.edit');
+    Route::put('/reservation/{id}/update', [AdminReservationController::class, 'updateReservation'])->name('reservation.update');
 
     /** Reclamation Routes */
     Route::get('reclamations', [AdminReclamationController::class, 'index'])->name('reclamations.index');
