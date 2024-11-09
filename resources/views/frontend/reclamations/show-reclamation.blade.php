@@ -2,15 +2,13 @@
 <div class="modal fade" id="reclamationModal" tabindex="-1" aria-labelledby="reclamationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reclamationModalLabel" style="color: #0c9683;">{{ __('Détails de la Réclamation') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header text-white" style="background-color: #0c9683">
+                <h5 class="modal-title" id="reclamationModalLabel">{{ __('Détails de la Réclamation') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Contenu de la modale pour les détails de la réclamation -->
-                <div id="reclamationDetailsContent">
+                <div id="reclamationDetailsContent" class="p-3">
                     <!-- Détails chargés via AJAX ici -->
                 </div>
             </div>
@@ -20,4 +18,3 @@
         </div>
     </div>
 </div>
-

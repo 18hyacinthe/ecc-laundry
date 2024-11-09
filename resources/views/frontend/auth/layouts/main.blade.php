@@ -24,7 +24,7 @@
             <h1 style="margin-bottom: 10px">{{ __('Se connecter') }}</h1>
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
             <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
-            <button type="submit">{{ __('Se connecter') }}</button>
+            <button type="submit" style="margin-top: 15px">{{ __('Se connecter') }}</button>
         </form>
     </div>
     <div class="overlay-container">

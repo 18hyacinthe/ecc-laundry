@@ -1,9 +1,9 @@
 <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-white" style="background-color: #0c9683">
                 <h5 class="modal-title" id="reservationModalLabel">{{ __('Détails de la Réservation') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('Fermer') }}">
+                <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
