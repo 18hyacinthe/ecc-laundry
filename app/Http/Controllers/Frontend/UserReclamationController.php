@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Reclamation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Machine;
+use App\Models\User;
+use App\Notifications\ReclamationCreated;
+use Illuminate\Support\Facades\Notification;
 
 class UserReclamationController extends Controller
 {
@@ -44,7 +47,7 @@ class UserReclamationController extends Controller
             'status' => 'required|string',
         ]);
 
-        Reclamation::create([
+        $reclamation = Reclamation::create([
             'user_id' => Auth::id(),
             'machine_id' => $request->machine_id,
             'title' => $request->title,
@@ -53,6 +56,13 @@ class UserReclamationController extends Controller
             'description' => $request->description,
             'status' => $request->status,
         ]);
+
+        // Récupérer tous les utilisateurs avec le rôle admin
+        $admins = User::where('role', 'admin')->get();
+
+        // Envoyer la notification à tous les admins et à l'utilisateur
+        Notification::send($admins, new ReclamationCreated($reclamation));
+        Auth::user()->notify(new ReclamationCreated($reclamation));
 
         toastr()->success('Votre réclamation a été soumise avec succès.');
 
