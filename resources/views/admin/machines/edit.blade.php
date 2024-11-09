@@ -34,6 +34,10 @@
                                 <option value="out of order" {{ $machine->status == 'out of order' ? 'selected' : '' }}>{{__('Hors service')}}</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="color">{{__('Couleur')}}</label>
+                            <input type="color" name="color" class="form-control text-center" id="color" value="{{ $machine->color }}" required>
+                        </div>
                     </div>
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-primary">{{__('Mettre à jour')}}</button>

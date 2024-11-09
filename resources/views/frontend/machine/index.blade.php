@@ -30,7 +30,7 @@
                                 </span>
                             </p>
                             @if($machine['status'] == 'available')
-                                <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                                <a href="{{ route('user.showReservationForm') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
                             @else
                                 <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
                             @endif
@@ -57,7 +57,7 @@
                                 </span>
                             </p>
                             @if($machine['status'] == 'available')
-                                <a href="{{ route('user.reservation.index') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
+                                <a href="{{ route('user.showReservationForm') }}" class="btn btn-success btn-sm">{{ __('Réserver') }}</a>
                             @else
                                 <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
                             @endif

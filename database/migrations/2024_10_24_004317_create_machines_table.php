@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('type', ['washing-machine', 'dryer']);
             $table->enum('status', ['reserved','in-use', 'available', 'under maintenance', 'out of order'])->default('available');
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

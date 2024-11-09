@@ -34,15 +34,17 @@ class AdminMachineController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:washing-machine,dryer',
             'status' => 'required|string|in:reserved,in-use,available,under maintenance,out of order',
+            'color' => 'required|string|max:7', // Add validation for color
         ]);
 
         $machine = new Machine();
         $machine->name = $request->input('name');
         $machine->type = $request->input('type');
         $machine->status = $request->input('status');
+        $machine->color = $request->input('color'); // Save color
         $machine->save();
 
-        toastr()->success('Machine created successfully!');
+        toastr()->success('Machine créée avec succès!');
         return redirect()->route('admin.machines.index');
     }
 
@@ -72,15 +74,17 @@ class AdminMachineController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:washing-machine,dryer',
             'status' => 'required|string|in:reserved,in-use,available,under maintenance,out of order',
+            'color' => 'required|string|max:7', // Add validation for color
         ]);
 
         $machine = Machine::findOrFail($id);
         $machine->name = $request->input('name');
         $machine->type = $request->input('type');
         $machine->status = $request->input('status');
+        $machine->color = $request->input('color'); // Save color
         $machine->save();
 
-        toastr()->success('Machine updated successfully!');
+        toastr()->success('Machine mise à jour avec succès!');
         return redirect()->route('admin.machines.index');
     }
 
@@ -91,6 +95,6 @@ class AdminMachineController extends Controller
     {
         $machine = Machine::findOrFail($id);
         $machine->delete();
-        return response()->json(['status' => 'success', 'message' => 'Machine deleted successfully!']);
+        return response()->json(['status' => 'success', 'message' => 'Machine supprimée avec succès!']);
     }
 }
