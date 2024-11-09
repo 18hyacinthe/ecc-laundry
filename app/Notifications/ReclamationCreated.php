@@ -26,9 +26,9 @@ class ReclamationCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Nouvelle Réclamation Créée')
                     ->line('Une nouvelle réclamation a été créée.')
-                    // ->action('Voir la réclamation', url('user/reclamation/' . $this->reclamation->id))
-                    ->action('Voir la réclamation', url('user/reclamation/'))
+                    ->action('Voir la réclamation', url('user/reclamation/' . $this->reclamation->id))
                     ->line('Merci d\'utiliser notre application !');
     }
 }
