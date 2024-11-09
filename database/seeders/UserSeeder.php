@@ -15,27 +15,38 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-            'name' => 'Admin user',
-            'surname' => 'adminuser',
-            'email' => 'admin@gmail.com',
-            'role' => 'admin',
-            'status' => '1',
-            'password' => bcrypt('Password&Admin'),
-            'created_at' => now(),
-            // 'updated_at' => now(),
-            'email_verified_at' => now(),
+            // 'name' => 'Admin user',
+            // 'surname' => 'adminuser',
+            // 'email' => 'admin@gmail.com',
+            // 'role' => 'admin',
+            // 'status' => '1',
+            // 'password' => bcrypt('Password&Admin'),
+            // 'created_at' => now(),
+            // // 'updated_at' => now(),
+            // 'email_verified_at' => now(),
             ],
             [
-            'name' => 'User',
-            'surname' => 'user',
-            'email' => 'user@gmail.com',
-            'role' => 'user',
+            // 'name' => 'User',
+            // 'surname' => 'user',
+            // 'email' => 'user@gmail.com',
+            // 'role' => 'user',
+            // 'status' => '1',
+            // 'password' => bcrypt('Password&User'),
+            // 'created_at' => now(),
+            // // 'updated_at' => now(),
+            // 'email_verified_at' => now(),
+            ],
+            [
+            'name' => 'Kossivi Hyacinthe',
+            'surname' => 'AGBEDJINOU',
+            'email' => 'agbehyavargas@gmail.com',
+            'role' => 'admin',
             'status' => '1',
-            'password' => bcrypt('Password&User'),
+            'password' => bcrypt('Hyacinthe&Admin'),
             'created_at' => now(),
             // 'updated_at' => now(),
             'email_verified_at' => now(),
-            ],
+            ]
         ]);
 
     }
