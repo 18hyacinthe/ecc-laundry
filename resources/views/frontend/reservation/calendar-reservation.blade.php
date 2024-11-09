@@ -19,28 +19,28 @@
         </thead>
         <tbody id="machineTable">
             <tr>
-            <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                @foreach ($machines->where('type', 'washing-machine') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;">
-                    <span style="background-color: {{ $machine->color ?? '#3a04cc' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
-                    <i class="fas fa-tshirt" style="color: {{ $machine->color ?? '#3a04cc' }}; margin-left: 8px;"></i>
+                <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        @foreach ($machines->where('type', 'washing-machine') as $machine)
+                            <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
+                                <span style="background-color: {{ $machine->color ?? '#3a04cc' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
+                                <i class="fas fa-tshirt" style="color: {{ $machine->color ?? '#3a04cc' }}; margin-left: 8px;"></i>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-                </div>
-            </td>
-            <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                @foreach ($machines->where('type', 'dryer') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;">
-                    <span style="background-color: {{ $machine->color ?? '#05ad21' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
-                    <i class="fas fa-wind" style="color: {{ $machine->color ?? '#05ad21' }}; margin-left: 8px;"></i>
+                </td>
+                <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        @foreach ($machines->where('type', 'dryer') as $machine)
+                            <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
+                                <span style="background-color: {{ $machine->color ?? '#05ad21' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
+                                <i class="fas fa-wind" style="color: {{ $machine->color ?? '#05ad21' }}; margin-left: 8px;"></i>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-                </div>
-            </td>
+                </td>
             </tr>
-        </tbody>
+        </tbody>        
     </table>
 
     <!-- Bouton Réserver en bas à droite de la légende avec effet d'animation -->
@@ -116,44 +116,23 @@
     </div>
 </div>
 
+<!-- Vue modale pour les détails de la machine -->
+<div class="modal fade" id="machineDetailsModal" tabindex="-1" aria-labelledby="machineDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="machineDetailsContent">
+                <!-- Les détails de la machine seront chargés ici via AJAX -->
+                <p>{{ __('Pour en savoir plus, consultez le calendrier.') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script>
-// Filtrage des machines
-function filterMachines() {
-    const input = document.getElementById("searchInput");
-    const filter = input.value.toLowerCase();
-    const machines = document.querySelectorAll(".machine-item");
-    machines.forEach(machine => {
-        const machineName = machine.innerText.toLowerCase();
-        machine.style.display = machineName.includes(filter) ? "" : "none";
-    });
-}
-
-// Effet de survol sur les machines
-document.querySelectorAll('.machine-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        item.style.transform = 'scale(1.05)';
-    });
-    item.addEventListener('mouseleave', () => {
-        item.style.transform = 'scale(1)';
-    });
-});
-
-// Modale avec animation d'ouverture et de fermeture
-function openModal() {
-    const modal = document.getElementById('eventModal');
-    modal.style.display = 'block';
-    modal.classList.add('modal-fade-in');
-}
-
-function closeModal() {
-    const modal = document.getElementById('eventModal');
-    modal.classList.remove('modal-fade-in');
-    modal.classList.add('modal-fade-out');
-    setTimeout(() => { modal.style.display = 'none'; modal.classList.remove('modal-fade-out'); }, 300);
-}
-</script>
-
+{{--  Styles --}}
 <style>
 /* Styles supplémentaires */
 .reserve-button {
@@ -237,5 +216,64 @@ function closeModal() {
 
         calendar.render();
     });
+</script>
+<script>
+    // Filtrage des machines
+    function filterMachines() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const machines = document.querySelectorAll(".machine-item");
+        machines.forEach(machine => {
+            const machineName = machine.innerText.toLowerCase();
+            machine.style.display = machineName.includes(filter) ? "" : "none";
+        });
+    }
+    
+    // Effet de survol sur les machines
+    document.querySelectorAll('.machine-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'scale(1.05)';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Modale avec animation d'ouverture et de fermeture
+    function openModal() {
+        const modal = document.getElementById('eventModal');
+        modal.style.display = 'block';
+        modal.classList.add('modal-fade-in');
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('eventModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+        setTimeout(() => { modal.style.display = 'none'; modal.classList.remove('modal-fade-out'); }, 300);
+    }
+</script>
+<script>
+    function showMachineDetails(machineId) {
+        // Charger les détails de la machine via AJAX
+        fetch(`/user/calendar/machines/${machineId}/details`)
+            .then(response => response.text())
+            .then(data => {
+                // Mettre à jour le contenu du modal avec les détails de la machine
+                document.getElementById('machineDetailsContent').innerHTML = data;
+                // Afficher le modal
+                $('#machineDetailsModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des détails de la machine:', error);
+            });
+    }
+
+    function showMachines(type) {
+        document.querySelectorAll('.machine-group').forEach(group => group.classList.add('d-none'));
+        document.getElementById(type === 'washing' ? 'washing-machines' : 'dryer-machines').classList.remove('d-none');
+        document.querySelectorAll('.btn-group .btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
 </script>
 @endpush
