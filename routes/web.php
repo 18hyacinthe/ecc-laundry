@@ -53,6 +53,7 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Calendar Routes */
     Route::get('reservation/calendar', [UserCalendarReservationController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/machines/{id}/details', [UserCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
 
     /** Reclamation Routes */
     Route::get('reclamations', [UserReclamationController::class, 'index'])->name('reclamations.index');

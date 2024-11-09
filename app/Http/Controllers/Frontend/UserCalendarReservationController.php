@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Carbon\Carbon;
+use App\Models\Machine;
 
 class UserCalendarReservationController extends Controller
 {
@@ -21,25 +22,39 @@ class UserCalendarReservationController extends Controller
             $start_time = Carbon::parse($reservation->start_time);
             $end_time = Carbon::parse($reservation->end_time);
 
-            // Déterminer la couleur en fonction du type de machine
-            $color = $reservation->machine->type == 'washing-machine' ? '#3a04cc' : '#05ad21';
+            // Utiliser la couleur de la machine si elle est définie, sinon utiliser une couleur par défaut
+            $color = $reservation->machine->color ?? ($reservation->machine->type == 'washing-machine' ? '#3a04cc' : '#05ad21');
 
             // Ajouter l'événement au tableau avec les informations nécessaires
             $events[] = [
-                'title' => $reservation->machine->name . ' (' . $start_time->format('H:i') . ' - ' . $end_time->format('H:i') . ')',
                 'start' => $reservation->start_time,
                 'end' => $reservation->end_time,
                 'backgroundColor' => $color,
                 'textColor' => '#ffffff', // Couleur du texte pour une meilleure visibilité
                 'extendedProps' => [
                     'user_name' => $reservation->user->name,
-                    'user_phone' => $reservation->user->phone,
+                    'user_phone' => $reservation->user->phone ?? 'indisponible',
                     'user_email' => $reservation->user->email,
+                    'machine_name' => $reservation->machine->name,
                     'machine_status' => $reservation->machine->status,
                 ],
             ];
         }
 
-        return view('frontend.reservation.calendar-reservation', compact('events'));
+        // Récupérer toutes les machines pour la légende
+        $machines = Machine::all();
+
+        return view('frontend.reservation.calendar-reservation', compact('events', 'machines'));
     }
+
+    public function getMachineDetails($id)
+    {
+        $machine = Machine::with(['reservations' => function($query) {
+            $query->whereDate('start_time', Carbon::today())
+                ->orderBy('start_time', 'asc');
+        }])->findOrFail($id);
+        
+        return view('frontend.reservation.calendar-machine-details', compact('machine'));
+    }
+
 }

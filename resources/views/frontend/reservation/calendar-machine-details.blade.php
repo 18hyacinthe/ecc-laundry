@@ -27,10 +27,8 @@
     }
 </style>
 
-<div class="container mt-4">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card mt-3 shadow-sm">
+        <div class="col-md-8 offset-md-2 card">
                 <div class="card-header text-white">
                     {{ __('Réservations') }}
                 </div>
@@ -46,12 +44,5 @@
                         </li>
                     @endforeach
                 </ul>
-            </div>
-
-            <div class="text-center mt-4">
-                <small>{{ __('Pour en savoir plus, consultez le calendrier') }}</small>
-                <a href="{{ route('user.calendar.index') }}" class="btn btn-primary ml-2">{{ __('Calendrier') }}</a>
-            </div>
         </div>
     </div>
-</div>

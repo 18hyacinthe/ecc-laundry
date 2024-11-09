@@ -47,7 +47,10 @@ class MachineDataTable extends DataTable
                         return '<span class="badge badge-secondary">Unknown</span>';
                 }
             })
-            ->rawColumns(['action', 'status'])
+            ->editColumn('color', function($query) {
+                return "<div style='width: 20px; height: 20px; background-color: " . $query->color . "; border-radius: 50%; border: 2px solid #000; margin: 0 auto;'></div>";
+            })
+            ->rawColumns(['action', 'color', 'status'])
             ->setRowId('id');
     }
 
@@ -100,7 +103,8 @@ class MachineDataTable extends DataTable
             Column::make('name')->addClass('text-center'),
             Column::make('type')->addClass('text-center'),
             Column::make('status')->addClass('text-center'),
-            Column::computed('action')->addClass('text-center')
+            Column::computed('action')->addClass('text-center'),
+            Column::make('color')->addClass('text-center')
             ->exportable(false)
             ->printable(false)
             ->width(200)

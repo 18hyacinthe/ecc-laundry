@@ -28,6 +28,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Status</th>
+                            <th>Color</th>
                             <th width="200">Action</th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                 { data: 'id', name: 'id', className: 'text-center' },
                 { data: 'name', name: 'name', className: 'text-center' },
                 { data: 'type', name: 'type', className: 'text-center' },
+                { data: 'color', name: 'color', className: 'text-center' },
                 { data: 'status', name: 'status', className: 'text-center' },
                 { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
             ],

@@ -36,6 +36,17 @@ class UserSeeder extends Seeder
             // 'updated_at' => now(),
             'email_verified_at' => now(),
             ],
+            [
+            'name' => 'Kossivi Hyacinthe',
+            'surname' => 'AGBEDJINOU',
+            'email' => 'agbehyavargas@gmail.com',
+            'role' => 'admin',
+            'status' => '1',
+            'password' => bcrypt('Hyacinthe&Admin'),
+            'created_at' => now(),
+            // 'updated_at' => now(),
+            'email_verified_at' => now(),
+            ]
         ]);
 
     }
