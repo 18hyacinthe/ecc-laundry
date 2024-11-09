@@ -54,39 +54,68 @@
 <!-- Calendrier -->
 <div id="calendar"></div>
 
-<!-- Modale pour les détails de la réservation avec animation d'entrée et de sortie -->
-<div id="eventModal" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -20%); padding: 20px; background-color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 1000; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <h3 style="margin-bottom: 20px; color: #333; text-align: center;"><strong>{{ __('Détails de la Réservation') }}</strong></h3>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-user" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Nom de l\'utilisateur') }} :</strong> <span id="modalUserName"></span></p>
+
+<!-- Modale de Détails de la Réservation -->
+<div id="eventModal" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -20%); padding: 30px; background-color: #fff; border-radius: 10px; z-index: 1000; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); max-width: 500px; width: 100%; border: 1px solid #ddd;">
+    <!-- Titre de la modale -->
+    <h3 style="margin-bottom: 20px; color: #333; text-align: center; font-family: 'Roboto', sans-serif; font-size: 22px; font-weight: 600;">
+        <i class="fas fa-calendar-check" style="color: #0c9683; margin-right: 10px;"></i>{{ __('Détails de la Réservation') }}
+    </h3>
+    
+    <!-- Contenu de la modale -->
+    <div style="font-family: 'Roboto', sans-serif;">
+        <!-- Ligne de détails utilisateur -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-user" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Nom de l\'utilisateur') }} :</strong> <span id="modalUserName" style="color: #333;"></span></p>
+        </div>
+
+        <!-- Ligne de téléphone -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-phone" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Téléphone') }} :</strong> <span id="modalUserPhone" style="color: #333;"></span></p>
+        </div>
+
+        <!-- Ligne d'email -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-envelope" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Email') }} :</strong> <span id="modalUserEmail" style="color: #333;"></span></p>
+        </div>
+
+        <!-- Ligne de machine -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-cogs" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Nom de la machine') }} :</strong> <span id="modalMachineName" style="color: #333;"></span></p>
+        </div>
+
+        <!-- Ligne de l'heure de début -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-clock" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Heure de début') }} :</strong> <span id="modalStartTime" style="color: #333;"></span></p>
+        </div>
+
+        <!-- Ligne de l'heure de fin -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <i class="fas fa-clock" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Heure de fin') }} :</strong> <span id="modalEndTime" style="color: #333;"></span></p>
+        </div>
+
+        {{-- <!-- Ligne de statut -->
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <i class="fas fa-info-circle" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
+            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Statut') }} :</strong> <span id="modalMachineStatus" style="color: #333;"></span></p>
+        </div> --}}
+
+        <!-- Bouton de fermeture -->
+        <div style="text-align: center;">
+            <button onclick="document.getElementById('eventModal').style.display = 'none';" 
+                    style="background-color: #0c9683; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+                <i class="fas fa-times" style="margin-right: 10px;"></i>{{ __('Fermer') }}
+            </button>
+        </div>
     </div>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-phone" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Téléphone') }} :</strong> <span id="modalUserPhone"></span></p>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-envelope" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Email') }} :</strong> <span id="modalUserEmail"></span></p>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-cogs" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Nom de la machine') }} :</strong> <span id="modalMachineName"></span></p>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-clock" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Heure de début') }} :</strong> <span id="modalStartTime"></span></p>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fas fa-clock" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Heure de fin') }} :</strong> <span id="modalEndTime"></span></p>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-        <i class="fas fa-info-circle" style="color: #0c9683; margin-right: 10px;"></i>
-        <p style="margin: 0;"><strong>{{ __('Statut') }} :</strong> <span id="modalMachineStatus"></span></p>
-    </div>
-    <button onclick="document.getElementById('eventModal').style.display = 'none';" style="background-color: #0c9683; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">{{ __('Fermer') }}</button>
 </div>
+
 
 <script>
 // Filtrage des machines

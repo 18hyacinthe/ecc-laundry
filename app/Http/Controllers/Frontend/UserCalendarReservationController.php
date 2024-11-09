@@ -33,7 +33,7 @@ class UserCalendarReservationController extends Controller
                 'textColor' => '#ffffff', // Couleur du texte pour une meilleure visibilité
                 'extendedProps' => [
                     'user_name' => $reservation->user->name,
-                    'user_phone' => $reservation->user->phone,
+                    'user_phone' => $reservation->user->phone ?? 'indisponible',
                     'user_email' => $reservation->user->email,
                     'machine_name' => $reservation->machine->name,
                     'machine_status' => $reservation->machine->status,
