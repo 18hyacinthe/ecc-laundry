@@ -6,13 +6,13 @@
 
     <!-- Légende -->
     <div class="alert alert-info">
-        {{ __('Tout machine dont le statut est différent de "Disponible" ne sont pas autorisés à être réservés et le système ne prendra pas la réservation en compte!') }}
+        {{ __('Seules les machines "Disponibles" peuvent être réservées. Veuillez choisir une machine disponible pour procéder à la réservation.') }}
     </div>
 
     <!-- Onglets de sélection de type de machine -->
     <div class="btn-group mb-4" role="group" aria-label="{{ __('Type de Machine') }}">
-        <button type="button" class="btn btn-primary active" onclick="showMachines('washing')">{{ __('Lave-linge (' . $washingMachinesCount . ')') }}</button>
-        <button type="button" class="btn btn-primary" onclick="showMachines('dryer')">{{ __('Sèche-linge (' . $dryerMachinesCount . ')') }}</button>
+        <button type="button" class="btn btn-primary active" onclick="showMachines('washing')">{{ __('Machine à laver') }} ({{ $washingMachinesCount }})</button>
+        <button type="button" class="btn btn-primary" onclick="showMachines('dryer')">{{ __('Sèche-linge') }} ({{ $dryerMachinesCount }})</button>
     </div>
 
     <!-- Conteneur pour les lave-linge -->
@@ -23,10 +23,10 @@
                     <div class="card shadow h-100">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{ $machine['name'] }}</h5>
-                            <p><strong>{{ __('Type') }} :</strong> {{ __('Lave-linge') }}</p>
+                            <p><strong>{{ __('Type') }} :</strong> {{ __('Machine à laver') }}</p>
                             <p><strong>{{ __('Statut Actuel') }} :</strong> 
                                 <span class="{{ $machine['status'] == 'available' ? 'text-success' : 'text-warning' }}">
-                                    {{ ucfirst($machine['status']) }}
+                                    {{ __('status.' . $machine['status']) }}
                                 </span>
                             </p>
                             @if($machine['status'] == 'available')
@@ -53,7 +53,7 @@
                             <p><strong>{{ __('Type') }} :</strong> {{ __('Sèche-linge') }}</p>
                             <p><strong>{{ __('Statut Actuel') }} :</strong> 
                                 <span class="{{ $machine['status'] == 'available' ? 'text-success' : 'text-warning' }}">
-                                    {{ ucfirst($machine['status']) }}
+                                    {{ __('status.' . $machine['status']) }}
                                 </span>
                             </p>
                             @if($machine['status'] == 'available')
