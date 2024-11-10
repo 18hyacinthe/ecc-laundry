@@ -22,7 +22,7 @@
             <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                 @foreach ($machines->where('type', 'washing-machine') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;">
+                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
                     <span style="background-color: {{ $machine->color ?? '#3a04cc' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
                     <i class="fas fa-tshirt" style="color: {{ $machine->color ?? '#3a04cc' }}; margin-left: 8px;"></i>
                     </div>
@@ -32,7 +32,7 @@
             <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                 @foreach ($machines->where('type', 'dryer') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;">
+                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
                     <span style="background-color: {{ $machine->color ?? '#05ad21' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
                     <i class="fas fa-wind" style="color: {{ $machine->color ?? '#05ad21' }}; margin-left: 8px;"></i>
                     </div>
@@ -116,83 +116,57 @@
     </div>
 </div>
 
-
-<script>
-// Filtrage des machines
-function filterMachines() {
-    const input = document.getElementById("searchInput");
-    const filter = input.value.toLowerCase();
-    const machines = document.querySelectorAll(".machine-item");
-    machines.forEach(machine => {
-        const machineName = machine.innerText.toLowerCase();
-        machine.style.display = machineName.includes(filter) ? "" : "none";
-    });
-}
-
-// Effet de survol sur les machines
-document.querySelectorAll('.machine-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        item.style.transform = 'scale(1.05)';
-    });
-    item.addEventListener('mouseleave', () => {
-        item.style.transform = 'scale(1)';
-    });
-});
-
-// Modale avec animation d'ouverture et de fermeture
-function openModal() {
-    const modal = document.getElementById('eventModal');
-    modal.style.display = 'block';
-    modal.classList.add('modal-fade-in');
-}
-
-function closeModal() {
-    const modal = document.getElementById('eventModal');
-    modal.classList.remove('modal-fade-in');
-    modal.classList.add('modal-fade-out');
-    setTimeout(() => { modal.style.display = 'none'; modal.classList.remove('modal-fade-out'); }, 300);
-}
-</script>
-
+<!-- Vue modale pour les détails de la machine -->
+<div class="modal fade" id="machineDetailsModal" tabindex="-1" aria-labelledby="machineDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="machineDetailsContent">
+                <!-- Les détails de la machine seront chargés ici via AJAX -->
+                <p>{{ __('Pour en savoir plus, consultez le calendrier.') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
-/* Styles supplémentaires */
-.reserve-button {
-    background-color: #0c9683; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
-}
-.reserve-button:hover {
-    background-color: #088675; transform: translateY(-2px);
-}
-
-/* Modale avec animation */
-.modal {
-    display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -20%);
-    background-color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 1000; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%; max-width: 500px; padding: 20px; animation-duration: 0.3s;
-}
-.modal-fade-in {
-    animation: fadeIn 0.3s;
-}
-.modal-fade-out {
-    animation: fadeOut 0.3s;
-}
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-.close-button {
-    background-color: #0c9683; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;
-}
-.close-button:hover {
-    background-color: #088675;
-}
+    /* Styles supplémentaires */
+    .reserve-button {
+        background-color: #0c9683; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .reserve-button:hover {
+        background-color: #088675; transform: translateY(-2px);
+    }
+    .modal-fade-in {
+        animation: fadeIn 0.3s;
+    }
+    .modal-fade-out {
+        animation: fadeOut 0.3s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    .close-button {
+        background-color: #0c9683; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;
+    }
+    .close-button:hover {
+        background-color: #088675;
+    }
 </style>
 @endsection
-
 @push('scripts')
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/fr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/en.js"></script>
+
+<!-- Script pour initialiser le calendrier -->
 <script>
+    let lang = '{{ app()->getLocale() }}'; // Récupère la langue actuelle de l'utilisateur
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         
@@ -200,7 +174,22 @@ function closeModal() {
             initialView: 'timeGridDay',
             slotMinTime: '00:00:00',
             slotMaxTime: '23:59:59',
-            locale: 'fr',  // Définit le calendrier en français
+            locale: lang,  // Utilisation de la configuration locale
+            buttonText: {
+                prev: 'Précédent',
+                next: 'Suivant',
+                today: 'Aujourd\'hui',
+                year: 'Année',
+                month: 'Mois',
+                week: 'Semaine',
+                day: 'Jour',
+                list: 'Planning',
+            },
+            weekText: 'Sem.',
+            weekTextLong: 'Semaine',
+            allDayText: 'Toute la journée',
+            moreLinkText: 'en plus',
+            noEventsText: 'Aucun évènement à afficher',
             events: @json($events),
             eventClick: function(info) {
                 var event = info.event;
@@ -237,5 +226,54 @@ function closeModal() {
 
         calendar.render();
     });
+</script>
+
+<!-- Script pour filtrer les machines et ouvrir/fermer la modale -->
+<script>
+    // Filtrage des machines
+    function filterMachines() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const machines = document.querySelectorAll(".machine-item");
+        machines.forEach(machine => {
+            const machineName = machine.innerText.toLowerCase();
+            machine.style.display = machineName.includes(filter) ? "" : "none";
+        });
+    }
+    
+    // Effet de survol sur les machines
+    document.querySelectorAll('.machine-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'scale(1.05)';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Modale avec animation d'ouverture et de fermeture
+    function openModal() {
+        const modal = document.getElementById('eventModal');
+        modal.style.display = 'block';
+        modal.classList.add('modal-fade-in');
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('eventModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+        setTimeout(() => { modal.style.display = 'none'; modal.classList.remove('modal-fade-out'); }, 300);
+    }
+</script>
+<script>
+    function showMachineDetails(machineId) {
+        // Charger les détails de la machine via AJAX
+        fetch(`/user/calendar/machines/${machineId}/details`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('machineDetailsContent').innerHTML = data;
+                $('#machineDetailsModal').modal('show');
+            });
+    }
 </script>
 @endpush
