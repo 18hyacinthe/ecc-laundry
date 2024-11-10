@@ -95,6 +95,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
 
     /** Calendar Routes */
     Route::get('/reservation/calendrier', [AdminCalendarReservationController::class, 'index'])->name('calendar.reservation');
+    Route::get('/calendar/machines/{id}/details', [AdminCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
 
     /** Reclamation Routes */
     Route::get('reclamations', [AdminReclamationController::class, 'index'])->name('reclamations.index');
