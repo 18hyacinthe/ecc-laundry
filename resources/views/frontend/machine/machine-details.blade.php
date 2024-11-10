@@ -49,7 +49,7 @@
             </div>
 
             <div class="text-center mt-4">
-                <small>{{ __('Pour en savoir plus, consultez le calendrier') }}</small>
+                <small>{{ __('Pour en savoir plus, consultez le calendrier.') }}</small>
                 <a href="{{ route('user.calendar.index') }}" class="btn btn-primary ml-2">{{ __('Calendrier') }}</a>
             </div>
         </div>

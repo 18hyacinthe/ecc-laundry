@@ -13,14 +13,14 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ setActive(['user.dashboard']) }}">
         <a class="nav-link" href="{{ route('user.dashboard') }}">
-            <i class="fas fa-home"></i>
+            <i class="fas fa-tachometer-alt"></i>
             <span>{{ __('Dashboard') }}</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item {{ setActive(['user.reservation.index', 'user.showReservationForm']) }}">
         <a class="nav-link" href="{{ route('user.reservation.index') }}">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-calendar-check"></i>
             <span>{{ __('Reservation') }}</span>
         </a>
     </li>
@@ -28,37 +28,31 @@
     <hr class="sidebar-divider">
     <li class="nav-item {{ setActive(['user.machines.index']) }}">
         <a class="nav-link" href="{{ route('user.machines.index') }}">
-            <i class="fas fa-cogs"></i>
-            <span>{{ __('Etat des machines') }}</span>
+            <i class="fas fa-tools"></i>
+            <span>{{ __('Machine Status') }}</span>
         </a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <li class="nav-item {{ setActive(['user.calendar.index', 'user.calendar.show']) }}">
         <a class="nav-link" href="{{ route('user.calendar.index') }}">
-            <i class="fas fa-calendar"></i>
+            <i class="fas fa-calendar-alt"></i>
             <span>{{ __('Calendrier des réservations') }}</span>
         </a>
     </li>
-
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ setActive(['user.reclamations.index', 'user.reclamations.create']) }}">
         <a class="nav-link" href="{{ route('user.reclamations.index') }}">
-            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-exclamation-triangle"></i>
             <span>{{ __('Reclamation') }}</span>
         </a>
     </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline mt-5">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 </ul>
 <!-- End of Sidebar -->

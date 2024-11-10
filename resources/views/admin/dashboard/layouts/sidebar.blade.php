@@ -23,7 +23,7 @@
     <li class="nav-item {{ setActive(['admin.reservation.index','admin.reservation.edit','admin.showReservationForm']) }}">
         <a class="nav-link" href="{{ route('admin.reservation.index') }}">
             <i class="fas fa-calendar"></i>
-            <span>{{ __('Reservations') }}</span>
+            <span>{{ __('Réservations') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -42,7 +42,7 @@
     <li class="nav-item {{ setActive(['admin.machines.index', 'admin.machines.create']) }}">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
-            <span>{{ __('Machine') }}</span>
+            <span>{{ __('Machines') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -58,7 +58,7 @@
     <li class="nav-item {{ setActive(['admin.reclamations.index']) }}">
         <a class="nav-link" href="{{ route('admin.reclamations.index') }}">
             <i class="fas fa-fw fa-exclamation-circle"></i>
-            <span>{{ __('Réclamation') }}</span>
+            <span>{{ __('Réclamations') }}</span>
         </a>
     </li>
     <!-- Divider -->
@@ -75,7 +75,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.settings.reservations') }}">
                     <i class="fas fa-fw fa-calendar-alt"></i>
-                    {{ __('Réservation') }}
+                    {{ __('Réservations') }}
                 </a>
                 <a class="collapse-item" href="{{ route('admin.settings.DomainRestriction') }}">
                     <i class="fas fa-fw fa-shield-alt"></i>
