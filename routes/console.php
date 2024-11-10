@@ -19,6 +19,6 @@ Artisan::command('app:reset-sessions', function () {
 //     ->weekly()
 //     ->description('Réinitialiser toutes les sessions de réservation');
 
-Schedule::command('reservation:notify')
-    ->everyMinute()
-    ->withoutOverlapping();
+// Schedule::command('reservation:notify')
+//     ->everyMinute()
+//     ->withoutOverlapping();
