@@ -182,6 +182,26 @@
     "Nom de l'utilisateur": "Nom de l'utilisateur",
     "Téléphone": "Téléphone",
     "Nom de la machine": "Nom de la machine",
-    "Détails de la Réservation": "Détails de la Réservation"
+    "Détails de la Réservation": "Détails de la Réservation",
+    "Résumé des Machines": "Résumé des Machines",
+    "reserved": "réservé",
+    "in-use": "en cours d'utilisation",
+    "available": "disponible",
+    "under maintenance": "en maintenance",
+    "out of order": "hors service",
+    "Washing Machines": "Machines à laver",
+    "Dryers": "Sèche-linge",
+    "No": "N°",
+    "Utilisateur": "Utilisateur",
+    "Paramètres de Réservation": "Paramètres de Réservation",
+    "Durée de la Session (en minutes)": "Durée de la Session (en minutes)",
+    "Heure de Début de la Session": "Heure de Début de la Session",
+    "Limite Hebdomadaire de Sessions": "Limite Hebdomadaire de Sessions",
+    "Enregistrer les Paramètres": "Enregistrer les Paramètres",
+    "Réinitialiser les Paramètres du Système": "Réinitialiser les Paramètres du Système",
+    "Heure de Réinitialisation": "Heure de Réinitialisation",
+    "Réinitialisation Manuelle": "Réinitialisation Manuelle",
+    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?"
+    
 
 }

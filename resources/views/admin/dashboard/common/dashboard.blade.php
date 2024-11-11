@@ -30,11 +30,11 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-{{ $status == 'available' ? 'success' : ($status == 'under maintenance' ? 'info' : ($status == 'reserved' ? 'warning' : ($status == 'in-use' ? 'primary' : 'danger'))) }} text-uppercase mb-1">
-                                    {{ ucfirst($status) }}
+                                    {{ __($status) }}
                                 </div>
                                 @foreach($machineTypes as $type => $label)
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    {{ $label }}
+                                    {{ __($label) }}
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $machines->where('status', $status)->where('type', $type)->count() }}</div>
                                 @endforeach

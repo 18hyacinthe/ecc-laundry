@@ -6,14 +6,14 @@
     {{-- <h2 style="margin-bottom: 20px; color: #0c9683;">{{ __('Légende des Machines') }}</h2> --}}
 
     <!-- Barre de recherche pour les machines -->
-    <input type="text" id="searchInput" placeholder="Rechercher une machine..." 
+    <input type="text" id="searchInput" placeholder="{{ __('Rechercher une machine...') }}" 
            style="width: 80%; padding: 8px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;" 
            onkeyup="filterMachines()">
 
     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;">
         <thead>
             <tr>
-                <th style="background-color: #0c9683; color: white; padding: 10px; border: 1px solid #ddd;">{{ __('Machines à laver') }}</th>
+                <th style="background-color: #0c9683; color: white; padding: 10px; border: 1px solid #ddd;">{{ __('Machine à laver') }}</th>
                 <th style="background-color: #0c9683; color: white; padding: 10px; border: 1px solid #ddd;">{{ __('Sèche-linge') }}</th>
             </tr>
         </thead>
