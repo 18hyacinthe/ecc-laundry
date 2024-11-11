@@ -186,5 +186,18 @@
     "Rechercher une machine...": "Search for a machine...",
     "Nom de l'utilisateur": "User Name",
     "Téléphone": "Phone",
-    "Nom de la machine": "Machine Name"
+    "Nom de la machine": "Machine Name",
+    "Dashboard Admin": "Tableau de bord Admin",
+    "Ajouter Réservation": "Add Reservation",
+    "No": "No",
+    "Utilisateur": "User",
+    "Paramètres de Réservation": "Reservation Settings",
+    "Durée de la Session (en minutes)": "Session Duration (in minutes)",
+    "Heure de Début de la Session": "Session Start Time",
+    "Limite Hebdomadaire de Sessions": "Weekly Session Limit",
+    "Enregistrer les Paramètres": "Save Settings",
+    "Réinitialiser les Paramètres du Système": "Reset System Settings",
+    "Heure de Réinitialisation": "Reset Time",
+    "Réinitialisation Manuelle": "Manual Reset",
+    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Are you sure you want to reset all sessions?"
 }
