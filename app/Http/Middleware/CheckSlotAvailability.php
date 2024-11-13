@@ -35,7 +35,7 @@ class CheckSlotAvailability
             if ($request->ajax()) {
                 return response()->json(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.'], 409);
             } else {
-                toastr()->warning('Cette machine est déjà réservée pour le créneau sélectionné.');
+                toastr()->error('Cette machine est déjà réservée pour le créneau sélectionné.');
                 return redirect()->back();
             }
         }

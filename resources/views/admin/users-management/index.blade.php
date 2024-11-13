@@ -28,6 +28,7 @@
                         <th>Prénom</th>
                         <th>Email</th>
                         <th>Téléphone</th>
+                        <th>Rôle</th>
                         <th>Statut</th>
                         <th width="200">Action</th>
                     </tr>
@@ -54,6 +55,7 @@
                 { data: 'surname', name: 'surname', className: 'text-center' },
                 { data: 'email', name: 'email', className: 'text-center' },
                 { data: 'phone', name: 'phone', className: 'text-center' },
+                { data: 'role', name: 'role', className: 'text-center' },
                 { data: 'status', name: 'status', className: 'text-center' },
                 { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
             ],

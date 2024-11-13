@@ -12,8 +12,12 @@
                     <div class="row">
                         <div class="col-md-4 text-center">
                             <div class="mb-3">
-                                <img alt="image" src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('img/undraw_profile.svg') }}" class="rounded-circle img-thumbnail" width="150px" height="150px">
-                            </div>
+                                <img alt="Profile Image" 
+                                     src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('img/undraw_profile.svg') }}" 
+                                     class="rounded-circle img-thumbnail" 
+                                     width="150px" 
+                                     height="150px">
+                            </div>                            
                             <div class="form-group">
                                 <label>{{__('Image')}}</label>
                                 <input type="file" name="image" class="form-control">

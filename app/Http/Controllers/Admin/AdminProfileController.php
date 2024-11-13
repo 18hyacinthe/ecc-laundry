@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // Ensure the User model is imported
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminProfileController extends Controller
@@ -18,31 +21,34 @@ class AdminProfileController extends Controller
         return view('admin.profile.index');
     }
 
+
     public function updateProfile(Request $request)
     {
+        // Valider les champs du formulaire
         $request->validate([
-            'name' => ['required', 'max:100'],
-            'surname' => ['required', 'max:100'],
-            'email' => ['required', 'email', 'unique:users,email,' . Auth::user()->id],
-            'phone' => ['required', 'max:15'],
-            'image' => ['image', 'max:2048'],
+            'name' => 'required|max:100',
+            'surname' => 'required|max:100',
+            'email' => ['required', 'email', Rule::unique('users')->ignore(Auth::user()->id)],
+            'phone' => 'required|max:15',
+            'image' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        // Récupérer l'utilisateur connecté
         $user = Auth::user();
 
+        // Vérifier et sauvegarder l'image si elle est présente dans la requête
         if ($request->hasFile('image')) {
-            if(File::exists(public_path($user->image))){
-                File::delete(public_path($user->image));
+            // Supprimer l'ancienne image si elle existe
+            if ($user->image && Storage::disk('public')->exists($user->image)) {
+                Storage::disk('public')->delete($user->image);
             }
 
-            $image = $request->file('image');
-            $imageName = rand() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-
-            $path ="/uploads/".$imageName;
-            $user->image = $path;
+            // Enregistrer la nouvelle image dans 'storage/app/public/uploads'
+            $imagePath = $request->file('image')->store('uploads', 'public');
+            $user->image = $imagePath;  // Stocker le chemin relatif
         }
 
+        // Mettre à jour les autres informations de l'utilisateur
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
@@ -60,9 +66,9 @@ class AdminProfileController extends Controller
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
-        $request->user()->update([
-            'password' => bcrypt($request->password)
-        ]);
+        $user = Auth::user();
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         toastr()->success('Password Updated Successfully!');
 

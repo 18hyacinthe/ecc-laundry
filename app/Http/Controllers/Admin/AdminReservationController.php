@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Machine;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReservationNotification;
 
 class AdminReservationController extends Controller
 {
@@ -27,11 +28,21 @@ class AdminReservationController extends Controller
         $sessionResetTime = Carbon::parse($sessionResetTime);
         $sessionStartTime = Setting::getSetting('session_start_time', '06:00');
         $sessionStartTime = Carbon::parse($sessionStartTime);
+        $sessionDuration = (int) Setting::getSetting('session_duration', '120');
+        $sessionDuration = Carbon::now()->startOfDay()->addMinutes($sessionDuration)->format('H:i');
+
+        if ($sessionResetTime->eq($sessionStartTime)) {
+            $sessionResetTime->addDay();
+            $reservationMessage = __('Les réservations commencent à partir de ') . $sessionStartTime->format('Y-m-d H:i') . '.';
+        }else {
+            $reservationMessage = __('Les réservations doivent être faites à partir de ') . $sessionStartTime->format('Y-m-d H:i') . '.';
+        }
 
         // Si l'heure de réinitialisation est inférieure à l'heure de début de session, ajoutez un jour à l'heure de réinitialisation
         if ($sessionResetTime->lt($sessionStartTime)) {
             $sessionResetTime->addDay();
         }
+ 
         // Définir la limite de sessions autorisées (à récupérer depuis les paramètres admin si disponible)
         $totalSessionsAllowed = Setting::getSetting('weekly_session_limit', 3);
 
@@ -47,7 +58,7 @@ class AdminReservationController extends Controller
 
         toastr()->info('Il vous reste ' . $weeklySessionLimitRemaining . ' sessions cette semaine.');
 
-        return view('admin.reservation.create', compact('machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime'));
+        return view('admin.reservation.create', compact('machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime', 'sessionDuration', 'reservationMessage'));
     }
 
     public function reserve(Request $request)
@@ -72,7 +83,7 @@ class AdminReservationController extends Controller
         $weeklySessionLimitRemaining = max($weeklyLimit - $reservationsCount, 0);
 
         // Création de la réservation après validation
-        Reservation::create([
+        $reservation = Reservation::create([
             'user_id' => $userId,
             'machine_id' => $machineId,
             'start_time' => $startTime,

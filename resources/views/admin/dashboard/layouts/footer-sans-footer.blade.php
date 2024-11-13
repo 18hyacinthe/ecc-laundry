@@ -49,13 +49,13 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ url('/js/sb-admin-2.min.js')}}"></script>
 
-<!-- Page level plugins -->
+{{-- <!-- Page level plugins -->
 <script src="{{ url('/js/Chart.min.js')}}"></script>
 
 <!-- Page level custom scripts -->
 <script src="{{ url('/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ url('/js/demo/chart-pie-demo.js') }}"></script>
-<script src="{{ url('/js/demo/chart-bar-demo.js')}}"></script>
+<script src="{{ url('/js/demo/chart-bar-demo.js')}}"></script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

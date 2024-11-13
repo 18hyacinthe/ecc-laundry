@@ -35,9 +35,8 @@ class CheckWeeklyReservationLimit
 
         // Vérifier si la limite est atteinte
         if ($reservationsThisWeek >= $weeklyLimit) {
-            toastr()->warning('Vous avez atteint la limite de réservations hebdomadaires!');
+            toastr()->error('Vous avez atteint la limite de réservations hebdomadaires!');
             return redirect()->back();
-            // return response()->json(['error' => 'Vous avez atteint la limite de réservations hebdomadaires.'], 403);
         }
 
         return $next($request);

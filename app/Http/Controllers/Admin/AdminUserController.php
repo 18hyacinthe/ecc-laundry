@@ -105,6 +105,7 @@ class AdminUserController extends Controller
             'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'phone' => 'required|string|max:255',
+            'role' => ['required'],
             'status' => ['required'],
             'password' => 'nullable|string|min:8',
         ]);
@@ -115,9 +116,10 @@ class AdminUserController extends Controller
         $user->surname = $request->surname;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->role = $request->role;
         $user->status = $request->status;
 
-        // Mettre à jour le mot de passe uniquement s'il est fourni
+        // Mettre à jour le mot de passe uniquement s'il est fourni 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }

@@ -50,7 +50,7 @@ class CheckEmailDomainLogin
         if ($emailDomain === $allowedDomain) {
             // Domaine autorisé : vérification du statut de l'utilisateur
             if (!$user->status) {
-                Toastr()->warning(__('Votre compte est inactif. Veuillez contacter l\'administrateur pour l\'activer.'));
+                Toastr()->error(__('Votre compte est inactif. Veuillez contacter l\'administrateur pour l\'activer.'));
                 // return redirect()->route('login');
             }
             return $next($request);

@@ -10,7 +10,11 @@
                 <form method="post" class="needs-validation" novalidate="" action="{{route('user.profile.update')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group text-center">
-                        <img alt="image" src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('img/undraw_profile.svg') }}" class="rounded-circle mb-3" width="100px" height="100px">
+                        <img alt="Profile Image" 
+                        src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('img/undraw_profile.svg') }}" 
+                        class="rounded-circle mb-3" 
+                        width="100px" 
+                        height="100px">                   
                         <div class="custom-file">
                             <input type="file" name="image" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">{{__('Choisir une image')}}</label>

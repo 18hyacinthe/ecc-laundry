@@ -45,13 +45,15 @@
                     <div class="form-group">
                         <label for="start_time">{{ __('Heure de début :') }}</label>
                         <input type="datetime-local" name="start_time" id="start_time" class="form-control" required min="{{ $sessionStartTime->format('Y-m-d\TH:i') }}" max="{{ $sessionResetTime->format('Y-m-d\TH:i') }}">
-                        <small class="form-text text-muted">{{ __('Les réservations doivent être faites entre ') }}{{ $sessionStartTime->format('Y-m-d H:i') }}{{ __(' et ') }}{{ $sessionResetTime->format('Y-m-d H:i') }}.</small>
+                        @if (isset($reservationMessage))
+                            <small class="form-text text-muted">{{ $reservationMessage }}</small>
+                        @endif
                     </div>
                     
                     <div class="form-group">
                         <label for="end_time">{{ __('Heure de fin :') }}</label>
                         <input type="datetime-local" name="end_time" id="end_time" class="form-control" required min="{{ $sessionStartTime->format('Y-m-d\TH:i') }}" max="{{ $sessionResetTime->format('Y-m-d\TH:i') }}">
-                        <small class="form-text text-muted">{{ __('Les réservations doivent se terminer avant ') }}{{ $sessionResetTime->format('Y-m-d H:i') }}.</small>
+                        <small class="form-text text-muted">{{ __('Les réservations ne doivent pas dépasser ') }}{{ $sessionDuration }}{{ __(' heures.') }}</small>
                     </div>
 
                     {{-- Confirmation button --}}

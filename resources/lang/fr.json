@@ -201,7 +201,10 @@
     "Réinitialiser les Paramètres du Système": "Réinitialiser les Paramètres du Système",
     "Heure de Réinitialisation": "Heure de Réinitialisation",
     "Réinitialisation Manuelle": "Réinitialisation Manuelle",
-    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?"
-    
-
+    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?",
+    "The end time field must be a date after start time. ": "Le champ de l'heure de fin doit être une date après l'heure de début.",
+    "The machine id field is required. ": "Le champ identifiant de la machine est obligatoire.",
+    "Les réservations commencent à partir de ": "Les réservations commencent à partir de ",
+    "Les réservations ne doivent pas dépasser ": "Les réservations ne doivent pas dépasser ",
+    " heures.": " heures."
 }
