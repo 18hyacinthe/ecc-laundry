@@ -20,25 +20,29 @@ class CheckSlotAvailability
         $startTime = $request->input('start_time');
         $endTime = $request->input('end_time');
 
-        $conflictingReservations = Reservation::where('machine_id', $machineId)
-            ->where(function ($query) use ($startTime, $endTime) {
-                $query->whereBetween('start_time', [$startTime, $endTime])
-                    ->orWhereBetween('end_time', [$startTime, $endTime])
-                    ->orWhere(function ($query) use ($startTime, $endTime) {
-                        $query->where('start_time', '<=', $startTime)
-                            ->where('end_time', '>=', $endTime);
-                    });
-            })
-            ->exists();
+        if ($machineId && $startTime && $endTime) {
+            $conflictingReservations = Reservation::where('machine_id', $machineId)
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->whereBetween('start_time', [$startTime, $endTime])
+                        ->orWhereBetween('end_time', [$startTime, $endTime])
+                        ->orWhere(function ($query) use ($startTime, $endTime) {
+                            $query->where('start_time', '<=', $startTime)
+                                ->where('end_time', '>=', $endTime);
+                        });
+                })
+                ->exists();
 
-        if ($conflictingReservations) {
-            if ($request->ajax()) {
-                return response()->json(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.'], 409);
-            } else {
-                toastr()->error('Cette machine est déjà réservée pour le créneau sélectionné.');
-                return redirect()->back();
+            if ($conflictingReservations) {
+                if ($request->ajax()) {
+                    return response()->json(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.'], 409);
+                } else {
+                    return redirect()->back()->withErrors(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.']);
+                }
             }
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Les informations de réservation sont incomplètes.']);
         }
+
 
         return $next($request);
     }
