@@ -35,11 +35,16 @@ class UserReservationController extends Controller
 
         if ($sessionResetTime->eq($sessionStartTime)) {
             $sessionResetTime->addDay();
+            $reservationMessage = __('Les réservations commencent à partir de ') . $sessionStartTime->format('Y-m-d H:i') . '.';
+        }else {
+            $reservationMessage = __('Les réservations doivent être faites entre ') . $sessionStartTime->format('Y-m-d H:i') . __(' et ') . $sessionResetTime->format('Y-m-d H:i') . '.';
         }
+
         // Si l'heure de réinitialisation est inférieure à l'heure de début de session, ajoutez un jour à l'heure de réinitialisation
         if ($sessionResetTime->lt($sessionStartTime)) {
             $sessionResetTime->addDay();
         }
+ 
         // Définir la limite de sessions autorisées (à récupérer depuis les paramètres admin si disponible)
         $totalSessionsAllowed = Setting::getSetting('weekly_session_limit', 3);
 
@@ -55,7 +60,7 @@ class UserReservationController extends Controller
 
         toastr()->info('Il vous reste ' . $weeklySessionLimitRemaining . ' sessions cette semaine.');
 
-        return view('frontend.reservation.create', compact('machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime', 'sessionDuration'));
+        return view('frontend.reservation.create', compact('machines', 'weeklySessionLimitRemaining', 'sessionStartTime', 'sessionResetTime', 'sessionDuration', 'reservationMessage'));
     }
 
     public function reserve(Request $request)

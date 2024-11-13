@@ -45,10 +45,8 @@
                     <div class="form-group">
                         <label for="start_time">{{ __('Heure de début :') }}</label>
                         <input type="datetime-local" name="start_time" id="start_time" class="form-control" required min="{{ $sessionStartTime->format('Y-m-d\TH:i') }}">
-                        @if ($sessionResetTime->eq($sessionStartTime))
-                            <small class="form-text text-muted">{{ __('Les réservations commencent à partir de ') }}{{ $sessionStartTime->format('Y-m-d H:i') }}.</small>
-                        @else
-                            <small class="form-text text-muted">{{ __('Les réservations doivent être faites à partir de ') }}{{ $sessionStartTime->format('Y-m-d H:i') }}.</small>
+                        @if (isset($reservationMessage))
+                            <small class="form-text text-muted">{{ $reservationMessage }}</small>
                         @endif
                     </div>
                     
