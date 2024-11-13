@@ -18,61 +18,59 @@ class CheckSessionDuration
     public function handle(Request $request, Closure $next): Response
     {
         // Récupère les paramètres depuis la table settings
-        $sessionDuration = Setting::where('key', 'session_duration')->value('value');
-        $sessionStartTime = Setting::where('key', 'session_start_time')->value('value');
-        $resetTime = Setting::where('key', 'reset_time')->value('value');
+        $settings = Setting::whereIn('key', ['session_duration', 'session_start_time', 'reset_time'])->pluck('value', 'key');
+        $sessionDuration = $settings['session_duration'];
+        $sessionStartTime = Carbon::parse($settings['session_start_time']);
+        $resetTime = Carbon::parse($settings['reset_time']);
 
         $startTime = Carbon::parse($request->input('start_time'));
         $endTime = Carbon::parse($request->input('end_time'));
-        $sessionStartTime = Carbon::parse($sessionStartTime);
-        $resetTime = Carbon::parse($resetTime);
 
-        // Si l'heure de réinitialisation est inférieure à l'heure de début de session, ajoutez un jour à l'heure de réinitialisation
-        if ($resetTime->lt($sessionStartTime)) {
-            $resetTime->addDay();
+        if ($resetTime->eq($sessionStartTime)) {
+            // Si l'heure de fin est inférieure à l'heure de début, ajoutez un jour à l'heure de fin
+            if ($endTime->lt($startTime)) {
+                $endTime->addDay();
+            }
+
+            // Vérifie que l'intervalle entre start_time et end_time ne dépasse pas la durée de session définie
+            if ($startTime->diffInMinutes($endTime) > $sessionDuration) {
+                toastr()->error('La durée de session dépasse la limite autorisée!');
+                return redirect()->back();
+            }
+
+            // Vérifie si l'heure de début de réservation est inférieure à l'heure actuelle
+            $currentTime = Carbon::now();
+            if ($startTime->lt($currentTime)) {
+                // Vérifie si l'heure de début est comprise entre l'heure actuelle moins 5 minutes
+                if ($startTime->lt($currentTime->subMinutes(5))) {
+                    toastr()->error('L\'heure de début de réservation ne peut pas être inférieure à l\'heure actuelle moins 5 minutes.');
+                    return redirect()->back();
+                }
+            }
+
+        } else {
+            // Si l'heure de réinitialisation est inférieure à l'heure de début de session, ajoutez un jour à l'heure de réinitialisation
+            if ($resetTime->lt($sessionStartTime)) {
+                $resetTime->addDay();
+            }
+
+            // Si l'heure de fin est inférieure à l'heure de début, ajoutez un jour à l'heure de fin
+            if ($endTime->lt($startTime)) {
+                $endTime->addDay();
+            }
+
+            // Vérifie que la durée entre start_time et end_time ne dépasse pas la durée de session définie
+            if ($startTime->diffInMinutes($endTime) > $sessionDuration) {
+                toastr()->error('La durée de session dépasse la limite autorisée!');
+                return redirect()->back();
+            }
+
+            // Vérifiez que start_time et end_time sont compris entre session_start_time et reset_time
+            if ($startTime->lt($sessionStartTime) || $endTime->gt($resetTime)) {
+                toastr()->error('La session doit être réservée entre ' . $sessionStartTime->format('H:i') . ' et ' . $resetTime->format('H:i') . '.');
+                return redirect()->back();
+            }
         }
-
-        // Si l'heure de fin est inférieure à l'heure de début, ajoutez un jour à l'heure de fin
-        if ($endTime->lt($startTime)) {
-            $endTime->addDay();
-        }
-
-        // // 1. Vérifie que l'intervalle entre start_time et end_time est de 59 minutes minimum
-        // if ($startTime->diffInMinutes($endTime) < 59) {
-        //     toastr()->warning('L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.');
-        //     return redirect()->back();
-        //     // return response()->json(['error' => 'L\'intervalle entre le début et la fin de la session doit être d\'au moins 59 minutes.'], 403);
-        // }
-
-        // 2. Vérifie que la durée entre start_time et end_time ne dépasse pas la durée de session définie
-    
-        if ($startTime->diffInMinutes($endTime) > $sessionDuration) {
-            toastr()->warning('La durée de session dépasse la limite autorisée!');
-            return redirect()->back();
-            // return response()->json(['error' => 'La durée de session dépasse la limite autorisée.'], 403);
-        }
-
-        // // 3. Vérifie que start_time et end_time sont compris entre session_start_time et reset_time
-        // $sessionStartTime = Carbon::parse($sessionStartTime);
-        // $resetTime = Carbon::parse($resetTime);
-
-        // if ($startTime->lt($sessionStartTime) || $endTime->gt($resetTime)) {
-        //     toastr()->warning('La session doit être réservée entre ' . $sessionStartTime->format('H:i') . ' et ' . $resetTime->format('H:i') . '.');
-        //     return redirect()->back();
-        //     // return response()->json(['error' => 'La session doit être réservée entre ' . $sessionStartTime->format('H:i') . ' et ' . $resetTime->format('H:i') . '.'], 403);
-        // }
-
-        // 1. Convertir les heures de session
-        $sessionStartTime = Carbon::parse($sessionStartTime);
-        $resetTime = Carbon::parse($resetTime);
-
-
-        // 2. Vérifiez que start_time et end_time sont compris entre session_start_time et reset_time
-        if ($startTime->lt($sessionStartTime) || $endTime->gt($resetTime)) {
-            toastr()->warning('La session doit être réservée entre ' . $sessionStartTime->format('H:i') . ' et ' . $resetTime->format('H:i') . '.');
-            return redirect()->back();
-        }
-
 
         return $next($request);
     }

@@ -35,6 +35,14 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <!-- Champ Role -->
+                        <div class="form-group col-md-6">
+                            <label for="role">{{__('Rôle')}}</label>
+                            <select id="role" name="role" class="form-control" required>
+                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>{{__('Admin')}}</option>
+                                <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>{{__('Utilisateur')}}</option>
+                            </select>
+                        </div>
                         <!-- Champ Statut -->
                         <div class="form-group col-md-6">
                             <label for="status">{{__('Statut')}}</label>

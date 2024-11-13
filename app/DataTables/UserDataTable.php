@@ -40,7 +40,16 @@ class UserDataTable extends DataTable
                     return $inactive;
                 }
             })
-            ->rawColumns(['action', 'status'])
+            ->editColumn('role', function ($query) {
+                $admin = '<i class="badge badge-primary">Admin</i>';
+                $user = '<i class="badge badge-secondary">User</i>';
+                if ($query->role == 'admin') {
+                    return $admin;
+                } else {
+                    return $user;
+                }
+            })
+            ->rawColumns(['action','role' ,'status'])
             ->setRowId('id');
     }
 
@@ -94,6 +103,7 @@ class UserDataTable extends DataTable
             Column::make('surname')->addClass('text-center'),
             Column::make('email')->addClass('text-center'),
             Column::make('phone')->addClass('text-center'),
+            Column::make('role')->addClass('text-center'),
             Column::make('status')->addClass('text-center'),
             Column::computed('action')->addClass('text-center')
             ->exportable(false)

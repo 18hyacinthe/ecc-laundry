@@ -199,5 +199,10 @@
     "Réinitialiser les Paramètres du Système": "Reset System Settings",
     "Heure de Réinitialisation": "Reset Time",
     "Réinitialisation Manuelle": "Manual Reset",
-    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Are you sure you want to reset all sessions?"
+    "Êtes-vous sûr de vouloir réinitialiser toutes les sessions ?": "Are you sure you want to reset all sessions?",
+    "The end time field must be a date after start time.": "The end time field must be a date after start time.",
+    "The machine id field is required.": "Choose a machine to proceed.",
+    "Les réservations commencent à partir de ": "Reservations start from ",
+    "Les réservations ne doivent pas dépasser ": "Reservations must not exceed ",
+    " heures.": " hours."
 }

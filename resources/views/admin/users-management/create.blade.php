@@ -42,6 +42,16 @@
                                 <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>{{__('Inactif')}}</option>
                             </select>
                         </div>
+                        <!-- Champ Rôle -->
+                        <div class="form-group col-md-6">
+                            <label>{{__('Rôle')}}</label>
+                            <select id="inputRole" name="role" class="form-control" required>
+                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>{{__('Utilisateur')}}</option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>{{__('Administrateur')}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <!-- Champ Mot de Passe avec Génération Automatique -->
                         <div class="form-group col-md-6">
                             <label>{{__('Mot de passe')}}</label>
