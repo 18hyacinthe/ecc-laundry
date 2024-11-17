@@ -16,35 +16,53 @@ class CheckSlotAvailability
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $machineId = $request->input('machine_id');
-        $startTime = $request->input('start_time');
-        $endTime = $request->input('end_time');
+        $validated = $request->validate([
+            'machine_id' => 'required|exists:machines,id',
+            // 'start_time' => 'required|date|after:now',
+            'start_time' => 'required|date',
+            'end_time'   => 'required|date|after:start_time',
+        ]);
 
-        if ($machineId && $startTime && $endTime) {
-            $conflictingReservations = Reservation::where('machine_id', $machineId)
-                ->where(function ($query) use ($startTime, $endTime) {
-                    $query->whereBetween('start_time', [$startTime, $endTime])
-                        ->orWhereBetween('end_time', [$startTime, $endTime])
-                        ->orWhere(function ($query) use ($startTime, $endTime) {
-                            $query->where('start_time', '<', $startTime)
-                                ->where('end_time', '>', $endTime);
-                        });
+        $machineId = $validated['machine_id'];
+        $startTime = $validated['start_time'];
+        $endTime = $validated['end_time'];
+
+        // Recherche des conflits de réservation
+        $hasConflict = Reservation::where('machine_id', $machineId)
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->where(function ($query) use ($startTime, $endTime) {
+                    $query->where('start_time', '<', $endTime) // Chevauchement au début
+                          ->where('end_time', '>', $startTime); // Chevauchement à la fin
                 })
-                ->exists();
+                ->orWhere(function ($query) use ($startTime, $endTime) {
+                    $query->where('start_time', '<=', $startTime) // Plage existante englobant la nouvelle
+                          ->where('end_time', '>=', $endTime);
+                });
+            })
+            ->exists();
 
-            if ($conflictingReservations) {
-                if ($request->ajax()) {
-                    return response()->json(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.'], 409);
-                } else {
-                    return redirect()->back()->withErrors(['error' => 'Cette machine est déjà réservée pour le créneau sélectionné.']);
-                }
-            }
-        } else {
-            return redirect()->back()->withErrors(['error' => 'Les informations de réservation sont incomplètes.']);
+        // Gestion des conflits
+        if ($hasConflict) {
+            return $this->handleErrorResponse($request, 'Cette machine est déjà réservée pour le créneau sélectionné.', 409);
         }
-
 
         return $next($request);
     }
 
+    /**
+     * Gérer les réponses d'erreur pour les requêtes AJAX et non-AJAX.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $message
+     * @param int $statusCode
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function handleErrorResponse(Request $request, string $message, int $statusCode): Response
+    {
+        if ($request->ajax()) {
+            return response()->json(['error' => $message], $statusCode);
+        } else {
+            return redirect()->back()->withErrors(['error' => $message]);
+        }
+    }
 }
