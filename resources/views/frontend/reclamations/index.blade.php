@@ -65,9 +65,9 @@
     });
 </script>
 <script>
-    function showReclamationDetails(id) {
+    function showReclamationDetails(hashedId) {
         $.ajax({
-            url: '/user/reclamations/' + id,
+            url: '/user/reclamations/' + hashedId,
             method: 'GET',
             success: function(response) {
                 $('#reclamationDetailsContent').html(response);

@@ -13,6 +13,7 @@
         "php-flasher/flasher-toastr-laravel": "^2.1",
         "symfony/http-foundation": "^7.1.7",
         "symfony/process": "^7.1",
+        "vinkla/hashids": "^12.0",
         "yajra/laravel-datatables": "^11.0"
     },
     "require-dev": {

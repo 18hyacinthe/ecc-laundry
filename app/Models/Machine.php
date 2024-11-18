@@ -18,4 +18,14 @@ class Machine extends Model
     {
         return $this->hasMany(Reclamation::class);
     }
+
+    // protected $hidden = [
+    //     // 'id',
+    //     // 'name',
+    //     'status',
+    //     // 'type',
+    //     'color',
+    //     'created_at',
+    //     'updated_at'
+    // ];
 }

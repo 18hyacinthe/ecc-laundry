@@ -34,7 +34,7 @@
                             @else
                                 <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
                             @endif
-                            <button class="btn btn-info btn-sm" onclick="showMachineDetails({{ $machine['id'] }})">{{ __('Voir plus') }}</button>
+                            <button class="btn btn-info btn-sm" onclick="showMachineDetails('{{ $machine['hashedId'] }}')">{{ __('Voir plus') }}</button>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                             @else
                                 <button class="btn btn-secondary btn-sm" disabled>{{ __('Indisponible') }}</button>
                             @endif
-                            <button class="btn btn-info btn-sm" onclick="showMachineDetails({{ $machine['id'] }})">{{ __('Voir plus') }}</button>
+                            <button class="btn btn-info btn-sm" onclick="showMachineDetails({{ $machine['hashedId'] }})">{{ __('Voir plus') }}</button>
                         </div>
                     </div>
                 </div>
@@ -87,9 +87,9 @@
 </div>
 
 <script>
-    function showMachineDetails(machineId) {
+    function showMachineDetails(hashedId) {
         // Charger les détails de la machine via AJAX
-        fetch(`/user/machines/${machineId}/details`)
+        fetch(`/user/machines/${hashedId}/details`)
             .then(response => response.text())
             .then(data => {
                 document.getElementById('machineDetailsContent').innerHTML = data;
