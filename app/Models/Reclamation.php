@@ -21,16 +21,16 @@ class Reclamation extends Model
         return $this->belongsTo(Machine::class);
     }
 
-    protected $hidden = [
-    //    'id',
-        'user_id',
-        'machine_id',
-        // 'title',
-        // 'machine_type',
-        // 'issue_type',
-        // 'description',
-        'status',
-        'created_at',
-        'updated_at',
-    ];
+    // protected $hidden = [
+    // //    'id',
+    //     'user_id',
+    //     'machine_id',
+    //     // 'title',
+    //     // 'machine_type',
+    //     // 'issue_type',
+    //     // 'description',
+    //     'status',
+    //     'created_at',
+    //     'updated_at',
+    // ];
 }
