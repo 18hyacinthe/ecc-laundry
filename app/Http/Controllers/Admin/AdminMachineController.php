@@ -45,7 +45,7 @@ class AdminMachineController extends Controller
         $machine->color = $request->input('color'); // Save color
         $machine->save();
 
-        toastr()->success('Machine créée avec succès!');
+        toastr()->success(__('Machine créée avec succès!'));
         return redirect()->route('admin.machines.index');
     }
 
@@ -101,7 +101,7 @@ class AdminMachineController extends Controller
         $machine->color = $request->input('color');
         $machine->save();
 
-        toastr()->success('Machine mise à jour avec succès!');
+        toastr()->success(__('Machine mise à jour avec succès!'));
         return redirect()->route('admin.machines.index');
     }
 
@@ -114,14 +114,14 @@ class AdminMachineController extends Controller
         $decoded = Hashids::decode($hashedId);
 
         if (empty($decoded)) {
-            return response()->json(['status' => 'error', 'message' => 'ID de machine invalide.'], 400);
+            return response()->json(['status' => 'error', 'message' => __('ID de machine invalide.')], 400);
         }
 
         $id = $decoded[0];
         $machine = Machine::findOrFail($id);
         $machine->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Machine supprimée avec succès!']);
+        return response()->json(['status' => 'success', 'message' => __('Machine supprimée avec succès!')]);
     }
 
 }

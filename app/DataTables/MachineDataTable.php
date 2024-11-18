@@ -27,11 +27,11 @@ class MachineDataTable extends DataTable
                 // Encode l'ID de la machine avec Hashids
                 $hashedId = Hashids::encode($query->id);
                 // Bouton Edit avec le Hashid encodé
-                $editBtn = "<a href='" . route('admin.machines.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='Edit'>
+                $editBtn = "<a href='" . route('admin.machines.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='" . __('Edit') . "'>
                                 <i class='far fa-edit'></i>
                             </a>";
                 // Bouton Delete avec encodage pour cohérence
-                $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' onclick='deleteMachine(\"" . $hashedId . "\")'>
+                $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='" . __('Delete') . "' onclick='deleteMachine(\"" . $hashedId . "\")'>
                                 <i class='far fa-trash-alt'></i>
                             </button>";
                 // Formulaire de suppression, toujours caché, avec le Hashid encodé
@@ -45,17 +45,17 @@ class MachineDataTable extends DataTable
             ->editColumn('status', function($query) {
                 switch ($query->status) {
                     case 'reserved':
-                        return '<span class="badge badge-success">Reserved</span>';
+                        return '<span class="badge badge-success">' . __('Reserved') . '</span>';
                     case 'in-use':
-                        return '<span class="badge badge-primary">In Use</span>';
+                        return '<span class="badge badge-primary">' . __('In Use') . '</span>';
                     case 'available':
-                        return '<span class="badge badge-success">Available</span>';
+                        return '<span class="badge badge-success">' . __('Available') . '</span>';
                     case 'under maintenance':
-                        return '<span class="badge badge-info">Under Maintenance</span>';
+                        return '<span class="badge badge-info">' . __('Under Maintenance') . '</span>';
                     case 'out of order':
-                        return '<span class="badge badge-danger">Out of Order</span>';
+                        return '<span class="badge badge-danger">' . __('Out of Order') . '</span>';
                     default:
-                        return '<span class="badge badge-secondary">Unknown</span>';
+                        return '<span class="badge badge-secondary">' . __('Unknown') . '</span>';
                 }
             })
             ->editColumn('color', function($query) {

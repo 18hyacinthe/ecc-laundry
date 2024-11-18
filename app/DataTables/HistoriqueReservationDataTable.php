@@ -27,9 +27,9 @@ class HistoriqueReservationDataTable extends DataTable
             ->addColumn('action', function ($query) {
             // Encode l'ID avec Hashids
             $hashedId = Hashids::encode($query->id);
-            $editBtn = "<a href='" . route('user.reservation.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='Edit'><i class='far fa-edit'></i></a>";
-            $viewBtn = "<button class='btn btn-sm btn-info ml-2' title='View' onclick='showReservationDetails(\"" . $hashedId . "\")'><i class='fa fa-eye'></i></button>";
-            $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='Delete' onclick='deleteReservation(\"" . $hashedId . "\")'><i class='far fa-trash-alt'></i></button>";
+            $editBtn = "<a href='" . route('user.reservation.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='" . __('Edit') . "'><i class='far fa-edit'></i></a>";
+            $viewBtn = "<button class='btn btn-sm btn-info ml-2' title='" . __('View') . "' onclick='showReservationDetails(\"" . $hashedId . "\")'><i class='fa fa-eye'></i></button>";
+            $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='" . __('Delete') . "' onclick='deleteReservation(\"" . $hashedId . "\")'><i class='far fa-trash-alt'></i></button>";
             $deleteForm = "<form id='delete-form-" . $hashedId . "' action='" . route('user.reservations.destroy', ['hashedId' => $hashedId]) . "' method='POST' style='display: none;'>
                     " . csrf_field() . "
                     " . method_field('DELETE') . "

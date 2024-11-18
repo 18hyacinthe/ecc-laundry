@@ -24,12 +24,12 @@
                 <table class="table table-bordered table-striped" id="machine-table" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Color</th>
-                            <th width="200">Action</th>
+                            <th>{{ __('No') }}</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th>{{ __('Status') }}</th>
+                            <th>{{ __('Color') }}</th>
+                            <th width="200">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                 </table>
