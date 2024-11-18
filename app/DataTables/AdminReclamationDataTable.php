@@ -12,6 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Models\Reclamation;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminReclamationDataTable extends DataTable
 {
@@ -24,7 +25,8 @@ class AdminReclamationDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
+                $hashedId = Hashids::encode($query->id);
+                $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(\"" . $hashedId . "\")'><i class='fa fa-eye'></i></button>";
                 return $viewBtn;
             })
             ->editColumn('created_at', function($query) {

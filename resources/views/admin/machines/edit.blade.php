@@ -7,7 +7,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{__('Modifier la machine')}}</h6>
             </div>
             <div class="card-body">
-                <form method="post" class="needs-validation" novalidate="" action="{{route('admin.machines.update', $machine->id)}}" enctype="multipart/form-data">
+                <form method="post" class="needs-validation" novalidate="" action="{{route('admin.machines.update', Hashids::encode($machine->id))}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-row">
