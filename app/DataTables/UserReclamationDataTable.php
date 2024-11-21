@@ -13,6 +13,7 @@ use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Models\Reclamation;
 use Illuminate\Support\Facades\Auth;
+use Vinkla\Hashids\Facades\Hashids;
 
 class UserReclamationDataTable extends DataTable
 {
@@ -25,7 +26,8 @@ class UserReclamationDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(" . $query->id . ")'><i class='fa fa-eye'></i></button>";
+                $hashedId = Hashids::encode($query->id);
+                $viewBtn = "<button class='btn btn-sm btn-primary' onclick='showReclamationDetails(\"" . $hashedId . "\")' title='" . __('View') . "'><i class='fa fa-eye'></i></button>";
                 return $viewBtn;
             })
             ->editColumn('created_at', function($query) {
@@ -33,9 +35,9 @@ class UserReclamationDataTable extends DataTable
             })
             ->editColumn('status', function ($query) {
                 $statusLabels = [
-                    'Important' => '<i class="badge badge-success">Important</i>',
-                    'Urgent' => '<i class="badge badge-warning">Urgent</i>',
-                    'Très urgent' => '<i class="badge badge-danger">Très urgent</i>',
+                    'Important' => '<i class="badge badge-success">' . __('Important') . '</i>',
+                    'Urgent' => '<i class="badge badge-warning">' . __('Urgent') . '</i>',
+                    'Très urgent' => '<i class="badge badge-danger">' . __('Très urgent') . '</i>',
                 ];
                 return $statusLabels[$query->status] ?? $query->status;
             })

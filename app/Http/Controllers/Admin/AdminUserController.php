@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminUserController extends Controller
 {
@@ -33,7 +34,6 @@ class AdminUserController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         // Valider les données envoyées
         $request->validate([
             'name' => 'required|string|max:255',
@@ -87,8 +87,14 @@ class AdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $hashedId)
     {
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            abort(404); // Si l'ID est invalide, afficher une erreur
+        }
+
+        $id = $decodedId[0];
         $user = User::findOrFail($id);
         return view('admin.users-management.edit', compact('user'));
     }
@@ -96,49 +102,49 @@ class AdminUserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $hashedId)
     {
-        // dd($request->all());
-        // Valider les données envoyées
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            abort(404);
+        }
+
+        $user = User::findOrFail($decodedId[0]);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone' => 'required|string|max:255',
             'role' => ['required'],
             'status' => ['required'],
             'password' => 'nullable|string|min:8',
         ]);
 
-        // Trouver l'utilisateur et mettre à jour les informations
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->role = $request->role;
-        $user->status = $request->status;
-
-        // Mettre à jour le mot de passe uniquement s'il est fourni 
+        $user->update($request->only(['name', 'surname', 'email', 'phone', 'role', 'status']));
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
-        $user->save();
-
-        toastr()->success('User successfully updated!');
+        toastr()->success('Utilisateur mis à jour avec succès !');
         return redirect()->route('admin.users.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $hashedId)
     {
-        // Trouver l'utilisateur et le supprimer
-        $user = User::findOrFail($id);
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            return response()->json(['status' => 'error', 'message' => 'ID invalide !']);
+        }
+
+        $user = User::findOrFail($decodedId[0]);
         $user->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'User deleted successfully!']);
+        return response()->json(['status' => 'success', 'message' => 'Utilisateur supprimé avec succès !']);
     }
+
 }

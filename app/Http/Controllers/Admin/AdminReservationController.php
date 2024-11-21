@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Machine;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\ReservationNotification;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminReservationController extends Controller
 {
@@ -98,8 +99,17 @@ class AdminReservationController extends Controller
         return back();
     }
 
-    public function editReservation($id)
+
+    public function editReservation($hashedId)
     {
+        $decoded = Hashids::decode($hashedId);
+
+        if (empty($decoded)) {
+            toastr()->error('Invalid reservation ID.');
+            return redirect()->route('admin.reservation.index');
+        }
+
+        $id = $decoded[0];
         $user = Auth::user();
         $reservation = Reservation::findOrFail($id);
 
@@ -145,8 +155,14 @@ class AdminReservationController extends Controller
     }
 
 
-    public function updateReservation(Request $request, $id)
+    public function updateReservation(Request $request, $hashedId)
     {
+        $decoded = Hashids::decode($hashedId);
+        if (empty($decoded)) {
+            toastr()->error('Invalid reservation ID.');
+            return redirect()->route('admin.reservation.index');
+        }
+        $id = $decoded[0];
         $request->validate([
             'machine_id' => 'required|exists:machines,id',
             'start_time' => 'required|date|after_or_equal:' . Carbon::now(),
@@ -179,16 +195,28 @@ class AdminReservationController extends Controller
     }
 
 
-    public function showReservationDetails($id)
+    public function showReservationDetails($hashedId)
     {
+        $decoded = Hashids::decode($hashedId);
+        if (empty($decoded)) {
+            toastr()->error('Invalid reservation ID.');
+            return redirect()->route('admin.reservation.index');
+        }
+        $id = $decoded[0];
         $reservation = Reservation::findOrFail($id);
 
         return view('admin.reservation.show-reservation-content', compact('reservation'));
     }
 
     
-    public function cancelReservation(string $id)
+    public function cancelReservation(string $hashedId)
     {
+        $decoded = Hashids::decode($hashedId);
+        if (empty($decoded)) {
+            toastr()->error('Invalid reservation ID.');
+            return redirect()->route('admin.reservation.index');
+        }
+        $id = $decoded[0];
         $reservation = Reservation::findOrFail($id);
 
         // Vérifier si l'heure actuelle dépasse l'heure de début de réservation

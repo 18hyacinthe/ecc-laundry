@@ -7,7 +7,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{__('Mettre à jour l\'utilisateur')}}</h6>
             </div>
             <div class="card-body">
-                <form method="post" class="needs-validation" novalidate="" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
+                <form method="post" class="needs-validation" novalidate="" action="{{ route('admin.users.update', Hashids::encode($user->id)) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-row">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use App\Models\Machine;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminCalendarReservationController extends Controller
 {
@@ -47,8 +48,9 @@ class AdminCalendarReservationController extends Controller
         return view('admin.reservation.calendar', compact('events', 'machines'));
     }
 
-    public function getMachineDetails($id)
+    public function getMachineDetails($hashedId)
     {
+        $id = Hashids::decode($hashedId)[0];
         $machine = Machine::with(['reservations' => function($query) {
             $query->whereDate('start_time', Carbon::today())
                 ->orderBy('start_time', 'asc');

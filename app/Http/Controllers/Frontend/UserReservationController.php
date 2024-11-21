@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\DataTables\HistoriqueReservationDataTable;
 use App\Notifications\ReservationNotification;  
-
+use Vinkla\Hashids\Facades\Hashids;
 
 
 class UserReservationController extends Controller
@@ -24,7 +24,6 @@ class UserReservationController extends Controller
     public function showReservationForm()
     {
         $user = Auth::user();
-        // $machines = Machine::all(); // Récupère toutes les machines
         $machines = Machine::where('status', 'available')->get();
         $sessionResetTime = Setting::getSetting('reset_time', '00:00');
         $sessionResetTime = Carbon::parse($sessionResetTime);
@@ -100,8 +99,13 @@ class UserReservationController extends Controller
         return back();
     }
 
-    public function editReservation($id)
+    public function editReservation($hashedId)
     {
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            abort(404); // Si l'ID est invalide, afficher une erreur
+        }
+        $id = $decodedId[0];
         $user = Auth::user();
         $reservation = Reservation::findOrFail($id);
 
@@ -147,8 +151,13 @@ class UserReservationController extends Controller
     }
 
 
-    public function updateReservation(Request $request, $id)
+    public function updateReservation(Request $request, $hashedId)
     {
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            abort(404);
+        }
+        $id = $decodedId[0];
         $request->validate([
             'machine_id' => 'required|exists:machines,id',
             'start_time' => 'required|date|after_or_equal:' . Carbon::now(),
@@ -181,16 +190,26 @@ class UserReservationController extends Controller
     }
 
 
-    public function showReservationDetails($id)
+    public function showReservationDetails($hashedId)
     {
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            abort(404);
+        }
+        $id = $decodedId[0];
         $reservation = Reservation::findOrFail($id);
 
         return view('frontend.reservation.show-reservation-content', compact('reservation'));
     }
 
     
-    public function cancelReservation(string $id)
+    public function cancelReservation(string $hashedId)
     {
+        $decodedId = Hashids::decode($hashedId);
+        if (empty($decodedId)) {
+            return response()->json(['status' => 'error', 'message' => 'ID invalide.']);
+        }
+        $id = $decodedId[0];
         $reservation = Reservation::findOrFail($id);
 
         // Vérifier si l'heure actuelle dépasse l'heure de début de réservation

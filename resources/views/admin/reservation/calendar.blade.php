@@ -3,7 +3,6 @@
 @section('content')
 <!-- Légende des Machines -->
 <div id="legend" style="margin: 20px auto; max-width: 800px; text-align: center;">
-    {{-- <h2 style="margin-bottom: 20px; color: #0c9683;">{{ __('Légende des Machines') }}</h2> --}}
 
     <!-- Barre de recherche pour les machines -->
     <input type="text" id="searchInput" placeholder="{{ __('Rechercher une machine...') }}" 
@@ -22,7 +21,7 @@
             <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                 @foreach ($machines->where('type', 'washing-machine') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
+                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ Hashids::encode($machine->id) }})">
                     <span style="background-color: {{ $machine->color ?? '#3a04cc' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
                     <i class="fas fa-tshirt" style="color: {{ $machine->color ?? '#3a04cc' }}; margin-left: 8px;"></i>
                     </div>
@@ -32,7 +31,7 @@
             <td style="vertical-align: top; padding: 10px; border: 1px solid #ddd;">
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                 @foreach ($machines->where('type', 'dryer') as $machine)
-                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ $machine->id }})">
+                    <div class="machine-item" style="display: flex; align-items: center; margin: 5px; transition: transform 0.2s;" onclick="showMachineDetails({{ Hashids::encode($machine->id) }})">
                     <span style="background-color: {{ $machine->color ?? '#05ad21' }}; color: white; padding: 5px 10px; border-radius: 4px;">{{ $machine->name }}</span>
                     <i class="fas fa-wind" style="color: {{ $machine->color ?? '#05ad21' }}; margin-left: 8px;"></i>
                     </div>
@@ -99,13 +98,6 @@
             <i class="fas fa-clock" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
             <p style="margin: 0; font-size: 16px;"><strong>{{ __('Heure de fin') }} :</strong> <span id="modalEndTime" style="color: #333;"></span></p>
         </div>
-
-        {{-- <!-- Ligne de statut -->
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
-            <i class="fas fa-info-circle" style="color: #0c9683; font-size: 20px; margin-right: 15px;"></i>
-            <p style="margin: 0; font-size: 16px;"><strong>{{ __('Statut') }} :</strong> <span id="modalMachineStatus" style="color: #333;"></span></p>
-        </div> --}}
-
         <!-- Bouton de fermeture -->
         <div style="text-align: center;">
             <button onclick="document.getElementById('eventModal').style.display = 'none';" 
@@ -266,9 +258,9 @@
     }
 </script>
 <script>
-    function showMachineDetails(machineId) {
+    function showMachineDetails(hashedId) {
         // Charger les détails de la machine via AJAX
-        fetch(`/admin/calendar/machines/${machineId}/details`)
+        fetch(`/admin/calendar/machines/${hashedId}/details`)
             .then(response => response.text())
             .then(data => {
                 document.getElementById('machineDetailsContent').innerHTML = data;

@@ -31,5 +31,17 @@ class Reservation extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
-    
+
+    // protected $hidden = [
+    //     // 'id',
+    //     'user_id',
+    //     'machine_id',
+    //     'start_time',
+    //     'end_time',
+    //     'notified_start',
+    //     'notified_end',
+    //     'weekly_session_limit_remaining',
+    //     'created_at',
+    //     'updated_at',
+    // ];
 }

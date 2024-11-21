@@ -206,5 +206,18 @@
     "The machine id field is required. ": "Le champ identifiant de la machine est obligatoire.",
     "Les réservations commencent à partir de ": "Les réservations commencent à partir de ",
     "Les réservations ne doivent pas dépasser ": "Les réservations ne doivent pas dépasser ",
-    " heures.": " heures."
+    " heures.": " heures.",
+    "Edit": "Modifier",
+    "View": "Voir",
+    "Delete": "Supprimer",
+    "Reserved": "Réservé",
+    "In Use": "En cours d'utilisation",
+    "Available": "Disponible",
+    "Under Maintenance": "En maintenance",
+    "Out of Order": "Hors service",
+    "Unknown": "Inconnu",
+    "Active": "Actif",
+    "Inactive": "Inactif"
+    
+    
 }
