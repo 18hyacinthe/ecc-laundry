@@ -70,7 +70,7 @@ class AdminHistoriqueReservationDataTable extends DataTable
         return $this->builder()
                     ->setTableId('adminhistoriquereservation-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->responsive(true)
                     ->rowReorder([

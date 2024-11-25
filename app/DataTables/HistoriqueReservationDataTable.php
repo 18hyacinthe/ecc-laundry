@@ -69,7 +69,7 @@ class HistoriqueReservationDataTable extends DataTable
         return $this->builder()
                     ->setTableId('historiquereservation-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->responsive(true)
                     ->rowReorder([
