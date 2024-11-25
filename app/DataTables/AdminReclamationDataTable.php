@@ -65,7 +65,7 @@ class AdminReclamationDataTable extends DataTable
         return $this->builder()
                     ->setTableId('adminreclamation-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->responsive(true)
                     ->rowReorder([

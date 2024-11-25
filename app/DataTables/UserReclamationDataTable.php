@@ -64,7 +64,7 @@ class UserReclamationDataTable extends DataTable
         return $this->builder()
                     ->setTableId('userreclamation-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->responsive(true)
                     ->rowReorder([

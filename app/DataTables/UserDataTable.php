@@ -69,7 +69,7 @@ class UserDataTable extends DataTable
         return $this->builder()
                     ->setTableId('user-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->layout([
                         'topStart' => [

@@ -70,7 +70,7 @@ class MachineDataTable extends DataTable
         return $this->builder()
                     ->setTableId('machine-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    // ->minifiedAjax()
                     // ->dom('Bfrtip')
                     ->layout([
                         'topStart' => [
