@@ -39,7 +39,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item {{ setActive(['admin.machines.index', 'admin.machines.create', 'admin.machines.update']) }}">
+    <li class="nav-item {{ setActive(['admin.machines.index', 'admin.machines.create']) }}">
         <a class="nav-link" href="{{ route('admin.machines.index') }}">
             <i class="fas fa-fw fa-cogs"></i>
             <span>{{ __('Machines') }}</span>

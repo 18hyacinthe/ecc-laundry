@@ -8,7 +8,6 @@ use App\DataTables\AdminReclamationDataTable;
 use App\Models\Reclamation;
 use App\Models\Machine;
 use Illuminate\Support\Facades\Auth;
-use Vinkla\Hashids\Facades\Hashids;
 
 class AdminReclamationController extends Controller
 {
@@ -18,14 +17,45 @@ class AdminReclamationController extends Controller
         return $dataTable->render('admin.reclamations.index');
     }
 
-    public function show($hashedId)
+    // Affiche le formulaire de réclamation avec les machines disponibles
+    // public function create()
+    // {
+    //     $machines = Machine::all();
+    //     return view('admin.reclamations.create', compact('machines'));
+    // }
+
+    public function show($id)
     {
-        $id = Hashids::decode($hashedId)[0];
-        if (!$id) {
-            toastr()->error('Invalid Reclamation ID');
-            return redirect()->route('admin.reclamations.index');
-        }
         $reclamation = Reclamation::with('machine')->findOrFail($id);
         return view('admin.reclamations.show-reclamation-content', compact('reclamation'));
     }
+    
+
+
+    // Enregistre la réclamation dans la base de données
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'machine_id' => 'required|exists:machines,id',
+    //         'title' => 'required|string|max:255',
+    //         'machine_type' => 'required|string',
+    //         'issue_type' => 'required|string',
+    //         'description' => 'required|string',
+    //         'status' => 'required|string',
+    //     ]);
+
+    //     Reclamation::create([
+    //         'user_id' => Auth::id(),
+    //         'machine_id' => $request->machine_id,
+    //         'title' => $request->title,
+    //         'machine_type' => $request->machine_type,
+    //         'issue_type' => $request->issue_type,
+    //         'description' => $request->description,
+    //         'status' => $request->status,
+    //     ]);
+
+    //     toastr()->success('Votre réclamation a été soumise avec succès.');
+
+    //     return redirect()->route('admin.reclamations.index');
+    // }
 }

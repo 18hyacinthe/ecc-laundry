@@ -11,7 +11,6 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Vinkla\Hashids\Facades\Hashids;
 
 class MachineDataTable extends DataTable
 {
@@ -23,39 +22,29 @@ class MachineDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-                // Encode l'ID de la machine avec Hashids
-                $hashedId = Hashids::encode($query->id);
-                // Bouton Edit avec le Hashid encodé
-                $editBtn = "<a href='" . route('admin.machines.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='" . __('Edit') . "'>
-                                <i class='far fa-edit'></i>
-                            </a>";
-                // Bouton Delete avec encodage pour cohérence
-                $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' title='" . __('Delete') . "' onclick='deleteMachine(\"" . $hashedId . "\")'>
-                                <i class='far fa-trash-alt'></i>
-                            </button>";
-                // Formulaire de suppression, toujours caché, avec le Hashid encodé
-                $deleteBtn .= "<form id='delete-form-" . $hashedId . "' action='" . route('admin.machines.destroy', ['hashedId' => $hashedId]) . "' method='POST' style='display: none;'>
+             ->addColumn('action', function($query) {
+                $editBtn = "<a href='" . route('admin.machines.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<button class='btn btn-danger ml-2' onclick='deleteMachine(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
+                $deleteBtn .= "<form id='delete-form-" . $query->id . "' action='" . route('admin.machines.destroy', $query->id) . "' method='POST' style='display: none;'>
                                 " . csrf_field() . "
                                 " . method_field('DELETE') . "
-                            </form>";
-                // Retourne les deux boutons concaténés
+                              </form>";
                 return $editBtn . $deleteBtn;
             })
             ->editColumn('status', function($query) {
                 switch ($query->status) {
                     case 'reserved':
-                        return '<span class="badge badge-success">' . __('Reserved') . '</span>';
+                        return '<span class="badge badge-success">Reserved</span>';
                     case 'in-use':
-                        return '<span class="badge badge-primary">' . __('In Use') . '</span>';
+                        return '<span class="badge badge-primary">In Use</span>';
                     case 'available':
-                        return '<span class="badge badge-success">' . __('Available') . '</span>';
+                        return '<span class="badge badge-success">Available</span>';
                     case 'under maintenance':
-                        return '<span class="badge badge-info">' . __('Under Maintenance') . '</span>';
+                        return '<span class="badge badge-info">Under Maintenance</span>';
                     case 'out of order':
-                        return '<span class="badge badge-danger">' . __('Out of Order') . '</span>';
+                        return '<span class="badge badge-danger">Out of Order</span>';
                     default:
-                        return '<span class="badge badge-secondary">' . __('Unknown') . '</span>';
+                        return '<span class="badge badge-secondary">Unknown</span>';
                 }
             })
             ->editColumn('color', function($query) {

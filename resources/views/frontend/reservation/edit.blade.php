@@ -27,7 +27,7 @@
             @endif
 
             {{-- Formulaire de modification de réservation --}}
-            <form action="{{ route('user.reservation.update', Hashids::encode($reservation->id)) }}" method="POST" class="needs-validation" novalidate>
+            <form action="{{ route('user.reservation.update', $reservation->id) }}" method="POST" class="needs-validation" novalidate>
                 @csrf
                 @method('PUT')
 

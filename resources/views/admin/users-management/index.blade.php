@@ -106,7 +106,7 @@
         }
     });
 
-    function deleteUser(hashedId) {
+    function deleteUser(id) {
         Swal.fire({
             title: '{{ __('Êtes-vous sûr?') }}',
             text: "{{ __('Vous ne pourrez pas revenir en arrière!') }}",
@@ -119,7 +119,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: document.getElementById('delete-form-' + hashedId).action,
+                    url: document.getElementById('delete-form-' + id).action,
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",

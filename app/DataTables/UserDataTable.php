@@ -11,7 +11,6 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Vinkla\Hashids\Facades\Hashids;
 
 class UserDataTable extends DataTable
 {
@@ -22,27 +21,19 @@ class UserDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-            return (new EloquentDataTable($query))
-            ->addColumn('action', function($query) {
-                // Encode l'ID avec Hashids
-                $hashedId = Hashids::encode($query->id);
-                // Bouton Edit avec le Hashid encodé
-                $editBtn = "<a href='" . route('admin.users.edit', ['hashedId' => $hashedId]) . "' class='btn btn-sm btn-primary ml-2' title='" . __('Edit') . "'>
-                                <i class='far fa-edit'></i>
-                            </a>";
-                // Bouton Delete avec le Hashid encodé
-                $deleteBtn = "<button class='btn btn-sm btn-danger ml-2' onclick='deleteUser(\"" . $hashedId . "\")' title='" . __('Delete') . "'>
-                                <i class='far fa-trash-alt'></i>
-                            </button>";
-                $deleteBtn .= "<form id='delete-form-" . $hashedId . "' action='" . route('admin.users.destroy', ['hashedId' => $hashedId]) . "' method='POST' style='display: none;'>
+       return (new EloquentDataTable($query))
+             ->addColumn('action', function($query) {
+                $editBtn = "<a href='" . route('admin.users.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<button class='btn btn-danger ml-2' onclick='deleteUser(" . $query->id . ")'><i class='far fa-trash-alt'></i></button>";
+                $deleteBtn .= "<form id='delete-form-" . $query->id . "' action='" . route('admin.users.destroy', $query->id) . "' method='POST' style='display: none;'>
                                 " . csrf_field() . "
                                 " . method_field('DELETE') . "
-                            </form>";
+                              </form>";
                 return $editBtn . $deleteBtn;
             })
             ->editColumn('status', function ($query) {
-                $status = '<i class="badge badge-success">' . __('Active') . '</i>';
-                $inactive = '<i class="badge badge-danger">' . __('Inactive') . '</i>';
+                $status = '<i class="badge badge-success">Active</i>';
+                $inactive = '<i class="badge badge-danger">Inactive</i>';
                 if ($query->status == 1) {
                     return $status;
                 } else {

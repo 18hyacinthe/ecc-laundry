@@ -6,7 +6,6 @@ use App\DataTables\MachineDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Machine;
-use Vinkla\Hashids\Facades\Hashids;
 
 class AdminMachineController extends Controller
 {
@@ -45,7 +44,7 @@ class AdminMachineController extends Controller
         $machine->color = $request->input('color'); // Save color
         $machine->save();
 
-        toastr()->success(__('Machine créée avec succès!'));
+        toastr()->success('Machine créée avec succès!');
         return redirect()->route('admin.machines.index');
     }
 
@@ -60,16 +59,8 @@ class AdminMachineController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($hashedId)
+    public function edit(string $id)
     {
-        $decoded = Hashids::decode($hashedId);
-    
-        if (empty($decoded)) {
-            toastr()->error('Invalid machine ID.');
-            return redirect()->route('machines.index');
-        }
-    
-        $id = $decoded[0];
         $machine = Machine::findOrFail($id);
         return view('admin.machines.edit', compact('machine'));
     }
@@ -77,51 +68,33 @@ class AdminMachineController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $hashedId)
+    public function update(Request $request, string $id)
     {
-        $decoded = Hashids::decode($hashedId);
-
-        if (empty($decoded)) {
-            toastr()->error('ID de machine invalide.');
-            return redirect()->route('machines.index');
-        }
-
-        $id = $decoded[0];
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:washing-machine,dryer',
             'status' => 'required|string|in:reserved,in-use,available,under maintenance,out of order',
-            'color' => 'required|string|max:7',
+            'color' => 'required|string|max:7', // Add validation for color
         ]);
 
         $machine = Machine::findOrFail($id);
         $machine->name = $request->input('name');
         $machine->type = $request->input('type');
         $machine->status = $request->input('status');
-        $machine->color = $request->input('color');
+        $machine->color = $request->input('color'); // Save color
         $machine->save();
 
-        toastr()->success(__('Machine mise à jour avec succès!'));
+        toastr()->success('Machine mise à jour avec succès!');
         return redirect()->route('admin.machines.index');
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $hashedId)
+    public function destroy(string $id)
     {
-        $decoded = Hashids::decode($hashedId);
-
-        if (empty($decoded)) {
-            return response()->json(['status' => 'error', 'message' => __('ID de machine invalide.')], 400);
-        }
-
-        $id = $decoded[0];
         $machine = Machine::findOrFail($id);
         $machine->delete();
-
-        return response()->json(['status' => 'success', 'message' => __('Machine supprimée avec succès!')]);
+        return response()->json(['status' => 'success', 'message' => 'Machine supprimée avec succès!']);
     }
-
 }

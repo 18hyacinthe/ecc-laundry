@@ -204,17 +204,5 @@
     "The machine id field is required.": "Choose a machine to proceed.",
     "Les réservations commencent à partir de ": "Reservations start from ",
     "Les réservations ne doivent pas dépasser ": "Reservations must not exceed ",
-    " heures.": " hours.",
-    "Edit": "Edit",
-    "View": "View",
-    "Delete": "Delete",
-    "Reserved": "Reserved",
-    "In Use": "In Use",
-    "Available": "Available",
-    "Under Maintenance": "Under Maintenance",
-    "Out of Order": "Out of Order",
-    "Unknown": "Unknown",
-    "Active": "Active",
-    "Inactive": "Inactive" 
-    
+    " heures.": " hours."
 }

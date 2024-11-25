@@ -11,7 +11,6 @@ use App\Models\Machine;
 use App\Models\User;
 use App\Notifications\ReclamationCreated;
 use Illuminate\Support\Facades\Notification;
-use Vinkla\Hashids\Facades\Hashids;
 
 class UserReclamationController extends Controller
 {
@@ -28,13 +27,8 @@ class UserReclamationController extends Controller
         return view('frontend.reclamations.create', compact('machines'));
     }
 
-    public function show($hashedId)
+    public function show($id)
     {
-        $id = Hashids::decode($hashedId)[0];
-        if (!$id) {
-            toastr()->error('Invalid Reclamation ID');
-            return redirect()->route('user.reclamations.index');
-        }
         $reclamation = Reclamation::with('machine')->findOrFail($id);
         return view('frontend.reclamations.show-reclamation-content', compact('reclamation'));
     }

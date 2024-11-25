@@ -66,9 +66,9 @@
         }
     });
 
-    function showReservationDetails(hashedId) {
+    function showReservationDetails(id) {
         $.ajax({
-            url: '/user/reservations/' + hashedId,
+            url: '/user/reservations/' + id,
             method: 'GET',
             success: function(response) {
                 $('#reservationDetailsContent').html(response);
@@ -86,7 +86,7 @@
         });
     }
 
-    function deleteReservation(hashedId) {
+    function deleteReservation(id) {
         Swal.fire({
             title: '{{ __('Êtes-vous sûr?') }}',
             text: "{{ __('Vous ne pourrez pas revenir en arrière!') }}",
@@ -99,7 +99,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: document.getElementById('delete-form-' + hashedId).action,
+                    url: document.getElementById('delete-form-' + id).action,
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",

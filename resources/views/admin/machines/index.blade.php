@@ -24,12 +24,12 @@
                 <table class="table table-bordered table-striped" id="machine-table" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>{{ __('No') }}</th>
-                            <th>{{ __('Name') }}</th>
-                            <th>{{ __('Type') }}</th>
-                            <th>{{ __('Status') }}</th>
-                            <th>{{ __('Color') }}</th>
-                            <th width="200">{{ __('Action') }}</th>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Color</th>
+                            <th width="200">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -103,7 +103,7 @@
         }
     });
 
-    function deleteMachine(hashedId) {
+    function deleteMachine(id) {
         Swal.fire({
             title: '{{ __('Êtes-vous sûr?') }}',
             text: "{{ __('Vous ne pourrez pas revenir en arrière!') }}",
@@ -116,7 +116,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: document.getElementById('delete-form-' + hashedId).action,
+                    url: document.getElementById('delete-form-' + id).action,
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",

@@ -37,10 +37,10 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
     Route::get('/reservation/create', [UserReservationController::class, 'showReservationForm'])
         ->middleware('check.user.status')
         ->name('showReservationForm');
-    Route::get('/reservations/{hashedId}', [UserReservationController::class, 'showReservationDetails'])->name('reservations.details');
-    Route::delete('/reservations/{hashedId}', [UserReservationController::class, 'cancelReservation'])->name('reservations.destroy');
-    Route::get('/reservation/{hashedId}/edit', [UserReservationController::class, 'editReservation'])->name('reservation.edit');
-    Route::put('/reservation/{hashedId}/update', [UserReservationController::class, 'updateReservation'])->name('reservation.update');
+    Route::get('/reservations/{id}', [UserReservationController::class, 'showReservationDetails'])->name('reservations.details');
+    Route::delete('/reservations/{id}', [UserReservationController::class, 'cancelReservation'])->name('reservations.destroy');
+    Route::get('/reservation/{id}/edit', [UserReservationController::class, 'editReservation'])->name('reservation.edit');
+    Route::put('/reservation/{id}/update', [UserReservationController::class, 'updateReservation'])->name('reservation.update');
 
     /** Reservation Routes avec middlewares spécifiques */
     Route::post('/reserve', [UserReservationController::class, 'reserve'])
@@ -49,17 +49,17 @@ Route::prefix('user')->as('user.')->middleware(['auth', 'verified', 'role:user']
 
     /** Machine Routes */
     Route::get('/machines/status', [MachineOverviewController::class, 'index'])->name('machines.index');
-    Route::get('/machines/{hashedId}/details', [MachineOverviewController::class, 'showMachineDetails'])->name('machines.details');
+    Route::get('/machines/{id}/details', [MachineOverviewController::class, 'showMachineDetails'])->name('machines.details');
 
     /** Calendar Routes */
     Route::get('reservation/calendar', [UserCalendarReservationController::class, 'index'])->name('calendar.index');
-    Route::get('/calendar/machines/{hashedId}/details', [UserCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
+    Route::get('/calendar/machines/{id}/details', [UserCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
 
     /** Reclamation Routes */
     Route::get('reclamations', [UserReclamationController::class, 'index'])->name('reclamations.index');
     Route::get('/reclamations/create', [UserReclamationController::class, 'create'])->name('reclamations.create');
     Route::post('/reclamations/store', [UserReclamationController::class, 'store'])->name('reclamations.store');
-    Route::get('/reclamations/{hashedId}', [UserReclamationController::class, 'show'])->name('reclamations.show');
+    Route::get('/reclamations/{id}', [UserReclamationController::class, 'show'])->name('reclamations.show');
 });
 
 /** Admin Routes */
@@ -73,30 +73,20 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
     Route::post('profile/update/password', [AdminProfileController::class, 'updatePassword'])->name('profile.update.password');
 
     /** Machine Routes */
-    Route::get('/machines', [AdminMachineController::class, 'index'])->name('machines.index');
-    Route::get('/machines/create', [AdminMachineController::class, 'create'])->name('machines.create');
-    Route::post('/machines/store', [AdminMachineController::class, 'store'])->name('machines.store');
-    Route::get('/machines/{hashedId}/edit', [AdminMachineController::class, 'edit'])->name('machines.edit');
-    Route::put('/machines/{hashedId}/update', [AdminMachineController::class, 'update'])->name('machines.update');
-    Route::delete('/machines/{hashedId}', [AdminMachineController::class, 'destroy'])->name('machines.destroy');
+    Route::resource('machines', AdminMachineController::class);
 
     /** User Routes */
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
-    Route::post('/users/store', [AdminUserController::class, 'store'])->name('users.store');
-    Route::get('/users/{hashedId}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{hashedId}/update', [AdminUserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{hashedId}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+    Route::resource('users', AdminUserController::class);
 
     /** Reservation Routes */
     Route::get('/reservation', [AdminReservationController::class, 'index'])->name('reservation.index');
     Route::get('/reservation/create', [AdminReservationController::class, 'showReservationForm'])
         ->middleware('check.user.status')
         ->name('showReservationForm');
-    Route::get('/reservations/{hashedId}', [AdminReservationController::class, 'showReservationDetails'])->name('reservations.details');
-    Route::delete('/reservations/{hashedId}', [AdminReservationController::class, 'cancelReservation'])->name('reservations.destroy');
-    Route::get('/reservation/{hashedId}/edit', [AdminReservationController::class, 'editReservation'])->name('reservation.edit');
-    Route::put('/reservation/{hashedId}/update', [AdminReservationController::class, 'updateReservation'])->name('reservation.update');
+    Route::get('/reservations/{id}', [AdminReservationController::class, 'showReservationDetails'])->name('reservations.details');
+    Route::delete('/reservations/{id}', [AdminReservationController::class, 'cancelReservation'])->name('reservations.destroy');
+    Route::get('/reservation/{id}/edit', [AdminReservationController::class, 'editReservation'])->name('reservation.edit');
+    Route::put('/reservation/{id}/update', [AdminReservationController::class, 'updateReservation'])->name('reservation.update');
 
     /** Reservation Routes avec middlewares spécifiques */
     Route::post('/reserve', [AdminReservationController::class, 'reserve'])
@@ -105,11 +95,13 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
 
     /** Calendar Routes */
     Route::get('/reservation/calendrier', [AdminCalendarReservationController::class, 'index'])->name('calendar.reservation');
-    Route::get('/calendar/machines/{hashedId}/details', [AdminCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
+    Route::get('/calendar/machines/{id}/details', [AdminCalendarReservationController::class, 'getMachineDetails'])->name('calendar.machine.details');
 
     /** Reclamation Routes */
     Route::get('reclamations', [AdminReclamationController::class, 'index'])->name('reclamations.index');
-    Route::get('/reclamations/{hashedId}', [AdminReclamationController::class, 'show'])->name('reclamations.show');
+    // Route::get('/reclamations/create', [AdminReclamationController::class, 'create'])->name('reclamations.create');
+    // Route::post('/reclamations/store', [AdminReclamationController::class, 'store'])->name('reclamations.store');
+    Route::get('/reclamations/{id}', [AdminReclamationController::class, 'show'])->name('reclamations.show');
 
     /** Settings Routes */
     // Reservation settings
