@@ -25,6 +25,7 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
+        Auth::logout();
         // Si l'utilisateur n'est pas connecté, afficher la page de connexion
         return view('frontend.auth.master');
     }

@@ -18,7 +18,7 @@ class HomeController extends Controller
                 return redirect('/user/dashboard');
             }
         }
-
+        Auth::logout();
         // Si l'utilisateur n'est pas connecté, affiche la page de connexion
         return view('frontend.auth.master');
     }
