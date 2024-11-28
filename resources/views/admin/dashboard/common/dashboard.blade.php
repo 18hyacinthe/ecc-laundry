@@ -48,36 +48,110 @@
             </div>
             @endforeach
         </div>
-    </div>
 
-    <div class="container-fluid">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Historique des Réservations') }}</h6>
-                {{-- <button class="btn btn-primary btn-sm">{{ __('Ajouter Réservation') }}</button> --}}
-            </div>
-            <div class="card-body p-3 table-responsive">
-                <table class="table table-bordered table-striped table-hover" id="admin-historique-reservation-table" width="100%" cellspacing="0">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>{{ __('No') }}</th>
-                            <th>{{ __('Utilisateur') }}</th>
-                            <th>{{ __('Machine') }}</th>
-                            <th>{{ __('Date de début') }}</th>
-                            <th>{{ __('Date de fin') }}</th>
-                            <th>{{ __('Créé à') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data will be populated by DataTables -->
-                    </tbody>
-                </table>
+    <!-- Graphiques -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations Overview') }}</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="reservationsChart"></canvas>
+                </div>
             </div>
         </div>
+        <div class="col-xl-4 col-lg-5 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Page Views') }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach($pageViews as $page)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $page->url }}</span>
+                            <span class="badge badge-primary badge-pill">{{ $page->views }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <h3>Activités des utilisateurs</h3>
+        <ul>
+            @foreach($userActivities as $activity)
+                <li>{{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'Un utilisateur' }} a {{ $activity->activity }} {{ $activity->url ? 'sur ' . $activity->url : '' }}</li>
+            @endforeach
+        </ul>
+
+        <h3>Nombre de connexions</h3>
+        <p>{{ $loginCount }} utilisateurs se sont connectés.</p>
     </div>
+
+    <!-- Tableau -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">{{ __('Historique des Réservations') }}</h6>
+        </div>
+        <div class="card-body p-3 table-responsive">
+            <table class="table table-bordered table-striped table-hover" id="admin-historique-reservation-table" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>{{ __('No') }}</th>
+                        <th>{{ __('Utilisateur') }}</th>
+                        <th>{{ __('Machine') }}</th>
+                        <th>{{ __('Date de début') }}</th>
+                        <th>{{ __('Date de fin') }}</th>
+                        <th>{{ __('Créé à') }}</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const reservationsData = @json($reservationsByDay);
+
+        const labels = reservationsData.map(item => item.date);
+        const data = reservationsData.map(item => item.count);
+
+        const ctx = document.getElementById('reservationsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '{{ __("Reservations per Day") }}',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: { display: true, text: '{{ __("Date") }}' },
+                    },
+                    y: {
+                        title: { display: true, text: '{{ __("Number of Reservations") }}' },
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+</script>
 <script type="module">
     $(function() {
         let lang = '{{ app()->getLocale() }}'; // Récupère la langue actuelle de l'utilisateur
