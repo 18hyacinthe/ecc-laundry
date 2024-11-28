@@ -14,8 +14,19 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            // Redirige l'utilisateur connecté en fonction de son rôle
+            if (Auth::user()->role === 'admin') {
+                return redirect('/admin/dashboard');
+            } elseif (Auth::user()->role === 'user') {
+                return redirect('/user/dashboard');
+            }
+        }
+
+        Auth::logout();
+        // Si l'utilisateur n'est pas connecté, afficher la page de connexion
         return view('frontend.auth.master');
     }
 
