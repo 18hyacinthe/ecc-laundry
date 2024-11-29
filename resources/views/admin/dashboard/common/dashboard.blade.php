@@ -4,7 +4,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-primary">{{ __('Dashboard Admin') }}</h1>
+        <h1 class="h3 mb-4 text-primary">{{ __('Tableau de bord Admin') }}</h1>
     
         <!-- Résumé des Machines -->
         <div class="row mb-4">
@@ -53,9 +53,9 @@
                     <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        {{ __('Login Count') }}
+                        {{ __('Nombre de Connexions') }}
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $loginCount }} users have logged in.</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $loginCount }} utilisateurs se sont connectés.</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-check fa-2x text-gray-300"></i>
@@ -67,13 +67,13 @@
             <div class="col-12 mb-4">
                 <div class="card shadow">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">{{ __('User Activities') }}</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">{{ __('Activités des Utilisateurs') }}</h6>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach($userActivities as $activity)
                             <li class="list-group-item">
-                                {{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'A user' }} {{ $activity->activity }} {{ $activity->url ? 'on ' . $activity->url : '' }}
+                                {{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : __('Un utilisateur') }} {{ $activity->activity }} {{ $activity->url ? __('sur') . ' ' . $activity->url : '' }}
                             </li>
                             @endforeach
                         </ul>
@@ -87,7 +87,7 @@
         <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations Overview') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Aperçu des Réservations') }}</h6>
             </div>
             <div class="card-body">
                 <canvas id="reservationsChart"></canvas>
@@ -97,7 +97,7 @@
         <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations by Machine') }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Réservations par Machine') }}</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="reservationsByMachineChart"></canvas>
@@ -107,7 +107,7 @@
         <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Daily User Logins') }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Connexions Utilisateurs Quotidiennes') }}</h6>
                 </div>
                 <div class="card-body">
                         <canvas id="loginsChart"></canvas>
@@ -119,7 +119,7 @@
         <div class="col-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Page Views') }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Vues de Page') }}</h6>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -230,7 +230,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: '{{ __("Daily User Logins") }}',
+                    label: '{{ __("Connexions Utilisateurs Quotidiennes") }}',
                     data: data,
                     borderColor: 'rgba(54, 162, 235, 1)', // Bleu
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Transparence
