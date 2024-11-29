@@ -61,7 +61,46 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-lg-5 mb-4">
+        <div class="col-xl-8 col-lg-7 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Daily User Logins') }}</h6>
+                </div>
+                <div class="card-body">
+                        <canvas id="loginsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-lg-7 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations by Machine') }}</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="reservationsByMachineChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="col-xl-4 col-lg-5 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Page Views') }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach($pageViews as $page)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $page->url }}</span>
+                            <span class="badge badge-primary badge-pill">{{ $page->views }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div> --}}
+    </div>
+    <div class="row">
+        <div class="col-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">{{ __('Page Views') }}</h6>
@@ -78,16 +117,32 @@
                 </div>
             </div>
         </div>
-        
-        <h3>Activités des utilisateurs</h3>
-        <ul>
-            @foreach($userActivities as $activity)
-                <li>{{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'Un utilisateur' }} a {{ $activity->activity }} {{ $activity->url ? 'sur ' . $activity->url : '' }}</li>
-            @endforeach
-        </ul>
-
-        <h3>Nombre de connexions</h3>
-        <p>{{ $loginCount }} utilisateurs se sont connectés.</p>
+        <div class="col-12 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('User Activities') }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach($userActivities as $activity)
+                        <li class="list-group-item">
+                            {{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'A user' }} {{ $activity->activity }} {{ $activity->url ? 'on ' . $activity->url : '' }}
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Login Count') }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>{{ $loginCount }} users have logged in.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Tableau -->
@@ -116,36 +171,190 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const reservationsData = @json($reservationsByDay);
 
-        const labels = reservationsData.map(item => item.date);
-        const data = reservationsData.map(item => item.count);
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const reservationsByType = @json($reservationsByType);
+
+        const types = Object.keys(reservationsByType);
+        const datasets = types.map((type, index) => {
+            const data = reservationsByType[type].map(item => ({ x: new Date(item.date), y: item.count }));
+            const colors = ['rgb(30% 20% 50%)', 'rgb(255 122 127 / 80%)']; // Add more colors if needed
+
+            return {
+                label: type,
+                data: data,
+                borderColor: colors[index % colors.length],
+                backgroundColor: colors[index % colors.length].replace('1)', '0.2)'),
+                fill: false,
+            };
+        });
 
         const ctx = document.getElementById('reservationsChart').getContext('2d');
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: labels,
-                datasets: [{
-                    label: '{{ __("Reservations per Day") }}',
-                    data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: true,
-                }],
+                datasets: datasets,
             },
             options: {
                 responsive: true,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        title: { display: true, text: '{{ __("Date") }}' },
+                    },
+                    y: {
+                        title: { display: true, text: '{{ __("Number of Reservations") }}' },
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+</script> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Convert PHP data to JSON
+        const reservationsData = @json($reservationsByDay);
+
+        // Process data for Chart.js
+        const types = Object.keys(reservationsData); // Extract machine types (e.g., washer, dryer)
+        const allLabels = [...new Set(types.flatMap(type => reservationsData[type].map(item => item.date)))];
+        const formattedLabels = allLabels.map(date => {
+            const options = { day: '2-digit', month: 'short' }; // Format: 28 Nov, 30 Nov
+            return new Date(date).toLocaleDateString('en-GB', options);
+        });
+
+        const colors = ['rgb(31 120 50)', 'rgb(255 122 127 / 80%)', 'rgb(30% 20% 50%)', 'rgb(255 122 127 / .2)']; // Unique colors for each type
+        const datasets = types.map((type, index) => ({
+            label: type,
+            data: allLabels.map(label =>
+                reservationsData[type].find(item => item.date === label)?.count || 0
+            ),
+            borderColor: colors[index % colors.length], // Assign a unique color
+            backgroundColor: colors[index % colors.length], // Same color for background// Transparent background
+            borderWidth: 2, // Line width
+            tension: 0.4, // Curve the line
+        }));
+
+        // Create the chart
+        const ctx = document.getElementById('reservationsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', // Line chart
+            data: {
+                labels: formattedLabels,
+                datasets: datasets,
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                },
                 scales: {
                     x: {
                         title: { display: true, text: '{{ __("Date") }}' },
                     },
                     y: {
                         title: { display: true, text: '{{ __("Number of Reservations") }}' },
-                        beginAtZero: true,
+                        beginAtZero: true, // Always start from 0
+                    },
+                },
+            },
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginsByDay = @json($loginsByDay);
+
+        const labels = loginsByDay.map(item => {
+            const options = { day: '2-digit', month: 'short' }; // Format: 28 Nov, 30 Nov
+            return new Date(item.date).toLocaleDateString('en-GB', options);
+        });
+        const data = loginsByDay.map(item => item.count);
+
+        const ctx = document.getElementById('loginsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', // Courbes fluides
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '{{ __("Daily User Logins") }}',
+                    data: data,
+                    borderColor: 'rgba(54, 162, 235, 1)', // Bleu
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Transparence
+                    borderWidth: 2,
+                    tension: 0.4, // Courbes lisses
+                    fill: true, // Remplir sous la courbe
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '{{ __("Date") }}' },
+                    },
+                    y: {
+                        title: { display: true, text: '{{ __("Number of Logins") }}' },
+                        beginAtZero: true, // Commence à 0
+                    },
+                },
+            },
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const reservationsByMachine = @json($reservationsByMachine);
+        const machineColors = @json($machineColors); // Associe les noms des machines à leurs couleurs CSS
+        const machines = Object.keys(reservationsByMachine); // Noms des machines
+        const allLabels = [...new Set(machines.flatMap(machine => reservationsByMachine[machine].map(item => item.date)))];
+        const formattedLabels = allLabels.map(date => {
+            const options = { day: '2-digit', month: 'short' }; // Format: 28 Nov, 30 Nov
+            return new Date(date).toLocaleDateString('en-GB', options);
+        });
+
+        // const colors = ['rgb(31, 120, 50)', 'rgb(75, 192, 192)', 'rgb(255, 159, 64)', 'rgb(153, 102, 255)']; // Unique colors
+        const datasets = machines.map((machine, index) => ({
+            label: machine,
+            data: allLabels.map(label =>
+                reservationsByMachine[machine].find(item => item.date === label)?.count || 0
+            ),
+            // borderColor: colors[index % colors.length], // Assign a unique color
+            // backgroundColor: colors[index % colors.length] + '55', // Semi-transparent
+            borderColor: machineColors[machine] || 'rgb(0, 0, 0)', // Couleur unique de la machine
+            backgroundColor: (machineColors[machine] || 'rgb(0, 0, 0)') + '55', // Semi-transparent pour le remplissage
+            borderWidth: 2,
+            tension: 0.4, // Courbes fluides
+            fill: true, // Remplir sous la courbe
+        }));
+
+        const ctx = document.getElementById('reservationsByMachineChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', // Courbes fluides
+            data: {
+                labels: formattedLabels,
+                datasets: datasets,
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '{{ __("Date") }}' },
+                    },
+                    y: {
+                        title: { display: true, text: '{{ __("Number of Reservations") }}' },
+                        beginAtZero: true, // Commence à 0
                     },
                 },
             },

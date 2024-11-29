@@ -10,4 +10,9 @@ class UserActivity extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'activity', 'url'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
