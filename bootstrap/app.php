@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.email.domain.register' => \App\Http\Middleware\CheckEmailDomainRegister::class,
             'check.email.domain.login' => \App\Http\Middleware\CheckEmailDomainLogin::class,
             'check.user.status' => \App\Http\Middleware\UserStatusChecker::class,
-            'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+            // 'TrackPageViews' => \App\Http\Middleware\TrackPageViews::class
         ]);
 
         // Groupes de middlewares
@@ -33,6 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\LanguageMiddleware::class,
+            \App\Http\Middleware\TrackPageViews::class,
         ]);
 
         $middleware->group('api', [

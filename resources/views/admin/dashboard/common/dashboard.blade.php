@@ -47,6 +47,39 @@
                 </div>
             </div>
             @endforeach
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        {{ __('Login Count') }}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $loginCount }} users have logged in.</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">{{ __('User Activities') }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach($userActivities as $activity)
+                            <li class="list-group-item">
+                                {{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'A user' }} {{ $activity->activity }} {{ $activity->url ? 'on ' . $activity->url : '' }}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
     <!-- Graphiques -->
@@ -81,23 +114,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-xl-4 col-lg-5 mb-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Page Views') }}</h6>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach($pageViews as $page)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{ $page->url }}</span>
-                            <span class="badge badge-primary badge-pill">{{ $page->views }}</span>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div class="row">
         <div class="col-12 mb-4">
@@ -114,32 +130,6 @@
                         </li>
                         @endforeach
                     </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 mb-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('User Activities') }}</h6>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach($userActivities as $activity)
-                        <li class="list-group-item">
-                            {{ $activity->created_at }} - {{ $activity->user ? $activity->user->name : 'A user' }} {{ $activity->activity }} {{ $activity->url ? 'on ' . $activity->url : '' }}
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 mb-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Login Count') }}</h6>
-                </div>
-                <div class="card-body">
-                    <p>{{ $loginCount }} users have logged in.</p>
                 </div>
             </div>
         </div>
@@ -173,49 +163,6 @@
 @push('scripts')
 
 {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const reservationsByType = @json($reservationsByType);
-
-        const types = Object.keys(reservationsByType);
-        const datasets = types.map((type, index) => {
-            const data = reservationsByType[type].map(item => ({ x: new Date(item.date), y: item.count }));
-            const colors = ['rgb(30% 20% 50%)', 'rgb(255 122 127 / 80%)']; // Add more colors if needed
-
-            return {
-                label: type,
-                data: data,
-                borderColor: colors[index % colors.length],
-                backgroundColor: colors[index % colors.length].replace('1)', '0.2)'),
-                fill: false,
-            };
-        });
-
-        const ctx = document.getElementById('reservationsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                datasets: datasets,
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        },
-                        title: { display: true, text: '{{ __("Date") }}' },
-                    },
-                    y: {
-                        title: { display: true, text: '{{ __("Number of Reservations") }}' },
-                        beginAtZero: true,
-                    },
-                },
-            },
-        });
-    });
-</script> --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Convert PHP data to JSON
@@ -229,7 +176,7 @@
             return new Date(date).toLocaleDateString('en-GB', options);
         });
 
-        const colors = ['rgb(31 120 50)', 'rgb(255 122 127 / 80%)', 'rgb(30% 20% 50%)', 'rgb(255 122 127 / .2)']; // Unique colors for each type
+        const colors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']; // Unique colors for each type
         const datasets = types.map((type, index) => ({
             label: type,
             data: allLabels.map(label =>

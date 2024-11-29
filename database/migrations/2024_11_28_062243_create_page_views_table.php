@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('page_views', function (Blueprint $table) {
             $table->id();
-            $table->string('url'); // URL visitée
+            $table->string('url', 2048)->nullable(); // URL visitée
             $table->string('ip_address')->nullable(); // Adresse IP
             $table->unsignedBigInteger('user_id')->nullable(); // Utilisateur connecté
             $table->string('user_agent')->nullable(); // Informations sur le navigateur

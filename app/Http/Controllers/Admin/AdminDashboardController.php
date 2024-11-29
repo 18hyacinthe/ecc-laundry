@@ -50,7 +50,7 @@ class AdminDashboardController extends Controller
         ->get()
         ->groupBy('machine_name');        
 
-        $userActivities = UserActivity::orderBy('created_at', 'desc')->take(10)->get();
+        $userActivities = UserActivity::orderBy('created_at', 'desc')->take(3)->get();
         $loginsByDay = UserActivity::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
         ->where('activity', 'Logged in')
         ->groupBy('date')

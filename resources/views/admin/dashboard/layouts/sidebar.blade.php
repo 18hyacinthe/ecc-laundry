@@ -18,15 +18,6 @@
         </a>
     </li>
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ setActive(['admin.analytics.index']) }}">
-        <a class="nav-link" href="{{ route('admin.analytics.index') }}">
-            <i class="fas fa-home"></i>
-            <span>{{ __('Analytics') }}</span>
-        </a>
-    </li>
-    <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item {{ setActive(['admin.reservation.index','admin.reservation.edit','admin.showReservationForm']) }}">
         <a class="nav-link" href="{{ route('admin.reservation.index') }}">

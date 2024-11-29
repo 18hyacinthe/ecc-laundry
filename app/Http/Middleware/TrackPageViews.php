@@ -23,20 +23,23 @@ class TrackPageViews
             return $next($request);
         }
 
-        // Log the data into the database
-        DB::table('page_views')->insert([
-            'url' => $request->fullUrl(), // Full URL visited
-            'ip_address' => $request->ip(), // IP address
-            'user_id' => Auth::id(), // ID of the logged-in user
-            'user_agent' => $request->header('User-Agent'), // Browser
-            'visited_at' => now(), // Date of the visit
-        ]);
+        try {
+            DB::table('page_views')->insert([
+                'url' => $request->fullUrl(), // Full URL visited
+                'ip_address' => $request->ip(), // IP address
+                'user_id' => Auth::id(), // ID of the logged-in user
+                'user_agent' => $request->header('User-Agent'), // Browser
+                'visited_at' => now(), // Date of the visit
+            ]);
 
-        UserActivity::create([
-            'user_id' => Auth::id(),
-            'activity' => 'Visited page',
-            'url' => $request->fullUrl(),
-        ]);
+            UserActivity::create([
+                'user_id' => Auth::id(),
+                'activity' => 'Visited page',
+                'url' => $request->fullUrl(),
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to log page view or user activity: ' . $e->getMessage());
+        }
 
         return $next($request);
     }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('activity');
-            $table->string('url')->nullable();
+            $table->string('url', 2048)->nullable();
             $table->timestamps();
         });
     }

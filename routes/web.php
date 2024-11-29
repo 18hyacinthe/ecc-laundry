@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\AdminCalendarReservationController;
 use App\Http\Controllers\Admin\AdminReclamationController;
-use App\Http\Controllers\Admin\AdminAnalyticsController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -115,8 +114,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
     Route::get('/settings/domain-restriction', [AdminSettingsController::class, 'showDomainCheck'])->name('settings.DomainRestriction');
     Route::post('/settings/domain-restriction/update', [AdminSettingsController::class, 'updateDomainCheck'])->name('settings.updateDomainCheck');
 
-    //Analytics
-    Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics.index');
 });
 
 
