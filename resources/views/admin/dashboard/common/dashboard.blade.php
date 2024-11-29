@@ -51,33 +51,33 @@
 
     <!-- Graphiques -->
     <div class="row">
-        <div class="col-xl-8 col-lg-7 mb-4">
+        <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations Overview') }}</h6>
-                </div>
-                <div class="card-body">
-                    <canvas id="reservationsChart"></canvas>
-                </div>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations Overview') }}</h6>
+            </div>
+            <div class="card-body">
+                <canvas id="reservationsChart"></canvas>
+            </div>
             </div>
         </div>
-        <div class="col-xl-8 col-lg-7 mb-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Daily User Logins') }}</h6>
-                </div>
-                <div class="card-body">
-                        <canvas id="loginsChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-8 col-lg-7 mb-4">
+        <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">{{ __('Reservations by Machine') }}</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="reservationsByMachineChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('Daily User Logins') }}</h6>
+                </div>
+                <div class="card-body">
+                        <canvas id="loginsChart"></canvas>
                 </div>
             </div>
         </div>

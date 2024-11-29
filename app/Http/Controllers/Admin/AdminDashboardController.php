@@ -24,7 +24,7 @@ class AdminDashboardController extends Controller
         ->select('url', DB::raw('count(*) as views'), DB::raw('max(visited_at) as last_visited'))
         ->groupBy('url')
         ->orderByDesc('views')
-        ->take(10)
+        ->take(5)
         ->get();
 
         // Données pour les graphiques
