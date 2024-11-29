@@ -64,7 +64,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-12 mb-4">
+            {{-- <div class="col-12 mb-4">
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">{{ __('Activités des Utilisateurs') }}</h6>
@@ -79,7 +79,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     <!-- Graphiques -->
@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12 mb-4">
             <div class="card shadow">
                 <div class="card-header py-3">
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Tableau -->
     <div class="card shadow mb-4">

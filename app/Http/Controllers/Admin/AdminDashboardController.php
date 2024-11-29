@@ -24,7 +24,7 @@ class AdminDashboardController extends Controller
         ->select('url', DB::raw('count(*) as views'), DB::raw('max(visited_at) as last_visited'))
         ->groupBy('url')
         ->orderByDesc('views')
-        ->take(5)
+        ->take(9)
         ->get();
 
         // Données pour les graphiques
@@ -50,18 +50,14 @@ class AdminDashboardController extends Controller
         ->get()
         ->groupBy('machine_name');        
 
-        $userActivities = UserActivity::orderBy('created_at', 'desc')->take(5)->get();
+        $userActivities = UserActivity::orderBy('created_at', 'desc')->take(2)->get();
         $loginsByDay = UserActivity::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
         ->where('activity', 'Logged in')
         ->groupBy('date')
         ->orderBy('date')
         ->get();
 
-        $loginCount = UserActivity::where('activity', 'Logged in')->count();
-
-        // dd($userActivities);
-        // dd($loginCount); 
-        // dd($reservationsByType);   
+        $loginCount = UserActivity::where('activity', 'Logged in')->count(); 
 
         return $dataTable->render('admin.dashboard.common.dashboard', compact('machines', 'machineCounts', 'pageViews', 'reservationsByDay', 'userActivities', 'loginCount', 'loginsByDay', 'reservationsByMachine', 'machineColors'));
     }
