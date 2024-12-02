@@ -44,6 +44,7 @@ class AdminCalendarReservationController extends Controller
         // Récupérer toutes les machines pour la légende
         $machines = Machine::all();
 
+
         return view('admin.reservation.calendar', compact('events', 'machines'));
     }
 
@@ -53,6 +54,10 @@ class AdminCalendarReservationController extends Controller
             $query->whereDate('start_time', Carbon::today())
                 ->orderBy('start_time', 'asc');
         }])->findOrFail($id);
+
+        // $machineName = Machine::findOrFail($id);
+
+        // dd(machineName);
         
         return view('admin.reservation.calendar-machine-details', compact('machine'));
     }

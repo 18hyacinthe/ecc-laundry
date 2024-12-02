@@ -53,6 +53,10 @@ class UserCalendarReservationController extends Controller
             $query->whereDate('start_time', Carbon::today())
                 ->orderBy('start_time', 'asc');
         }])->findOrFail($id);
+
+        // $nameMachine1 =  $machine->name;
+        
+
         
         return view('frontend.reservation.calendar-machine-details', compact('machine'));
     }

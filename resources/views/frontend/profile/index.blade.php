@@ -31,10 +31,10 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <!-- <div class="form-group col-md-6">
                             <label>{{__('Email')}}</label>
                             <input type="email" name="email" class="form-control" value="{{Auth::user()->email}}">
-                        </div>
+                        </div> -->
                         <div class="form-group col-md-6">
                             <label>{{__('Numéro de téléphone')}}</label>
                             <input type="text" name="phone" class="form-control" value="{{Auth::user()->phone}}">
