@@ -113,6 +113,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'verified', 'role:admi
     // Domain restriction settings
     Route::get('/settings/domain-restriction', [AdminSettingsController::class, 'showDomainCheck'])->name('settings.DomainRestriction');
     Route::post('/settings/domain-restriction/update', [AdminSettingsController::class, 'updateDomainCheck'])->name('settings.updateDomainCheck');
+
 });
 
 

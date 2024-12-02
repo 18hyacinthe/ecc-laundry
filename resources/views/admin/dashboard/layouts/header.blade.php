@@ -11,7 +11,8 @@
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>{{ __('Panneau|Admin') }}</title>
-    <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon">
+    <!-- <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon"> -->
+    <link rel="icon" href="{{ asset('img/favicon/logo.png') }}" type="image/x-icon">
     <!-- Custom fonts for this template-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -30,4 +31,17 @@
 
     {{-- export button --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JMF4QSN7E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8JMF4QSN7E');
+    </script>
+    <!-- Google tag (gtag.js) --> 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XD9M9D776"></script> 
+    <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-1XD9M9D776'); 
+    </script>
 </head>

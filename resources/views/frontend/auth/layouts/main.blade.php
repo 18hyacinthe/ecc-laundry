@@ -8,10 +8,19 @@
             <h2>{{ __('Créer un compte') }}</h2>
             <input type="text" name="name" placeholder="{{ __('Nom') }}" value="{{ old('name') }}" />
             <input type="text" name="surname" placeholder="{{ __('Prénom') }}" value="{{ old('prenom') }}" />
-            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
-            <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
-            <input id="password_confirmation" type="password" name="password_confirmation" placeholder="{{ __('Confirmer le mot de passe') }}" />
-            <button type="submit">{{ __('S\'inscrire') }}</button>
+            <input id="register_email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
+            <div style="position: relative; width: 100%;">
+                <input id="register_password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
+                <i class="fas fa-eye toggle-password" id="toggleRegisterPassword"></i>
+            </div>
+            <div style="position: relative; width: 100%;">
+                <input id="register_password_confirmation" type="password" name="password_confirmation" placeholder="{{ __('Confirmer le mot de passe') }}" />
+                <i class="fas fa-eye toggle-password" id="toggleRegisterPasswordConfirmation"></i>
+            </div>
+            <button type="submit">
+                {{ __('S\'inscrire') }}
+                <div class="spinner"></div>
+            </button>            
         </form>
     </div>
     
@@ -22,9 +31,15 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <h1 style="margin-bottom: 10px">{{ __('Se connecter') }}</h1>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
-            <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
-            <button type="submit" style="margin-top: 15px">{{ __('Se connecter') }}</button>
+            <input id="login_email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" />
+            <div style="position: relative; width: 100%;">
+                <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
+                <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+            </div>            
+            <button type="submit" style="margin-top: 15px">
+                {{ __('Se connecter') }}
+                <div class="spinner"></div>
+            </button>
         </form>
     </div>
     <div class="overlay-container">

@@ -59,7 +59,7 @@ class UserReclamationController extends Controller
 
         // Récupérer tous les utilisateurs avec le rôle admin
         $admins = User::where('role', 'admin')->get();
-
+        // dd($admins);
         // Envoyer la notification à tous les admins et à l'utilisateur
         Notification::send($admins, new ReclamationCreated($reclamation));
         Auth::user()->notify(new ReclamationCreated($reclamation));

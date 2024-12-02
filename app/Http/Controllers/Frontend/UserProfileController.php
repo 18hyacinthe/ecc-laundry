@@ -31,7 +31,7 @@ class UserProfileController extends Controller
         $request->validate([
             'name' => 'required|max:100',
             'surname' => 'required|max:100',
-            'email' => ['required', 'email', Rule::unique('users')->ignore(Auth::user()->id)],
+            // 'email' => ['required', 'email', Rule::unique('users')->ignore(Auth::user()->id)],
             'phone' => 'required|max:15',
             'image' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -54,7 +54,7 @@ class UserProfileController extends Controller
         // Mettre à jour les autres informations de l'utilisateur
         $user->name = $request->name;
         $user->surname = $request->surname;
-        $user->email = $request->email;
+        // $user->email = $request->email;
         $user->phone = $request->phone;
         $user->save();
 

@@ -19,7 +19,6 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <li class="nav-item {{ setActive(['admin.reservation.index','admin.reservation.edit','admin.showReservationForm']) }}">
         <a class="nav-link" href="{{ route('admin.reservation.index') }}">
             <i class="fas fa-calendar"></i>
