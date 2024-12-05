@@ -47,7 +47,7 @@
                 </div>
             </div>
             @endforeach
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 </div>
-            </div>
+            </div> -->
             {{-- <div class="col-12 mb-4">
                 <div class="card shadow">
                     <div class="card-header py-3">
@@ -83,7 +83,7 @@
         </div>
 
     <!-- Graphiques -->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-xl-12 col-lg-12 mb-4">
             <div class="card shadow">
             <div class="card-header py-3">
@@ -114,7 +114,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     {{-- <div class="row">
         <div class="col-12 mb-4">
             <div class="card shadow">

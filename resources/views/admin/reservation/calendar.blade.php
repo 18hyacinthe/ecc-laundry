@@ -3,7 +3,7 @@
 @section('content')
 <!-- Légende des Machines -->
 <div id="legend" style="margin: 20px auto; max-width: 800px; text-align: center;">
-    {{-- <h2 style="margin-bottom: 20px; color: #0c9683;">{{ __('Légende des Machines') }}</h2> --}}
+    <!-- <h2 style="margin-bottom: 20px; color: #0c9683;">{{ __('Légende des Machines') }}</h2>  -->
 
     <!-- Barre de recherche pour les machines -->
     <input type="text" id="searchInput" placeholder="{{ __('Rechercher une machine...') }}" 
@@ -121,7 +121,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine') }}</h5>
+                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine ') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="machineDetailsContent">

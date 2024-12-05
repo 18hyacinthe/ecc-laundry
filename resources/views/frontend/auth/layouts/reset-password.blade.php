@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon"> -->
     <link rel="icon" href="{{ asset('img/favicon/logo.png') }}" type="image/x-icon">
-    <title>Verification de mail</title>
+    <title>Réinitialisation de mots de passe</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -31,38 +31,51 @@
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card p-4 shadow-sm" style="max-width: 500px; width: 100%;">
+        <div class="card p-4 shadow-sm" style="max-width: 500px; width: 100%; border-radius: 10px;">
             <div class="logo-container text-center mb-4">
                 <img src="{{ asset('img/logo/image.png') }}" alt="Logo" class="logo" style="max-width: 120px;">
             </div>
 
-            <h2 class="text-center text-dark mb-4"><strong>{{ __('Vérifiez votre adresse email') }}</strong></h2>
+            <h2 class="text-center text-dark mb-4"><strong>{{ __('Réinitialisez votre mot de passe') }}</strong></h2>
+            <form method="POST" action="{{ route('password.store') }}">
+                @csrf
 
-            <div class="message text-center text-muted mb-4">
-                {{ __('Merci pour votre inscription! Avant de commencer, veuillez vérifier votre adresse email en cliquant sur le lien que nous venons de vous envoyer. Si vous n\'avez pas reçu l\'email, nous vous en enverrons un autre.') }}
-            </div>
+                <!-- Password Reset Token -->
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            @if (session('status') == 'verification-link-sent')
-                <div class="status-message text-center text-success font-weight-bold mb-4">
-                    {{ __('Un nouveau lien de vérification a été envoyé à l\'adresse email fournie lors de l\'inscription.') }}
+                <!-- Email Address -->
+                <div class="form-group">
+                    <label for="email">{{ __('Email') }}</label>
+                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username">
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-            @endif
 
-            <div class="d-flex justify-content-center gap-2">
-                <form method="POST" action="{{ route('verification.send') }}">
-                    @csrf
+                <!-- Password -->
+                <div class="form-group mt-3">
+                    <label for="password">{{ __('Password') }}</label>
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group mt-3">
+                    <label for="password_confirmation">{{ __('Confirm Password') }}</label>
+                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password">
+                    @error('password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
                     <button type="submit" class="btn btn-success">
-                        {{ __('Renvoyer l\'email de vérification') }}
+                        {{ __('Reset Password') }}
                     </button>
-                </form>
-
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-secondary ml-2">
-                        {{ __('Se déconnecter') }}
-                    </button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

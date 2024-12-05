@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
         <title>{{ __('Connexion') }}</title>
-        <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon">
+        <!-- <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon"> -->
+        <link rel="icon" href="{{ asset('img/favicon/logo.png') }}" type="image/x-icon">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
         <link rel="stylesheet" href="{{ asset('style-login/style.css') }}">
         <link rel="stylesheet" href="{{ asset('style-login/style1.css') }}">

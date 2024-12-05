@@ -17,15 +17,11 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      */
-    // public function create(Request $request): View
-    // {
-    //     return view('frontend.auth.master', ['request' => $request]);
-    // }
-
-    public function create()
+    public function create(Request $request): View
     {
-        abort(404);
+        return view('frontend.auth.layouts.reset-password', ['request' => $request]);
     }
+
 
     /**
      * Handle an incoming new password request.
@@ -54,6 +50,8 @@ class NewPasswordController extends Controller
                 event(new PasswordReset($user));
             }
         );
+
+        toastr()->success('Votre mots de passe a été réinitialiser avec success!');
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
