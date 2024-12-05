@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Logout::class => [
             'App\Listeners\LogSuccessfulLogout',
         ],
+        PasswordReset::class => [
+            \App\Listeners\SendPasswordResetNotification::class,
+        ],
     ];
 
     public function boot()

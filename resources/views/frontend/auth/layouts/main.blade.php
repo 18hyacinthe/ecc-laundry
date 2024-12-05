@@ -35,8 +35,9 @@
             <div style="position: relative; width: 100%;">
                 <input id="password" type="password" name="password" placeholder="{{ __('Mot de passe') }}" />
                 <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-            </div>            
-            <button type="submit" style="margin-top: 15px">
+            </div>
+            <a href="{{ route('password.request') }}" style="display: block; margin-top: 10px; text-align: right;">{{ __('Mot de passe oublié ?') }}</a>
+            <button type="submit">
                 {{ __('Se connecter') }}
                 <div class="spinner"></div>
             </button>
