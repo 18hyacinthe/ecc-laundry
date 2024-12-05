@@ -20,3 +20,7 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+# Ignore sensitive files
+/public/.well-known/pki-validation/24221B28FD06695328C1DA723DBD441D.txt
+/laundry.fecc.ma.csr
+/laundry.fecc.ma.key
