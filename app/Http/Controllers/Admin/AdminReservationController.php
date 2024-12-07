@@ -12,6 +12,7 @@ use App\Models\Machine;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\ReservationNotification;
 use App\Mail\ReservationCancelled;
+use App\Mail\ReservationUpdated;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -25,8 +26,8 @@ class AdminReservationController extends Controller
     public function showReservationForm()
     {
         $user = Auth::user();
-        // $machines = Machine::all(); // Récupère toutes les machines
-        $machines = Machine::where('status', 'available')->get();
+        // $machines = Machine::all(); // Récupère toutes les machine
+        $machines = Machine::whereIn('status', ['available', 'reserved'])->get();
         $sessionResetTime = Setting::getSetting('reset_time', '00:00');
         $sessionResetTime = Carbon::parse($sessionResetTime);
         $sessionStartTime = Setting::getSetting('session_start_time', '06:00');
@@ -176,6 +177,9 @@ class AdminReservationController extends Controller
             'start_time' => Carbon::parse($request->start_time),
             'end_time' => Carbon::parse($request->end_time),
         ]);
+
+        // Envoyer un email à l'utilisateur
+        Mail::to($reservation->user->email)->send(new ReservationUpdated($reservation));
 
         toastr()->success('Réservation mise à jour avec succès.');
         return redirect()->route('admin.reservation.index');
