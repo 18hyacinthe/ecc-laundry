@@ -39,7 +39,7 @@
             <h2 class="text-center text-dark mb-4"><strong>{{ __('Réinitialisez votre mots de passe') }}</strong></h2>
 
             <div class="message text-center text-muted mb-4">
-                {{ __('Vous avez oublié votre mot de passe ? Pas de problème. Indiquez-nous votre adresse électronique et nous vous enverrons un lien de réinitialisation du mot de passe qui vous permettra d\'en choisir un nouveau.') }}
+                {{ __('Veuillez saisir votre mail, nous vous enverrons un lien de réinitialisation du mot de passe.') }}
             </div>
 
             <!-- Session Status -->
