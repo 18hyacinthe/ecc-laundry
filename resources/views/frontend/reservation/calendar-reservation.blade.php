@@ -121,7 +121,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine ') }}</h5>
+                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la machine ') }} <span id="machineName"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="machineDetailsContent">
@@ -157,9 +157,9 @@
 </style>
 @endsection
 @push('scripts')
-<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
+<link href="{{ asset('css/calendar-css/main.css') }}" rel="stylesheet" />
+<link href="{{ asset('css/calendar-css/daygrid/main.css') }}" rel="stylesheet" />
+<link href="{{ asset('css/calendar-css/timegrid/main.css') }}" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/fr.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/en.js"></script>
@@ -269,9 +269,10 @@
     function showMachineDetails(machineId) {
         // Charger les détails de la machine via AJAX
         fetch(`/user/calendar/machines/${machineId}/details`)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById('machineDetailsContent').innerHTML = data;
+                document.getElementById('machineName').innerText = data.machineName;
+                document.getElementById('machineDetailsContent').innerHTML = data.view;
                 $('#machineDetailsModal').modal('show');
             });
     }
