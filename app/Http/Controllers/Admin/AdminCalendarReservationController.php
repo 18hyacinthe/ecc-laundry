@@ -55,10 +55,11 @@ class AdminCalendarReservationController extends Controller
                 ->orderBy('start_time', 'asc');
         }])->findOrFail($id);
 
-        // $machineName = Machine::findOrFail($id);
-
-        // dd(machineName);
+        $machineName = $machine->name;
         
-        return view('admin.reservation.calendar-machine-details', compact('machine'));
+        return response()->json([
+            'machineName' => $machineName,
+            'view' => view('admin.reservation.calendar-machine-details', compact('machine'))->render()
+        ]);
     }
 }

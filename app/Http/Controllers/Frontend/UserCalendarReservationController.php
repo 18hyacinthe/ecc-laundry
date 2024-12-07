@@ -54,11 +54,13 @@ class UserCalendarReservationController extends Controller
                 ->orderBy('start_time', 'asc');
         }])->findOrFail($id);
 
-        // $nameMachine1 =  $machine->name;
+        $machineName = $machine->name;
         
-
+        return response()->json([
+            'machineName' => $machineName,
+            'view' => view('frontend.reservation.calendar-machine-details', compact('machine'))->render()
+        ]);
         
-        return view('frontend.reservation.calendar-machine-details', compact('machine'));
     }
 
 }

@@ -20,8 +20,8 @@ class MachineOverviewController extends Controller
             return [
             'id' => $machine->id,
             'name' => $machine->name,
-            'type' => $machine->type, // Assurez-vous que cette propriété est définie dans votre modèle Machine
-            'status' => $machine->status, // Assurez-vous que cette propriété est définie dans votre modèle Machine
+            'type' => $machine->type, 
+            'status' => $machine->status,
             ];
         });
 
@@ -35,7 +35,12 @@ class MachineOverviewController extends Controller
                 ->orderBy('start_time', 'asc');
         }])->findOrFail($id);
 
-        return view('frontend.machine.machine-details', compact('machine'));
+        $machineName = $machine->name;
+        
+        return response()->json([
+            'machineName' => $machineName,
+            'view' => view('frontend.machine.machine-details', compact('machine'))->render()
+        ]);
     }
 
 

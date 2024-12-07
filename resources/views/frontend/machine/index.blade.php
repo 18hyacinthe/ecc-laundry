@@ -75,7 +75,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la Machine') }}</h5>
+                <h5 class="modal-title" id="machineDetailsModalLabel" style="color: #0c9683;">{{ __('Détails de la machine ') }} <span id="machineName"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="machineDetailsContent">
@@ -90,9 +90,10 @@
     function showMachineDetails(machineId) {
         // Charger les détails de la machine via AJAX
         fetch(`/user/machines/${machineId}/details`)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById('machineDetailsContent').innerHTML = data;
+                document.getElementById('machineName').innerText = data.machineName;
+                document.getElementById('machineDetailsContent').innerHTML = data.view;
                 $('#machineDetailsModal').modal('show');
             });
     }

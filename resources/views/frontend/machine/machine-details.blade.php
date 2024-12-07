@@ -34,18 +34,24 @@
                 <div class="card-header text-white">
                     {{ __('Réservations') }}
                 </div>
-                <ul class="list-group list-group-flush">
-                    @foreach($machine->reservations as $reservation)
-                        @php
-                            $startTime = \Carbon\Carbon::parse($reservation->start_time);
-                            $endTime = \Carbon\Carbon::parse($reservation->end_time);
-                        @endphp
-                        <li class="list-group-item">
-                            <span class="badge badge-info">{{ $startTime->format('Y-m-d') }}</span>
-                            <span>{{ $startTime->format('H:i') }} - {{ $endTime->format('H:i') }}</span>
-                        </li>
-                    @endforeach
-                </ul>
+                @if($machine->reservations->isEmpty())
+                    <div class="alert alert-danger" role="alert">
+                        {{ __('Pas de réservation enregistrée sur la machine aujourd\'hui') }}
+                    </div>
+                @else
+                    <ul class="list-group list-group-flush">
+                        @foreach($machine->reservations as $reservation)
+                            @php
+                                $startTime = \Carbon\Carbon::parse($reservation->start_time);
+                                $endTime = \Carbon\Carbon::parse($reservation->end_time);
+                            @endphp
+                            <li class="list-group-item">
+                                <span class="badge badge-info">{{ $startTime->format('Y-m-d') }}</span>
+                                <span>{{ $startTime->format('H:i') }} - {{ $endTime->format('H:i') }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
 
             <div class="text-center mt-4">
