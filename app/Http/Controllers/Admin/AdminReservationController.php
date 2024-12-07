@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use App\Models\Machine;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\ReservationNotification;
+use App\Mail\ReservationCancelled;
+use Illuminate\Support\Facades\Mail;
+
 
 class AdminReservationController extends Controller
 {
@@ -203,6 +206,9 @@ class AdminReservationController extends Controller
         }
 
         $reservation->delete();
+
+        // Envoyer un email à l'utilisateur
+        Mail::to($reservation->user->email)->send(new ReservationCancelled($reservation));
 
         return response()->json(['status' => 'success', 'message' => 'Réservation supprimée avec succès.!']);
     }
